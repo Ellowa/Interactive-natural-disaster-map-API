@@ -4,6 +4,6 @@
     {
         public string CollectionName { get; set; }
 
-        public EventsCollection EventsCollection { get; set; }
+        public ICollection<EventsCollection> EventsCollection { get; set; }
     }
 }
