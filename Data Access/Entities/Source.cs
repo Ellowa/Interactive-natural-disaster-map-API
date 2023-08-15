@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Data_Access.Entities
 {
-    internal class Approver : BaseEntity
+    internal class Source : BaseEntity
     {
-        public string ApproverType { get; set;}
+        public string SourceType { get; set;}
 
         public ICollection<Event> Events { get; set;}
     }

@@ -14,7 +14,7 @@
 
         public int EventCategoryId { get; set; }
 
-        public int ApproverId { get; set; }
+        public int SourceId { get; set; }
 
         public int? MagnitudeUnitId { get; set; }
 
@@ -24,7 +24,7 @@
 
         public EventCategory Category { get; set; }
 
-        public Approver Approver { get; set; }
+        public Source Source { get; set; }
 
         public MagnitudeUnit MagnitudeUnit { get; set; } = null;
 
