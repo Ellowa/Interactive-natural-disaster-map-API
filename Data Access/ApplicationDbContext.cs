@@ -59,7 +59,6 @@ namespace Data_Access
                 .HasOne(u => u.Role)
                 .WithMany(ur => ur.Users)
                 .HasForeignKey(u => u.RoleId);
-
         }
     }
 }
