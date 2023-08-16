@@ -2,11 +2,9 @@
 
 namespace Data_Access.Interfaces
 {
-    public interface IGenericRepository<TEntity> where TEntity : class
+    public interface IBaseRepository<TEntity> where TEntity : class
     {
         Task<IQueryable<TEntity>> GetAllAsync(params Expression<Func<TEntity, object>>[] includes);
-
-        Task<TEntity?> GetByIdAsync(int id, params Expression<Func<TEntity, object>>[] includes);
 
         Task AddAsync(TEntity entity);
 

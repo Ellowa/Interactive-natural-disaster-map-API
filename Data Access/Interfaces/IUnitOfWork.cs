@@ -2,7 +2,7 @@
 {
     public interface IUnitOfWork : IDisposable
     {
-        IGenericRepository<TEntity> GetRepository<TEntity>() where TEntity : class, new();
+        IBaseRepository<TEntity> GetRepository<TEntity>() where TEntity : class, new();
 
         Task SaveAsync();
     }
