@@ -8,20 +8,20 @@
 
         public string? LastName { get; set; }
 
-        public string Login { get; set; }
+        public string Login { get; set; } = null!;
 
-        public byte[] PasswordHash { get; set; }
+        public byte[] PasswordHash { get; set; } = null!;
 
-        public byte[] PasswordSalt { get; set; }
+        public byte[] PasswordSalt { get; set; } = null!;
 
-        public string JwtRefreshToken { get; set; }
+        public string JwtRefreshToken { get; set; } = null!;
 
         public int RoleId { get; set; }
 
-        public UserRole Role { get; set; }
+        public UserRole Role { get; set; } = null!;
 
-        public ICollection<EventsCollection> EventsCollection { get; set; }
+        public ICollection<EventsCollection> EventsCollection { get; set; } = null!;
 
-        public ICollection<Event> Events { get; set; }
+        public ICollection<Event> Events { get; set; } = null!;
     }
 }

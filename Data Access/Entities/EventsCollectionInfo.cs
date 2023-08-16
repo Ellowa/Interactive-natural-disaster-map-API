@@ -2,8 +2,8 @@
 {
     public class EventsCollectionInfo : BaseEntity
     {
-        public string CollectionName { get; set; }
+        public string CollectionName { get; set; } = null!;
 
-        public ICollection<EventsCollection> EventsCollection { get; set; }
+        public ICollection<EventsCollection> EventsCollection { get; set; } = null!;
     }
 }

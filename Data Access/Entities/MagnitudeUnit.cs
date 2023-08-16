@@ -8,8 +8,8 @@ namespace Data_Access.Entities
 {
     public class MagnitudeUnit : BaseEntity
     {
-        public string MagnitudeUnitName { get; set; }
+        public string MagnitudeUnitName { get; set; } = null!;
 
-        public ICollection<Event> Events { get; set; }
+        public ICollection<Event> Events { get; set; } = null!;
     }
 }

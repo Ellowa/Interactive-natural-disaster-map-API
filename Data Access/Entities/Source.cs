@@ -8,8 +8,8 @@ namespace Data_Access.Entities
 {
     public class Source : BaseEntity
     {
-        public string SourceType { get; set;}
+        public string SourceType { get; set; } = null!;
 
-        public ICollection<Event> Events { get; set;}
+        public ICollection<Event> Events { get; set; } = null!;
     }
 }

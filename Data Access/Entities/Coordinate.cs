@@ -6,6 +6,6 @@
 
         public double Longitude { get; set; }
 
-        public Event Event { get; set; }
+        public Event Event { get; set; } = null!;
     }
 }

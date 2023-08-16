@@ -8,11 +8,11 @@
 
         public int CollectionId { get; set; }
 
-        public Event Event { get; set; }
+        public Event Event { get; set; } = null!;
 
-        public User User { get; set; }
+        public User User { get; set; } = null!;
 
-        public EventsCollectionInfo EventsCollectionInfo { get; set; }
+        public EventsCollectionInfo EventsCollectionInfo { get; set; } = null!;
 
     }
 }

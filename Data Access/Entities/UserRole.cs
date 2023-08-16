@@ -2,8 +2,8 @@
 {
     public class UserRole : BaseEntity
     {
-        public string RoleName { get; set; }
+        public string RoleName { get; set; } = null!;
 
-        public ICollection<User> Users { get; set; }
+        public ICollection<User> Users { get; set; } = null!;
     }
 }

@@ -2,8 +2,8 @@
 {
     public class EventCategory : BaseEntity
     {
-        public string CategoryName { get; set; }
+        public string CategoryName { get; set; } = null!;
 
-        public ICollection<Event> Events { get; set; }
+        public ICollection<Event> Events { get; set; } = null!;
     }
 }

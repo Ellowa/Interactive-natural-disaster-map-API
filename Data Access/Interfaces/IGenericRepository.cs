@@ -6,7 +6,7 @@ namespace Data_Access.Interfaces
     {
         Task<IQueryable<TEntity>> GetAllAsync(params Expression<Func<TEntity, object>>[] includes);
 
-        Task<TEntity> GetByIdAsync(int id, params Expression<Func<TEntity, object>>[] includes);
+        Task<TEntity?> GetByIdAsync(int id, params Expression<Func<TEntity, object>>[] includes);
 
         Task AddAsync(TEntity entity);
 
