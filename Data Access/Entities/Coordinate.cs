@@ -1,6 +1,6 @@
 ﻿namespace Data_Access.Entities
 {
-    internal class Coordinate : BaseEntity
+    public class Coordinate : BaseEntity
     {
         public double Latitude { get; set; }
 

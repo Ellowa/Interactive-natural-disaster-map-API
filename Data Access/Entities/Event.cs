@@ -1,6 +1,6 @@
 ﻿namespace Data_Access.Entities
 {
-    internal class Event : BaseEntity
+    public class Event : BaseEntity
     {
         public string Title { get; set; }
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Data_Access.Entities
 {
-    internal class Source : BaseEntity
+    public class Source : BaseEntity
     {
         public string SourceType { get; set;}
 

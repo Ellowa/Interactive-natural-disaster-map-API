@@ -1,6 +1,6 @@
 ﻿namespace Data_Access.Entities
 {
-    internal class EventsCollection
+    public class EventsCollection
     {
         public int EventId { get; set; }
 

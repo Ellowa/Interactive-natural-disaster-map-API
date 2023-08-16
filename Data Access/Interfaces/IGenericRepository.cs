@@ -2,7 +2,7 @@
 
 namespace Data_Access.Interfaces
 {
-    internal interface IGenericRepository<TEntity> where TEntity : class
+    public interface IGenericRepository<TEntity> where TEntity : class
     {
         Task<IQueryable<TEntity>> GetAllAsync(params Expression<Func<TEntity, object>>[] includes);
 

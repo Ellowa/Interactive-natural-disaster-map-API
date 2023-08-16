@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Data_Access.Entities
 {
-    internal class MagnitudeUnit : BaseEntity
+    public class MagnitudeUnit : BaseEntity
     {
         public string MagnitudeUnitName { get; set; }
 

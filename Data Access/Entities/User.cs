@@ -1,6 +1,6 @@
 ﻿namespace Data_Access.Entities
 {
-    internal class User : BaseEntity
+    public class User : BaseEntity
     {
         public string? FirstName { get; set; }
 
