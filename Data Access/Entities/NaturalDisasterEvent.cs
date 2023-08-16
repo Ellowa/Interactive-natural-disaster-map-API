@@ -1,6 +1,6 @@
 ﻿namespace Data_Access.Entities
 {
-    public class Event : BaseEntity
+    public class NaturalDisasterEvent : BaseEntity
     {
         public string Title { get; set; } = null!;
 
@@ -24,11 +24,11 @@
 
         public EventCategory Category { get; set; } = null!;
 
-        public Source Source { get; set; } = null!;
+        public EventSource Source { get; set; } = null!;
 
         public MagnitudeUnit MagnitudeUnit { get; set; } = null;
 
-        public Coordinate Coordinate { get; set; } = null!;
+        public EventCoordinate Coordinate { get; set; } = null!;
 
         public User User { get; set; } = null;
 

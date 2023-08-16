@@ -7,11 +7,11 @@ namespace Data_Access
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext>  options) : base(options) { }
 
-        public DbSet<Event> Events { get; set; }
+        public DbSet<NaturalDisasterEvent> NaturalDisasterEvents { get; set; }
         public DbSet<EventCategory> EventsCategories { get; set; }
-        public DbSet<Source> Sources { get; set; }
+        public DbSet<EventSource> EventSources { get; set; }
         public DbSet<MagnitudeUnit> MagnitudeUnits { get; set; }
-        public DbSet<Coordinate> Coordinates { get; set; }
+        public DbSet<EventCoordinate> EventCoordinates { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<EventsCollection> EventsCollections { get; set; }
@@ -19,23 +19,23 @@ namespace Data_Access
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Event>()
+            modelBuilder.Entity<NaturalDisasterEvent>()
                 .HasOne(e => e.Category)
                 .WithMany(c => c.Events)
                 .HasForeignKey(e => e.EventCategoryId);
-            modelBuilder.Entity<Event>()
+            modelBuilder.Entity<NaturalDisasterEvent>()
                 .HasOne(e => e.Source)
                 .WithMany(s => s.Events)
                 .HasForeignKey(e => e.SourceId);
-            modelBuilder.Entity<Event>()
+            modelBuilder.Entity<NaturalDisasterEvent>()
                 .HasOne(e => e.MagnitudeUnit)
                 .WithMany(m => m.Events)
                 .HasForeignKey(e => e.MagnitudeUnitId);
-            modelBuilder.Entity<Event>()
+            modelBuilder.Entity<NaturalDisasterEvent>()
                 .HasOne(e => e.Coordinate)
                 .WithOne(c => c.Event)
-                .HasForeignKey<Event>(e => e.CoordinateId);
-            modelBuilder.Entity<Event>()
+                .HasForeignKey<NaturalDisasterEvent>(e => e.CoordinateId);
+            modelBuilder.Entity<NaturalDisasterEvent>()
                 .HasOne(e => e.User)
                 .WithMany(u => u.Events)
                 .HasForeignKey(e => e.UserId);

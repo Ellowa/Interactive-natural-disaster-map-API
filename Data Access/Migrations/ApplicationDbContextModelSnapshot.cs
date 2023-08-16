@@ -22,82 +22,6 @@ namespace Data_Access.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Data_Access.Entities.Coordinate", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<double>("Latitude")
-                        .HasColumnType("double precision");
-
-                    b.Property<double>("Longitude")
-                        .HasColumnType("double precision");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Coordinates");
-                });
-
-            modelBuilder.Entity("Data_Access.Entities.Event", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CoordinateId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime?>("EndDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("EventCategoryId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Link")
-                        .HasColumnType("text");
-
-                    b.Property<int?>("MagnitudeUnitId")
-                        .IsRequired()
-                        .HasColumnType("integer");
-
-                    b.Property<double?>("MagnitudeValue")
-                        .HasColumnType("double precision");
-
-                    b.Property<int>("SourceId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int?>("UserId")
-                        .IsRequired()
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CoordinateId")
-                        .IsUnique();
-
-                    b.HasIndex("EventCategoryId");
-
-                    b.HasIndex("MagnitudeUnitId");
-
-                    b.HasIndex("SourceId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Events");
-                });
-
             modelBuilder.Entity("Data_Access.Entities.EventCategory", b =>
                 {
                     b.Property<int>("Id")
@@ -113,6 +37,42 @@ namespace Data_Access.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("EventsCategories");
+                });
+
+            modelBuilder.Entity("Data_Access.Entities.EventCoordinate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<double>("Latitude")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("Longitude")
+                        .HasColumnType("double precision");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EventCoordinates");
+                });
+
+            modelBuilder.Entity("Data_Access.Entities.EventSource", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("SourceType")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EventSources");
                 });
 
             modelBuilder.Entity("Data_Access.Entities.EventsCollection", b =>
@@ -169,7 +129,7 @@ namespace Data_Access.Migrations
                     b.ToTable("MagnitudeUnits");
                 });
 
-            modelBuilder.Entity("Data_Access.Entities.Source", b =>
+            modelBuilder.Entity("Data_Access.Entities.NaturalDisasterEvent", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -177,13 +137,53 @@ namespace Data_Access.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("SourceType")
+                    b.Property<int>("CoordinateId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("EventCategoryId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Link")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("MagnitudeUnitId")
+                        .IsRequired()
+                        .HasColumnType("integer");
+
+                    b.Property<double?>("MagnitudeValue")
+                        .HasColumnType("double precision");
+
+                    b.Property<int>("SourceId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int?>("UserId")
+                        .IsRequired()
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Sources");
+                    b.HasIndex("CoordinateId")
+                        .IsUnique();
+
+                    b.HasIndex("EventCategoryId");
+
+                    b.HasIndex("MagnitudeUnitId");
+
+                    b.HasIndex("SourceId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("NaturalDisasterEvents");
                 });
 
             modelBuilder.Entity("Data_Access.Entities.User", b =>
@@ -246,11 +246,38 @@ namespace Data_Access.Migrations
                     b.ToTable("UserRoles");
                 });
 
-            modelBuilder.Entity("Data_Access.Entities.Event", b =>
+            modelBuilder.Entity("Data_Access.Entities.EventsCollection", b =>
                 {
-                    b.HasOne("Data_Access.Entities.Coordinate", "Coordinate")
+                    b.HasOne("Data_Access.Entities.EventsCollectionInfo", "EventsCollectionInfo")
+                        .WithMany("EventsCollection")
+                        .HasForeignKey("CollectionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Data_Access.Entities.NaturalDisasterEvent", "Event")
+                        .WithMany("EventsCollection")
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Data_Access.Entities.User", "User")
+                        .WithMany("EventsCollection")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Event");
+
+                    b.Navigation("EventsCollectionInfo");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Data_Access.Entities.NaturalDisasterEvent", b =>
+                {
+                    b.HasOne("Data_Access.Entities.EventCoordinate", "Coordinate")
                         .WithOne("Event")
-                        .HasForeignKey("Data_Access.Entities.Event", "CoordinateId")
+                        .HasForeignKey("Data_Access.Entities.NaturalDisasterEvent", "CoordinateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -266,7 +293,7 @@ namespace Data_Access.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Data_Access.Entities.Source", "Source")
+                    b.HasOne("Data_Access.Entities.EventSource", "Source")
                         .WithMany("Events")
                         .HasForeignKey("SourceId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -289,33 +316,6 @@ namespace Data_Access.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Data_Access.Entities.EventsCollection", b =>
-                {
-                    b.HasOne("Data_Access.Entities.EventsCollectionInfo", "EventsCollectionInfo")
-                        .WithMany("EventsCollection")
-                        .HasForeignKey("CollectionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Data_Access.Entities.Event", "Event")
-                        .WithMany("EventsCollection")
-                        .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Data_Access.Entities.User", "User")
-                        .WithMany("EventsCollection")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Event");
-
-                    b.Navigation("EventsCollectionInfo");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Data_Access.Entities.User", b =>
                 {
                     b.HasOne("Data_Access.Entities.UserRole", "Role")
@@ -327,18 +327,18 @@ namespace Data_Access.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("Data_Access.Entities.Coordinate", b =>
+            modelBuilder.Entity("Data_Access.Entities.EventCategory", b =>
+                {
+                    b.Navigation("Events");
+                });
+
+            modelBuilder.Entity("Data_Access.Entities.EventCoordinate", b =>
                 {
                     b.Navigation("Event")
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Data_Access.Entities.Event", b =>
-                {
-                    b.Navigation("EventsCollection");
-                });
-
-            modelBuilder.Entity("Data_Access.Entities.EventCategory", b =>
+            modelBuilder.Entity("Data_Access.Entities.EventSource", b =>
                 {
                     b.Navigation("Events");
                 });
@@ -353,9 +353,9 @@ namespace Data_Access.Migrations
                     b.Navigation("Events");
                 });
 
-            modelBuilder.Entity("Data_Access.Entities.Source", b =>
+            modelBuilder.Entity("Data_Access.Entities.NaturalDisasterEvent", b =>
                 {
-                    b.Navigation("Events");
+                    b.Navigation("EventsCollection");
                 });
 
             modelBuilder.Entity("Data_Access.Entities.User", b =>

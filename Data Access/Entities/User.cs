@@ -22,6 +22,6 @@
 
         public ICollection<EventsCollection> EventsCollection { get; set; } = null!;
 
-        public ICollection<Event> Events { get; set; } = null!;
+        public ICollection<NaturalDisasterEvent> Events { get; set; } = null!;
     }
 }

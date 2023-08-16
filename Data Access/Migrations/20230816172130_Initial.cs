@@ -13,7 +13,7 @@ namespace Data_Access.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Coordinates",
+                name: "EventCoordinates",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -23,7 +23,7 @@ namespace Data_Access.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Coordinates", x => x.Id);
+                    table.PrimaryKey("PK_EventCoordinates", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -53,6 +53,19 @@ namespace Data_Access.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "EventSources",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    SourceType = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EventSources", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "MagnitudeUnits",
                 columns: table => new
                 {
@@ -63,19 +76,6 @@ namespace Data_Access.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_MagnitudeUnits", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Sources",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    SourceType = table.Column<string>(type: "text", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Sources", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -118,7 +118,7 @@ namespace Data_Access.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Events",
+                name: "NaturalDisasterEvents",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -136,33 +136,33 @@ namespace Data_Access.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Events", x => x.Id);
+                    table.PrimaryKey("PK_NaturalDisasterEvents", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Events_Coordinates_CoordinateId",
+                        name: "FK_NaturalDisasterEvents_EventCoordinates_CoordinateId",
                         column: x => x.CoordinateId,
-                        principalTable: "Coordinates",
+                        principalTable: "EventCoordinates",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Events_EventsCategories_EventCategoryId",
+                        name: "FK_NaturalDisasterEvents_EventSources_SourceId",
+                        column: x => x.SourceId,
+                        principalTable: "EventSources",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_NaturalDisasterEvents_EventsCategories_EventCategoryId",
                         column: x => x.EventCategoryId,
                         principalTable: "EventsCategories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Events_MagnitudeUnits_MagnitudeUnitId",
+                        name: "FK_NaturalDisasterEvents_MagnitudeUnits_MagnitudeUnitId",
                         column: x => x.MagnitudeUnitId,
                         principalTable: "MagnitudeUnits",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Events_Sources_SourceId",
-                        column: x => x.SourceId,
-                        principalTable: "Sources",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Events_Users_UserId",
+                        name: "FK_NaturalDisasterEvents_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -187,9 +187,9 @@ namespace Data_Access.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_EventsCollections_Events_EventId",
+                        name: "FK_EventsCollections_NaturalDisasterEvents_EventId",
                         column: x => x.EventId,
-                        principalTable: "Events",
+                        principalTable: "NaturalDisasterEvents",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -201,32 +201,6 @@ namespace Data_Access.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Events_CoordinateId",
-                table: "Events",
-                column: "CoordinateId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Events_EventCategoryId",
-                table: "Events",
-                column: "EventCategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Events_MagnitudeUnitId",
-                table: "Events",
-                column: "MagnitudeUnitId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Events_SourceId",
-                table: "Events",
-                column: "SourceId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Events_UserId",
-                table: "Events",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_EventsCollections_CollectionId",
                 table: "EventsCollections",
                 column: "CollectionId");
@@ -234,6 +208,32 @@ namespace Data_Access.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_EventsCollections_UserId",
                 table: "EventsCollections",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_NaturalDisasterEvents_CoordinateId",
+                table: "NaturalDisasterEvents",
+                column: "CoordinateId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_NaturalDisasterEvents_EventCategoryId",
+                table: "NaturalDisasterEvents",
+                column: "EventCategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_NaturalDisasterEvents_MagnitudeUnitId",
+                table: "NaturalDisasterEvents",
+                column: "MagnitudeUnitId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_NaturalDisasterEvents_SourceId",
+                table: "NaturalDisasterEvents",
+                column: "SourceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_NaturalDisasterEvents_UserId",
+                table: "NaturalDisasterEvents",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -252,19 +252,19 @@ namespace Data_Access.Migrations
                 name: "EventsCollectionsInfo");
 
             migrationBuilder.DropTable(
-                name: "Events");
+                name: "NaturalDisasterEvents");
 
             migrationBuilder.DropTable(
-                name: "Coordinates");
+                name: "EventCoordinates");
+
+            migrationBuilder.DropTable(
+                name: "EventSources");
 
             migrationBuilder.DropTable(
                 name: "EventsCategories");
 
             migrationBuilder.DropTable(
                 name: "MagnitudeUnits");
-
-            migrationBuilder.DropTable(
-                name: "Sources");
 
             migrationBuilder.DropTable(
                 name: "Users");

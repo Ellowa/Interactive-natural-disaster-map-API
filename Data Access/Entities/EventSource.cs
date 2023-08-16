@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Data_Access.Entities
 {
-    public class Source : BaseEntity
+    public class EventSource : BaseEntity
     {
         public string SourceType { get; set; } = null!;
 
-        public ICollection<Event> Events { get; set; } = null!;
+        public ICollection<NaturalDisasterEvent> Events { get; set; } = null!;
     }
 }

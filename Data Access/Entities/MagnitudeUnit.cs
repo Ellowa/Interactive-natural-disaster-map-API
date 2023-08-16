@@ -10,6 +10,6 @@ namespace Data_Access.Entities
     {
         public string MagnitudeUnitName { get; set; } = null!;
 
-        public ICollection<Event> Events { get; set; } = null!;
+        public ICollection<NaturalDisasterEvent> Events { get; set; } = null!;
     }
 }

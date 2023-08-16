@@ -1,11 +1,11 @@
 ﻿namespace Data_Access.Entities
 {
-    public class Coordinate : BaseEntity
+    public class EventCoordinate : BaseEntity
     {
         public double Latitude { get; set; }
 
         public double Longitude { get; set; }
 
-        public Event Event { get; set; } = null!;
+        public NaturalDisasterEvent Event { get; set; } = null!;
     }
 }
