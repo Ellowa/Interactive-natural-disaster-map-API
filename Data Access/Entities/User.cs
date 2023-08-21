@@ -20,7 +20,7 @@
 
         public UserRole Role { get; set; } = null!;
 
-        public ICollection<EventsCollection> EventsCollection { get; set; } = null!;
+        public ICollection<EventsCollectionInfo> EventsCollectionInfos { get; set; } = null!;
 
         public ICollection<NaturalDisasterEvent> Events { get; set; } = null!;
     }

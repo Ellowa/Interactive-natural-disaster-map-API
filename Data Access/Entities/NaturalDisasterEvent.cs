@@ -16,21 +16,21 @@
 
         public int SourceId { get; set; }
 
-        public int? MagnitudeUnitId { get; set; }
+        public int MagnitudeUnitId { get; set; }
 
         public int CoordinateId { get; set; }
 
-        public int? UserId { get; set; }
+        //public int? UserId { get; set; }
 
         public EventCategory Category { get; set; } = null!;
 
         public EventSource Source { get; set; } = null!;
 
-        public MagnitudeUnit MagnitudeUnit { get; set; } = null;
+        public MagnitudeUnit MagnitudeUnit { get; set; } = null!;
 
         public EventCoordinate Coordinate { get; set; } = null!;
 
-        public User User { get; set; } = null;
+        //public User User { get; set; } = null;
 
         public ICollection<EventsCollection> EventsCollection { get; set; } = null!;
     }

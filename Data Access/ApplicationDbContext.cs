@@ -41,19 +41,20 @@ namespace Data_Access
                 .HasForeignKey(e => e.UserId);
 
             modelBuilder.Entity<EventsCollection>()
-                .HasKey(ec => new { ec.EventId, ec.UserId, ec.CollectionId });
+                .HasKey(ec => new { ec.EventId, ec.CollectionId });
             modelBuilder.Entity<EventsCollection>()
                 .HasOne(ec => ec.Event)
                 .WithMany(e => e.EventsCollection)
                 .HasForeignKey(ec => ec.EventId);
             modelBuilder.Entity<EventsCollection>()
-                .HasOne(ec => ec.User)
-                .WithMany(u => u.EventsCollection)
-                .HasForeignKey(ec => ec.UserId);
-            modelBuilder.Entity<EventsCollection>()
                 .HasOne(ec => ec.EventsCollectionInfo)
                 .WithMany(eci => eci.EventsCollection)
                 .HasForeignKey(ec => ec.CollectionId);
+
+            modelBuilder.Entity<EventsCollectionInfo>()
+                .HasOne(eci => eci.User)
+                .WithMany(u => u.EventsCollectionInfos)
+                .HasForeignKey(eci => eci.UserId);
 
             modelBuilder.Entity<User>()
                 .HasOne(u => u.Role)
