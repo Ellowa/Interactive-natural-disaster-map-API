@@ -1,4 +1,4 @@
-﻿namespace Data_Access.Interfaces
+﻿namespace InteractiveNaturalDisasterMap.Application.DataAccessInterfaces
 {
     public interface IUnitOfWork : IDisposable
     {

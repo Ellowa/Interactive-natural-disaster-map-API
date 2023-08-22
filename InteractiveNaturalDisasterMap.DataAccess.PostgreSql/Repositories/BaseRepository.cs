@@ -1,16 +1,15 @@
-﻿using System;
-using System.Linq.Expressions;
-using Data_Access.Interfaces;
+﻿using System.Linq.Expressions;
+using InteractiveNaturalDisasterMap.Application.DataAccessInterfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace Data_Access.Repositories
+namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql.Repositories
 {
     public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class, new()
     {
-        protected readonly ApplicationDbContext Context;
+        protected readonly InteractiveNaturalDisasterMapDbContext Context;
         protected readonly DbSet<TEntity> DbSet;
 
-        public BaseRepository(ApplicationDbContext context)
+        public BaseRepository(InteractiveNaturalDisasterMapDbContext context)
         {
             Context = context;
             DbSet = context.Set<TEntity>();

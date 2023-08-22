@@ -1,11 +1,11 @@
-﻿using Data_Access.Entities;
+﻿using InteractiveNaturalDisasterMap.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Data_Access
+namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql
 {
-    public class ApplicationDbContext : DbContext
+    public class InteractiveNaturalDisasterMapDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext>  options) : base(options) { }
+        public InteractiveNaturalDisasterMapDbContext(DbContextOptions<InteractiveNaturalDisasterMapDbContext>  options) : base(options) { }
 
         public DbSet<NaturalDisasterEvent> NaturalDisasterEvents { get; set; }
         public DbSet<EventCategory> EventsCategories { get; set; }
@@ -35,10 +35,6 @@ namespace Data_Access
                 .HasOne(e => e.Coordinate)
                 .WithOne(c => c.Event)
                 .HasForeignKey<NaturalDisasterEvent>(e => e.CoordinateId);
-            modelBuilder.Entity<NaturalDisasterEvent>()
-                .HasOne(e => e.User)
-                .WithMany(u => u.Events)
-                .HasForeignKey(e => e.UserId);
 
             modelBuilder.Entity<EventsCollection>()
                 .HasKey(ec => new { ec.EventId, ec.CollectionId });
