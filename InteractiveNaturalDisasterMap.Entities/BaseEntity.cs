@@ -1,4 +1,4 @@
-﻿namespace InteractiveNaturalDisasterMap.Entities.Entities
+﻿namespace InteractiveNaturalDisasterMap.Entities
 {
     public class BaseEntity
     {

@@ -1,14 +1,14 @@
 ﻿using System.Linq.Expressions;
-using Data_Access.Entities;
-using Data_Access.Interfaces;
+using InteractiveNaturalDisasterMap.Application.DataAccessInterfaces;
+using InteractiveNaturalDisasterMap.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Data_Access.Repositories
+namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql.Repositories
 {
     public class GenericBaseEntityRepository<TEntity> : BaseRepository<TEntity>, IGenericBaseEntityRepository<TEntity>
         where TEntity : BaseEntity, new()
     {
-        public GenericBaseEntityRepository(ApplicationDbContext context) : base(context)
+        public GenericBaseEntityRepository(InteractiveNaturalDisasterMapDbContext context) : base(context)
         {
         }
 

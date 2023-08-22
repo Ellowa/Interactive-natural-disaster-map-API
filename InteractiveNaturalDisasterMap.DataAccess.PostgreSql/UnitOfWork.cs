@@ -1,12 +1,12 @@
-﻿using Data_Access.Entities;
-using Data_Access.Interfaces;
-using Data_Access.Repositories;
+﻿using InteractiveNaturalDisasterMap.Application.DataAccessInterfaces;
+using InteractiveNaturalDisasterMap.DataAccess.PostgreSql.Repositories;
+using InteractiveNaturalDisasterMap.Entities;
 
-namespace Data_Access
+namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly ApplicationDbContext _context;
+        private readonly InteractiveNaturalDisasterMapDbContext _context;
 
         private IBaseRepository<NaturalDisasterEvent> _naturalDisasterEventRepository;
         private IBaseRepository<EventCategory> _eventCategoryRepository;
@@ -20,7 +20,7 @@ namespace Data_Access
 
         private bool _disposed = false;
 
-        public UnitOfWork(ApplicationDbContext context)
+        public UnitOfWork(InteractiveNaturalDisasterMapDbContext context)
         {
             this._context = context;
             //Initialization of repositories

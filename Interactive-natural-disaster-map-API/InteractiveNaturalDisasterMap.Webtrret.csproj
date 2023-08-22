@@ -4,7 +4,6 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>Interactive_natural_disaster_map_API</RootNamespace>
     <UserSecretsId>674624fc-94ff-477d-b1fd-adb5b8e1e67d</UserSecretsId>
   </PropertyGroup>
 
@@ -19,10 +18,6 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Data Access\Data Access.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
-using Data_Access.Entities;
+using InteractiveNaturalDisasterMap.Entities;
 
-namespace Data_Access.Interfaces
+namespace InteractiveNaturalDisasterMap.Application.DataAccessInterfaces
 {
     public interface IGenericBaseEntityRepository<TEntity> : IBaseRepository<TEntity> where TEntity : BaseEntity
     {

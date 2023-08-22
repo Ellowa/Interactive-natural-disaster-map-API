@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace Data_Access.Migrations
+namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql.Migrations
 {
     /// <inheritdoc />
     public partial class Initial : Migration
