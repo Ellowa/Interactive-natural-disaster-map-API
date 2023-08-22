@@ -2,7 +2,7 @@
 {
     public class User : BaseEntity
     {
-        public string? FirstName { get; init; }
+        public string? FirstName { get; set; }
 
         public string? SecondName { get; set; }
 
@@ -22,6 +22,5 @@
 
         public ICollection<EventsCollectionInfo> EventsCollectionInfos { get; set; } = null!;
 
-        public ICollection<NaturalDisasterEvent> Events { get; set; } = null!;
     }
 }
