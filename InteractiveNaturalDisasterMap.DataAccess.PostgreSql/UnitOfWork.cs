@@ -17,6 +17,7 @@ namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql
         private IBaseRepository<EventsCollectionInfo> _eventsCollectionInfoRepository;
         private IBaseRepository<User> _useRepository;
         private IBaseRepository<UserRole> _userRoleRepository;
+        private IBaseRepository<UnconfirmedEvent> _unconfirmedEventRepository;
 
         private bool _disposed = false;
 
@@ -33,6 +34,7 @@ namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql
             _eventsCollectionInfoRepository = new GenericBaseEntityRepository<EventsCollectionInfo>(_context);
             _useRepository = new GenericBaseEntityRepository<User>(_context);
             _userRoleRepository = new GenericBaseEntityRepository<UserRole>(_context);
+            _unconfirmedEventRepository = new UnconfirmedEventRepository(_context);
         }
 
         public void Dispose()
@@ -77,6 +79,8 @@ namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql
                     return (_useRepository as IBaseRepository<TEntity>)!;
                 case UserRole _:
                     return (_userRoleRepository as IBaseRepository<TEntity>)!;
+                case UnconfirmedEvent _:
+                    return (_unconfirmedEventRepository as IBaseRepository<TEntity>)!;
                 default:
                     throw new NotImplementedException();
             }
