@@ -25,14 +25,7 @@ namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql.Repositories
             DbSet.Remove(entity);
         }
 
-        public async Task DeleteByIdAsync(int id)
-        {
-            var entity = await DbSet.FindAsync(id);
-            if (entity != null)
-                DbSet.Remove(entity);
-        }
-
-        public async Task<IQueryable<TEntity>> GetAllAsync(params Expression<Func<TEntity, object>>[] includes)
+        public async Task<IReadOnlyList<TEntity>> GetAllAsync(params Expression<Func<TEntity, object>>[] includes)
         {
             IQueryable<TEntity> query = DbSet;
 
@@ -41,7 +34,7 @@ namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql.Repositories
                 query = query.Include(include);
             }
 
-            return query;
+            return await query.ToListAsync();
         }
 
         public void Update(TEntity entity)

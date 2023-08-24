@@ -22,5 +22,12 @@ namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql.Repositories
 
             return await query.FirstOrDefaultAsync(e => e.Id == id);
         }
+
+        public async Task DeleteByIdAsync(int id)
+        {
+            var entity = await DbSet.FindAsync(id);
+            if (entity != null)
+                DbSet.Remove(entity);
+        }
     }
 }

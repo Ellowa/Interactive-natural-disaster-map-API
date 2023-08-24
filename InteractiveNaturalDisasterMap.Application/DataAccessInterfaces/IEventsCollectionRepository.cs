@@ -5,10 +5,10 @@ namespace InteractiveNaturalDisasterMap.Application.DataAccessInterfaces
 {
     public interface IEventsCollectionRepository : IBaseRepository<EventsCollection>
     {
-        Task<EventsCollection?> GetByEventIdAsync(int eventId,
+        Task<IReadOnlyList<EventsCollection>> GetByEventIdAsync(int eventId,
             params Expression<Func<EventsCollection, object>>[] includes);
 
-        Task<EventsCollection?> GetByUserIdAsync(int userId,
+        Task<IReadOnlyList<EventsCollection>> GetByUserIdAsync(int userId,
             params Expression<Func<EventsCollection, object>>[] includes);
 
         Task<EventsCollection?> GetByCollectionName(string collectionName,

@@ -11,7 +11,7 @@ namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql.Repositories
         {
         }
 
-        public async Task<EventsCollection?> GetByEventIdAsync(int eventId,
+        public async Task<IReadOnlyList<EventsCollection>> GetByEventIdAsync(int eventId,
             params Expression<Func<EventsCollection, object>>[] includes)
         {
             IQueryable<EventsCollection> query = DbSet;
@@ -20,10 +20,10 @@ namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql.Repositories
                 query = query.Include(include);
             }
 
-            return await query.FirstOrDefaultAsync(e => e.EventId == eventId);
+            return await query.Where(e => e.EventId == eventId).ToListAsync();
         }
 
-        public async Task<EventsCollection?> GetByUserIdAsync(int userId,
+        public async Task<IReadOnlyList<EventsCollection>> GetByUserIdAsync(int userId,
             params Expression<Func<EventsCollection, object>>[] includes)
         {
             IQueryable<EventsCollection> query = DbSet;
@@ -33,7 +33,7 @@ namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql.Repositories
                 query = query.Include(include);
             }
 
-            return await query.FirstOrDefaultAsync(e => e.EventsCollectionInfo.UserId == userId);
+            return await query.Where(e => e.EventsCollectionInfo.UserId == userId).ToListAsync();
         }
 
         public async Task<EventsCollection?> GetByCollectionName(string collectionName,
