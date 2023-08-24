@@ -16,6 +16,7 @@ namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<EventsCollection> EventsCollections { get; set; }
         public DbSet<EventsCollectionInfo> EventsCollectionsInfo { get; set; }
+        public DbSet<UnconfirmedEvent> UnconfirmedEvents { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -56,6 +57,17 @@ namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql
                 .HasOne(u => u.Role)
                 .WithMany(ur => ur.Users)
                 .HasForeignKey(u => u.RoleId);
+
+            modelBuilder.Entity<UnconfirmedEvent>()
+                .HasKey(ue => ue.EventId);
+            modelBuilder.Entity<UnconfirmedEvent>()
+                .HasOne(ue => ue.Event)
+                .WithOne(e => e.UnconfirmedEvent)
+                .HasForeignKey<UnconfirmedEvent>(ue => ue.EventId);
+            modelBuilder.Entity<UnconfirmedEvent>()
+                .HasOne(ue => ue.User)
+                .WithMany(u => u.UnconfirmedEvents)
+                .HasForeignKey(ue => ue.UserId);
         }
     }
 }

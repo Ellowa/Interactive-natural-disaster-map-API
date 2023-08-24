@@ -30,6 +30,8 @@
 
         public EventCoordinate Coordinate { get; set; } = null!;
 
+        public UnconfirmedEvent UnconfirmedEvent { get; set; } = null!;
+
         public ICollection<EventsCollection> EventsCollection { get; set; } = null!;
     }
 }

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "InteractiveNaturalDisasterMap.Entities", "InteractiveNaturalDisasterMap.Entities", "{82E73AC5-DBC0-4B1E-A783-9F2EBBC2244D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "InteractiveNaturalDisasterMap.Domain", "InteractiveNaturalDisasterMap.Domain", "{82E73AC5-DBC0-4B1E-A783-9F2EBBC2244D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "InteractiveNaturalDisasterMap.Application", "InteractiveNaturalDisasterMap.Application", "{6C2CDBE2-80D7-4382-8A94-AABB1E472E15}"
 EndProject
@@ -11,13 +11,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "InteractiveNaturalDisasterM
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "InteractiveNaturalDisasterMap.Web", "InteractiveNaturalDisasterMap.Web", "{93C3C280-5CD5-4BF3-920F-2E8EFCDFC411}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InteractiveNaturalDisasterMap.DataAccess.PostgreSql", "InteractiveNaturalDisasterMap.DataAccess.PostgreSql\InteractiveNaturalDisasterMap.DataAccess.PostgreSql.csproj", "{12898260-3C31-4AB2-A66B-230CE46C73CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InteractiveNaturalDisasterMap.DataAccess.PostgreSql", "InteractiveNaturalDisasterMap.DataAccess.PostgreSql\InteractiveNaturalDisasterMap.DataAccess.PostgreSql.csproj", "{12898260-3C31-4AB2-A66B-230CE46C73CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InteractiveNaturalDisasterMap.Application", "InteractiveNaturalDisasterMap.Application\InteractiveNaturalDisasterMap.Application.csproj", "{50E78B76-0BBF-41EB-A8D5-8B9929937EE4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InteractiveNaturalDisasterMap.Application", "InteractiveNaturalDisasterMap.Application\InteractiveNaturalDisasterMap.Application.csproj", "{50E78B76-0BBF-41EB-A8D5-8B9929937EE4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InteractiveNaturalDisasterMap.Entities", "InteractiveNaturalDisasterMap.Entities\InteractiveNaturalDisasterMap.Entities.csproj", "{0FD41E47-A728-45F4-BC4D-E029791B5E04}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InteractiveNaturalDisasterMap.Entities", "InteractiveNaturalDisasterMap.Entities\InteractiveNaturalDisasterMap.Entities.csproj", "{0FD41E47-A728-45F4-BC4D-E029791B5E04}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InteractiveNaturalDisasterMap.Web", "InteractiveNaturalDisasterMap.Web\InteractiveNaturalDisasterMap.Web.csproj", "{C04E1F48-A4BF-494D-BC13-3FD7D1BB617D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InteractiveNaturalDisasterMap.Web", "InteractiveNaturalDisasterMap.Web\InteractiveNaturalDisasterMap.Web.csproj", "{C04E1F48-A4BF-494D-BC13-3FD7D1BB617D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
