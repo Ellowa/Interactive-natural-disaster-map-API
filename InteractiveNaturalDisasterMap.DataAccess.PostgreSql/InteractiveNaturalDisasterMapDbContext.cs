@@ -1,4 +1,5 @@
-﻿using InteractiveNaturalDisasterMap.Entities;
+﻿using System.Reflection;
+using InteractiveNaturalDisasterMap.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql
@@ -20,54 +21,8 @@ namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<NaturalDisasterEvent>()
-                .HasOne(e => e.Category)
-                .WithMany(c => c.Events)
-                .HasForeignKey(e => e.EventCategoryId);
-            modelBuilder.Entity<NaturalDisasterEvent>()
-                .HasOne(e => e.Source)
-                .WithMany(s => s.Events)
-                .HasForeignKey(e => e.SourceId);
-            modelBuilder.Entity<NaturalDisasterEvent>()
-                .HasOne(e => e.MagnitudeUnit)
-                .WithMany(m => m.Events)
-                .HasForeignKey(e => e.MagnitudeUnitId);
-            modelBuilder.Entity<NaturalDisasterEvent>()
-                .HasOne(e => e.Coordinate)
-                .WithOne(c => c.Event)
-                .HasForeignKey<NaturalDisasterEvent>(e => e.CoordinateId);
-
-            modelBuilder.Entity<EventsCollection>()
-                .HasKey(ec => new { ec.EventId, ec.CollectionId });
-            modelBuilder.Entity<EventsCollection>()
-                .HasOne(ec => ec.Event)
-                .WithMany(e => e.EventsCollection)
-                .HasForeignKey(ec => ec.EventId);
-            modelBuilder.Entity<EventsCollection>()
-                .HasOne(ec => ec.EventsCollectionInfo)
-                .WithMany(eci => eci.EventsCollection)
-                .HasForeignKey(ec => ec.CollectionId);
-
-            modelBuilder.Entity<EventsCollectionInfo>()
-                .HasOne(eci => eci.User)
-                .WithMany(u => u.EventsCollectionInfos)
-                .HasForeignKey(eci => eci.UserId);
-
-            modelBuilder.Entity<User>()
-                .HasOne(u => u.Role)
-                .WithMany(ur => ur.Users)
-                .HasForeignKey(u => u.RoleId);
-
-            modelBuilder.Entity<UnconfirmedEvent>()
-                .HasKey(ue => ue.EventId);
-            modelBuilder.Entity<UnconfirmedEvent>()
-                .HasOne(ue => ue.Event)
-                .WithOne(e => e.UnconfirmedEvent)
-                .HasForeignKey<UnconfirmedEvent>(ue => ue.EventId);
-            modelBuilder.Entity<UnconfirmedEvent>()
-                .HasOne(ue => ue.User)
-                .WithMany(u => u.UnconfirmedEvents)
-                .HasForeignKey(ue => ue.UserId);
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
