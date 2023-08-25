@@ -19,7 +19,7 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.EventCategories.Com
         public async Task Handle(UpdateEventCategoryRequest request, CancellationToken cancellationToken)
         {
             if (await _eventCategoryRepository.GetByIdAsync(request.UpdateEventCategoryDto.Id) == null)
-                throw new NotFoundException("This event category was not found");
+                throw new NotFoundException(nameof(EventCategory), request.UpdateEventCategoryDto.Id);
 
             _eventCategoryRepository.Update(request.UpdateEventCategoryDto.Map());
             await _unitOfWork.SaveAsync(cancellationToken);

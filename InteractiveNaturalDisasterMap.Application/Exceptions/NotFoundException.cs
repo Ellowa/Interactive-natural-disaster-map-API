@@ -4,7 +4,7 @@ namespace InteractiveNaturalDisasterMap.Application.Exceptions
 {
     public class NotFoundException : Exception
     {
-        public NotFoundException(string massage) : base(massage)
+        public NotFoundException(string name, object key) : base($"Entity - {name}({key}) not found")
         {
         }
     }
