@@ -15,6 +15,6 @@ namespace InteractiveNaturalDisasterMap.Application.DataAccessInterfaces
         IGenericBaseEntityRepository<UserRole> UserRoleRepository { get; }
         IUnconfirmedEventRepository UnconfirmedEventRepository { get; }
 
-        Task SaveAsync();
+        Task SaveAsync(CancellationToken cancellationToken);
     }
 }

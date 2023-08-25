@@ -62,9 +62,9 @@ namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql
             GC.SuppressFinalize(this);
         }
 
-        public Task SaveAsync()
+        public Task SaveAsync(CancellationToken cancellationToken)
         {
-            return _context.SaveChangesAsync();
+            return _context.SaveChangesAsync(cancellationToken);
         }
     }
 }
