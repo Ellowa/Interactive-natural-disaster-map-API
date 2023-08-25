@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 using InteractiveNaturalDisasterMap.Application.DataAccessInterfaces;
-using InteractiveNaturalDisasterMap.Entities;
+using InteractiveNaturalDisasterMap.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql.Repositories

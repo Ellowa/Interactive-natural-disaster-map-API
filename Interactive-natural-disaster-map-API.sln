@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InteractiveNaturalDisasterM
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InteractiveNaturalDisasterMap.Application", "InteractiveNaturalDisasterMap.Application\InteractiveNaturalDisasterMap.Application.csproj", "{50E78B76-0BBF-41EB-A8D5-8B9929937EE4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InteractiveNaturalDisasterMap.Entities", "InteractiveNaturalDisasterMap.Entities\InteractiveNaturalDisasterMap.Entities.csproj", "{0FD41E47-A728-45F4-BC4D-E029791B5E04}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InteractiveNaturalDisasterMap.Domain", "InteractiveNaturalDisasterMap.Entities\InteractiveNaturalDisasterMap.Domain.csproj", "{0FD41E47-A728-45F4-BC4D-E029791B5E04}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InteractiveNaturalDisasterMap.Web", "InteractiveNaturalDisasterMap.Web\InteractiveNaturalDisasterMap.Web.csproj", "{C04E1F48-A4BF-494D-BC13-3FD7D1BB617D}"
 EndProject

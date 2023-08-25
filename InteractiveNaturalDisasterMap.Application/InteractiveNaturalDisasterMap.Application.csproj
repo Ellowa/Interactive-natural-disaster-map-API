@@ -7,7 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\InteractiveNaturalDisasterMap.Entities\InteractiveNaturalDisasterMap.Entities.csproj" />
+    <PackageReference Include="MediatR" Version="12.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\InteractiveNaturalDisasterMap.Entities\InteractiveNaturalDisasterMap.Domain.csproj" />
   </ItemGroup>
 
 </Project>

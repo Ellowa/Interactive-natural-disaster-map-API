@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using InteractiveNaturalDisasterMap.Entities;
+using InteractiveNaturalDisasterMap.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql

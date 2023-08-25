@@ -1,6 +1,6 @@
 ﻿using InteractiveNaturalDisasterMap.Application.DataAccessInterfaces;
 using InteractiveNaturalDisasterMap.DataAccess.PostgreSql.Repositories;
-using InteractiveNaturalDisasterMap.Entities;
+using InteractiveNaturalDisasterMap.Domain.Entities;
 
 namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql
 {

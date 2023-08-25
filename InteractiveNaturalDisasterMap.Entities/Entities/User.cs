@@ -1,4 +1,4 @@
-﻿namespace InteractiveNaturalDisasterMap.Entities
+﻿namespace InteractiveNaturalDisasterMap.Domain.Entities
 {
     public class User : BaseEntity
     {

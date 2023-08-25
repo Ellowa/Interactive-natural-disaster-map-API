@@ -1,6 +1,6 @@
-﻿using InteractiveNaturalDisasterMap.Entities;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
+using InteractiveNaturalDisasterMap.Domain.Entities;
 
 namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql.EntityTypeConfigurations
 {

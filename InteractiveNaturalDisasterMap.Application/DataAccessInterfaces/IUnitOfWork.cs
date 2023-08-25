@@ -1,4 +1,4 @@
-﻿using InteractiveNaturalDisasterMap.Entities;
+﻿using InteractiveNaturalDisasterMap.Domain.Entities;
 
 namespace InteractiveNaturalDisasterMap.Application.DataAccessInterfaces
 {
