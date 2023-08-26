@@ -18,10 +18,10 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.EventCategories.Com
 
         public async Task Handle(DeleteEventCategoryRequest request, CancellationToken cancellationToken)
         {
-            if(await _eventCategoryRepository.GetByIdAsync(request.DeleteEventCategoryDto.Id) == null)
+            if(await _eventCategoryRepository.GetByIdAsync(request.DeleteEventCategoryDto.Id, cancellationToken) == null)
                 throw new NotFoundException(nameof(EventCategory), request.DeleteEventCategoryDto.Id);
 
-            await _eventCategoryRepository.DeleteByIdAsync(request.DeleteEventCategoryDto.Id);
+            await _eventCategoryRepository.DeleteByIdAsync(request.DeleteEventCategoryDto.Id, cancellationToken);
             await _unitOfWork.SaveAsync(cancellationToken);
         }
     }

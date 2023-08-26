@@ -18,7 +18,7 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.EventCategories.Com
         public async Task<int> Handle(CreateEventCategoryRequest request, CancellationToken cancellationToken)
         {
             var entity = request.CreateEventCategoryDto.Map();
-            await _eventCategoryRepository.AddAsync(entity);
+            await _eventCategoryRepository.AddAsync(entity, cancellationToken);
             await _unitOfWork.SaveAsync(cancellationToken);
             return entity.Id;
         }
