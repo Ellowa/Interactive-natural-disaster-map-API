@@ -3,6 +3,7 @@ using System;
 using InteractiveNaturalDisasterMap.DataAccess.PostgreSql;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql.Migrations
 {
     [DbContext(typeof(InteractiveNaturalDisasterMapDbContext))]
-    partial class InteractiveNaturalDisasterMapDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230826152735_AddEventHazardUnitsTable")]
+    partial class AddEventHazardUnitsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
