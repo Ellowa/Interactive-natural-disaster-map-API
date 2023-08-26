@@ -18,6 +18,7 @@ namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql
         public DbSet<EventsCollection> EventsCollections { get; set; }
         public DbSet<EventsCollectionInfo> EventsCollectionsInfo { get; set; }
         public DbSet<UnconfirmedEvent> UnconfirmedEvents { get; set; }
+        public DbSet<EventHazardUnit> EventHazardUnits { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

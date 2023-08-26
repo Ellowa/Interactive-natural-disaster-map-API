@@ -22,6 +22,8 @@
 
         public int CoordinateId { get; set; }
 
+        public int EventHazardUnitId { get; set; }
+
         public EventCategory Category { get; set; } = null!;
 
         public EventSource Source { get; set; } = null!;
@@ -31,6 +33,8 @@
         public EventCoordinate Coordinate { get; set; } = null!;
 
         public UnconfirmedEvent UnconfirmedEvent { get; set; } = null!;
+
+        public EventHazardUnit EventHazardUnit { get; set; }
 
         public ICollection<EventsCollection> EventsCollection { get; set; } = null!;
     }
