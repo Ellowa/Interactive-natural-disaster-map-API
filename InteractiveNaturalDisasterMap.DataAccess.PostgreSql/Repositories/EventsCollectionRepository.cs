@@ -12,6 +12,7 @@ namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql.Repositories
         }
 
         public async Task<IReadOnlyList<EventsCollection>> GetByEventIdAsync(int eventId,
+            CancellationToken cancellationToken,
             params Expression<Func<EventsCollection, object>>[] includes)
         {
             IQueryable<EventsCollection> query = DbSet;
@@ -20,10 +21,11 @@ namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql.Repositories
                 query = query.Include(include);
             }
 
-            return await query.Where(e => e.EventId == eventId).ToListAsync();
+            return await query.Where(e => e.EventId == eventId).ToListAsync(cancellationToken);
         }
 
         public async Task<IReadOnlyList<EventsCollection>> GetByUserIdAsync(int userId,
+            CancellationToken cancellationToken,
             params Expression<Func<EventsCollection, object>>[] includes)
         {
             IQueryable<EventsCollection> query = DbSet;
@@ -33,10 +35,11 @@ namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql.Repositories
                 query = query.Include(include);
             }
 
-            return await query.Where(e => e.EventsCollectionInfo.UserId == userId).ToListAsync();
+            return await query.Where(e => e.EventsCollectionInfo.UserId == userId).ToListAsync(cancellationToken);
         }
 
         public async Task<EventsCollection?> GetByCollectionName(string collectionName,
+            CancellationToken cancellationToken,
             params Expression<Func<EventsCollection, object>>[] includes)
         {
             IQueryable<EventsCollection> query = DbSet;
@@ -46,7 +49,8 @@ namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql.Repositories
                 query = query.Include(include);
             }
 
-            return await query.FirstOrDefaultAsync(e => e.EventsCollectionInfo.CollectionName == collectionName);
+            return await query.FirstOrDefaultAsync(e => e.EventsCollectionInfo.CollectionName == collectionName,
+                cancellationToken);
         }
     }
 }

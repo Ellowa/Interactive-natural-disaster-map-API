@@ -11,7 +11,8 @@ namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql.Repositories
         {
         }
 
-        public async Task<IReadOnlyList<UnconfirmedEvent>> GetByUserId(int userId, params Expression<Func<UnconfirmedEvent, object>>[] includes)
+        public async Task<IReadOnlyList<UnconfirmedEvent>> GetByUserId(int userId, CancellationToken cancellationToken,
+            params Expression<Func<UnconfirmedEvent, object>>[] includes)
         {
             IQueryable<UnconfirmedEvent> query = DbSet;
             foreach (var include in includes)
@@ -19,10 +20,11 @@ namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql.Repositories
                 query = query.Include(include);
             }
 
-            return await query.Where(e => e.UserId == userId).ToListAsync();
+            return await query.Where(e => e.UserId == userId).ToListAsync(cancellationToken);
         }
 
-        public async Task<UnconfirmedEvent?> GetByEventId(int eventId, params Expression<Func<UnconfirmedEvent, object>>[] includes)
+        public async Task<UnconfirmedEvent?> GetByEventId(int eventId, CancellationToken cancellationToken,
+            params Expression<Func<UnconfirmedEvent, object>>[] includes)
         {
             IQueryable<UnconfirmedEvent> query = DbSet;
             foreach (var include in includes)
@@ -30,7 +32,7 @@ namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql.Repositories
                 query = query.Include(include);
             }
 
-            return await query.FirstOrDefaultAsync(e => e.EventId == eventId);
+            return await query.FirstOrDefaultAsync(e => e.EventId == eventId, cancellationToken);
         }
     }
 }

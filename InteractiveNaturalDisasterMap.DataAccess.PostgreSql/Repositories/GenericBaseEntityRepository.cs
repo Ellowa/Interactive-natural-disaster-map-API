@@ -12,7 +12,7 @@ namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql.Repositories
         {
         }
 
-        public async Task<TEntity?> GetByIdAsync(int id, params Expression<Func<TEntity, object>>[] includes)
+        public async Task<TEntity?> GetByIdAsync(int id, CancellationToken cancellationToken, params Expression<Func<TEntity, object>>[] includes)
         {
             IQueryable<TEntity> query = DbSet;
             foreach (var include in includes)
@@ -20,12 +20,12 @@ namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql.Repositories
                 query = query.Include(include);
             }
 
-            return await query.FirstOrDefaultAsync(e => e.Id == id);
+            return await query.FirstOrDefaultAsync(e => e.Id == id, cancellationToken);
         }
 
-        public async Task DeleteByIdAsync(int id)
+        public async Task DeleteByIdAsync(int id, CancellationToken cancellationToken)
         {
-            var entity = await DbSet.FindAsync(id);
+            var entity = await DbSet.FindAsync(id, cancellationToken);
             if (entity != null)
                 DbSet.Remove(entity);
         }

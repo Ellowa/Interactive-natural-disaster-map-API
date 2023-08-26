@@ -5,8 +5,8 @@ namespace InteractiveNaturalDisasterMap.Application.DataAccessInterfaces
 {
     public interface IGenericBaseEntityRepository<TEntity> : IBaseRepository<TEntity> where TEntity : BaseEntity
     {
-        Task<TEntity?> GetByIdAsync(int id, params Expression<Func<TEntity, object>>[] includes);
+        Task<TEntity?> GetByIdAsync(int id, CancellationToken cancellationToken, params Expression<Func<TEntity, object>>[] includes);
 
-        Task DeleteByIdAsync(int id);
+        Task DeleteByIdAsync(int id, CancellationToken cancellationToken);
     }
 }
