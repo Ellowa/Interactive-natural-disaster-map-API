@@ -28,7 +28,7 @@ namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql
         public IGenericBaseEntityRepository<EventCategory> EventCategoryRepository =>
             _eventCategoryRepository ??= new GenericBaseEntityRepository<EventCategory>(_context);
 
-        public IGenericBaseEntityRepository<NaturalDisasterEvent> NaturalDisasterEventRepository =>
+        public INaturalDisasterEventRepository NaturalDisasterEventRepository =>
             _naturalDisasterEventRepository ??= new NaturalDisasterEventRepository(_context);
 
         public IGenericBaseEntityRepository<EventCoordinate> EventCoordinateRepository =>
