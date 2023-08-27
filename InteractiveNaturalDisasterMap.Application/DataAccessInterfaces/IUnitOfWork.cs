@@ -5,7 +5,7 @@ namespace InteractiveNaturalDisasterMap.Application.DataAccessInterfaces
     public interface IUnitOfWork : IDisposable
     {
         IGenericBaseEntityRepository<EventCategory> EventCategoryRepository { get; }
-        IGenericBaseEntityRepository<NaturalDisasterEvent> NaturalDisasterEventRepository { get; }
+        INaturalDisasterEventRepository NaturalDisasterEventRepository { get; }
         IGenericBaseEntityRepository<EventCoordinate> EventCoordinateRepository { get; }
         IGenericBaseEntityRepository<EventSource> EventSourceRepository { get; }
         IGenericBaseEntityRepository<MagnitudeUnit> MagnitudeUnitRepository { get; }
