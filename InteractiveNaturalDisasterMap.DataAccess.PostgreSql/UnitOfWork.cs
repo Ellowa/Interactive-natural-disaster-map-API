@@ -8,7 +8,6 @@ namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql
     {
         private readonly InteractiveNaturalDisasterMapDbContext _context;
 
-        private IGenericBaseEntityRepository<NaturalDisasterEvent> _naturalDisasterEventRepository;
         private IGenericBaseEntityRepository<EventCategory> _eventCategoryRepository;
         private IGenericBaseEntityRepository<EventCoordinate> _eventCoordinateRepository;
         private IGenericBaseEntityRepository<EventSource> _eventSourceRepository;
@@ -18,6 +17,7 @@ namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql
         private IGenericBaseEntityRepository<User> _userRepository;
         private IGenericBaseEntityRepository<UserRole> _userRoleRepository;
         private IUnconfirmedEventRepository _unconfirmedEventRepository;
+        private INaturalDisasterEventRepository _naturalDisasterEventRepository;
 
 
         public UnitOfWork(InteractiveNaturalDisasterMapDbContext context)
@@ -29,7 +29,7 @@ namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql
             _eventCategoryRepository ??= new GenericBaseEntityRepository<EventCategory>(_context);
 
         public IGenericBaseEntityRepository<NaturalDisasterEvent> NaturalDisasterEventRepository =>
-            _naturalDisasterEventRepository ??= new GenericBaseEntityRepository<NaturalDisasterEvent>(_context);
+            _naturalDisasterEventRepository ??= new NaturalDisasterEventRepository(_context);
 
         public IGenericBaseEntityRepository<EventCoordinate> EventCoordinateRepository =>
             _eventCoordinateRepository ??= new GenericBaseEntityRepository<EventCoordinate>(_context);
