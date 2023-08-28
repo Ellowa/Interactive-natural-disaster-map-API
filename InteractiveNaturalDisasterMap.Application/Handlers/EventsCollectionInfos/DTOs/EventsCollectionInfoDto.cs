@@ -9,6 +9,7 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.EventsCollectionInf
         public string CollectionName { get; set; }
         public int UserId { get; set; }
         public string UserLogin { get; set; }
+        //public List<Event> EventDtos { get; set; }
 
         public EventsCollectionInfoDto(EventsCollectionInfo eventsCollectionInfo)
         {
@@ -16,6 +17,8 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.EventsCollectionInf
             CollectionName = eventsCollectionInfo.CollectionName;
             UserId = eventsCollectionInfo.UserId;
             UserLogin = eventsCollectionInfo.User.Login;
+            //Todo EventDtos
+            throw new NotImplementedException();
         }
     }
 }
