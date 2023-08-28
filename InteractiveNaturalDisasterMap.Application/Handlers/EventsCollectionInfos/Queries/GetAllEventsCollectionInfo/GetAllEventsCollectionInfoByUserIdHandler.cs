@@ -5,18 +5,19 @@ using MediatR;
 
 namespace InteractiveNaturalDisasterMap.Application.Handlers.EventsCollectionInfos.Queries.GetAllEventsCollectionInfo
 {
-    public class GetAllEventsCollectionInfoHandler : IRequestHandler<GetAllEventsCollectionInfoRequest, IList<EventsCollectionInfoDto>>
+    public class GetAllEventsCollectionInfoByUserIdHandler : IRequestHandler<GetAllEventsCollectionInfoByUserIdRequest, IList<EventsCollectionInfoDto>>
     {
         private readonly IGenericBaseEntityRepository<EventsCollectionInfo> _eventsCollectionInfoRepository;
 
-        public GetAllEventsCollectionInfoHandler(IUnitOfWork unitOfWork)
+        public GetAllEventsCollectionInfoByUserIdHandler(IUnitOfWork unitOfWork)
         {
             _eventsCollectionInfoRepository = unitOfWork.EventsCollectionInfoRepository;
         }
 
-        public async Task<IList<EventsCollectionInfoDto>> Handle(GetAllEventsCollectionInfoRequest request, CancellationToken cancellationToken)
+        public async Task<IList<EventsCollectionInfoDto>> Handle(GetAllEventsCollectionInfoByUserIdRequest request, CancellationToken cancellationToken)
         {
-            var eventsCollectionInfos = await _eventsCollectionInfoRepository.GetAllAsync(cancellationToken, eci => eci.User);
+            var eventsCollectionInfos = (await _eventsCollectionInfoRepository.GetAllAsync(cancellationToken, eci => eci.User))
+                .Where(eci => eci.UserId == request.GetAllEventsCollectionInfoDto.UserId);
             IList<EventsCollectionInfoDto> eventsCollectionInfoDtos = new List<EventsCollectionInfoDto>(); 
             foreach (var eventsCollectionInfo in eventsCollectionInfos)
             {
