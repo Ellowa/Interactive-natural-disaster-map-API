@@ -16,9 +16,9 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.MagnitudeUnits.Quer
 
         public async Task<IList<MagnitudeUnitDto>> Handle(GetAllMagnitudeUnitRequest request, CancellationToken cancellationToken)
         {
-            var eventCategories = await _magnitudeUnitRepository.GetAllAsync(cancellationToken);
+            var magnitudeUnits = await _magnitudeUnitRepository.GetAllAsync(cancellationToken);
             IList<MagnitudeUnitDto> magnitudeUnitDtos = new List<MagnitudeUnitDto>(); 
-            foreach (var magnitudeUnit in eventCategories)
+            foreach (var magnitudeUnit in magnitudeUnits)
             {
                 magnitudeUnitDtos.Add(new MagnitudeUnitDto(magnitudeUnit));
             }

@@ -27,7 +27,7 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.MagnitudeUnits.Comm
 
             foreach (NaturalDisasterEvent naturalDisasterEvent in events)
             {
-                naturalDisasterEvent.EventCategoryId = undefinedMagnitudeUnit.Id;
+                naturalDisasterEvent.MagnitudeUnitId = undefinedMagnitudeUnit.Id;
                 _unitOfWork.NaturalDisasterEventRepository.Update(naturalDisasterEvent);
             }
 
