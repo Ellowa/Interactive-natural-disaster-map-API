@@ -18,6 +18,7 @@ namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql
         private IGenericBaseEntityRepository<UserRole> _userRoleRepository;
         private IUnconfirmedEventRepository _unconfirmedEventRepository;
         private INaturalDisasterEventRepository _naturalDisasterEventRepository;
+        private IGenericBaseEntityRepository<EventHazardUnit> _eventHazardUnitRepository;
 
 
         public UnitOfWork(InteractiveNaturalDisasterMapDbContext context)
@@ -54,6 +55,9 @@ namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql
 
         public IUnconfirmedEventRepository UnconfirmedEventRepository =>
             _unconfirmedEventRepository ??= new UnconfirmedEventRepository(_context);
+
+        public IGenericBaseEntityRepository<EventHazardUnit> EventHazardUnitRepository =>
+            _eventHazardUnitRepository ??= new GenericBaseEntityRepository<EventHazardUnit>(_context);
 
 
         public void Dispose()
