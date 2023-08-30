@@ -16,8 +16,6 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
 
         public double? MagnitudeValue { get; set; }
 
-        public bool Confirmed { get; set; } = false;
-
         public int EventCategoryId { get; set; }
 
         public int MagnitudeUnitId { get; set; }
@@ -26,7 +24,7 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
 
         public double Longitude { get; set; }
 
-        public NaturalDisasterEvent Map(int eventHazardUnitId, int coordinateId)
+        public NaturalDisasterEvent Map(bool confirmed, int eventHazardUnitId, int coordinateId)
         {
             NaturalDisasterEvent naturalDisasterEvent = new NaturalDisasterEvent()
             {
@@ -36,7 +34,7 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
                 StartDate = this.StartDate,
                 EndDate = this.EndDate,
                 MagnitudeValue = this.MagnitudeValue,
-                Confirmed = this.Confirmed,
+                Confirmed = confirmed,
                 EventCategoryId = this.EventCategoryId,
                 MagnitudeUnitId = this.MagnitudeUnitId,
                 EventHazardUnitId = eventHazardUnitId,
