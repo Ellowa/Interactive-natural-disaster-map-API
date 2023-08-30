@@ -24,7 +24,9 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
 
         public double Longitude { get; set; }
 
-        public NaturalDisasterEvent Map(bool confirmed, int eventHazardUnitId, int coordinateId)
+        public int UserId { get; set; }
+
+        public NaturalDisasterEvent Map(int eventHazardUnitId)
         {
             NaturalDisasterEvent naturalDisasterEvent = new NaturalDisasterEvent()
             {
@@ -34,11 +36,11 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
                 StartDate = this.StartDate,
                 EndDate = this.EndDate,
                 MagnitudeValue = this.MagnitudeValue,
-                Confirmed = confirmed,
                 EventCategoryId = this.EventCategoryId,
                 MagnitudeUnitId = this.MagnitudeUnitId,
                 EventHazardUnitId = eventHazardUnitId,
-                CoordinateId = coordinateId,
+                Latitude = Latitude,
+                Longitude = Longitude,
             };
             return naturalDisasterEvent;
         }
