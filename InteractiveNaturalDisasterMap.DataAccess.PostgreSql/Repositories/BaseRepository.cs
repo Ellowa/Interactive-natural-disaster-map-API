@@ -25,13 +25,18 @@ namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql.Repositories
             DbSet.Remove(entity);
         }
 
-        public async Task<IReadOnlyList<TEntity>> GetAllAsync(CancellationToken cancellationToken, Expression<Func<TEntity, object>>[] includes)
+        public async Task<IReadOnlyList<TEntity>> GetAllAsync(CancellationToken cancellationToken, Expression<Func<TEntity, bool>>? filter, Expression<Func<TEntity, object>>[] includes)
         {
             IQueryable<TEntity> query = DbSet;
 
             foreach (var include in includes)
             {
                 query = query.Include(include);
+            }
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
             }
 
             return await query.ToListAsync(cancellationToken);
