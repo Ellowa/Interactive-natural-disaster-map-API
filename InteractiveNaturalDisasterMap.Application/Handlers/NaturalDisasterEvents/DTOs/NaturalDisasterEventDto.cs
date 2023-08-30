@@ -45,8 +45,8 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
             Category = naturalDisasterEvent.Category.CategoryName;
             Source = naturalDisasterEvent.Source.SourceType;
             MagnitudeUnit = naturalDisasterEvent.MagnitudeUnit.MagnitudeUnitName;
-            Latitude = naturalDisasterEvent.Coordinate.Latitude;
-            Longitude = naturalDisasterEvent.Coordinate.Longitude;
+            Latitude = naturalDisasterEvent.Latitude;
+            Longitude = naturalDisasterEvent.Longitude;
             EventHazardUnit = naturalDisasterEvent.EventHazardUnit.HazardName;
         }
     }

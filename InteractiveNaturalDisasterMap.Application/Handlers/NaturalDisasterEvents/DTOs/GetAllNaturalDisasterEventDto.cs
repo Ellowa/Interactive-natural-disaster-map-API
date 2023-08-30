@@ -2,6 +2,8 @@
 {
     public class GetAllNaturalDisasterEventDto
     {
+        public int? UserId { get; set; }
+
         public DateTime? Period { get; set; }
     }
 }
