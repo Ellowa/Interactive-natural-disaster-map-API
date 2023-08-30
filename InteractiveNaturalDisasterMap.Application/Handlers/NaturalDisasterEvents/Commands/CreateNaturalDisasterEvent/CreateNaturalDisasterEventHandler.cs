@@ -23,7 +23,7 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
             var eventSource = await _unitOfWork.EventSourceRepository.GetByIdAsync(request.CreateNaturalDisasterEventDto.SourceId, cancellationToken)
                               ?? throw new NotFoundException(nameof(EventSource), request.CreateNaturalDisasterEventDto.SourceId);
             var eventHazardUnits = (await _unitOfWork.MagnitudeUnitRepository
-                                        .GetByIdAsync(request.CreateNaturalDisasterEventDto.EventCategoryId, cancellationToken, mu => mu.EventHazardUnits)
+                                        .GetByIdAsync(request.CreateNaturalDisasterEventDto.MagnitudeUnitId, cancellationToken, mu => mu.EventHazardUnits)
                                     ?? throw new NotFoundException(nameof(MagnitudeUnit), request.CreateNaturalDisasterEventDto.MagnitudeUnitId))
                                     .EventHazardUnits;
             if(eventHazardUnits == null || eventHazardUnits.Count == 0)
