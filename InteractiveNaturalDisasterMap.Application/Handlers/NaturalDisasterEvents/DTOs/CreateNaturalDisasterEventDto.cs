@@ -24,6 +24,8 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
 
         public double Longitude { get; set; }
 
+        public int? UserId { get; set; }
+
         public NaturalDisasterEvent Map(bool confirmed, int eventHazardUnitId)
         {
             NaturalDisasterEvent naturalDisasterEvent = new NaturalDisasterEvent()

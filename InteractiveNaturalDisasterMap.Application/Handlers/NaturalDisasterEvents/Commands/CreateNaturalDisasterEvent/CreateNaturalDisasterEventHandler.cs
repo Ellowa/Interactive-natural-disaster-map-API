@@ -36,8 +36,21 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
                 eventHazardUnitId = eventHazardUnits.First(ehu => ehu.ThresholdValue <= request.CreateNaturalDisasterEventDto.MagnitudeValue).Id;
             }
 
-            var entity = request.CreateNaturalDisasterEventDto.Map(eventSource.SourceType!="User", eventHazardUnitId);
+            bool isConfirmedEvent = eventSource.SourceType != "User";
+
+            var entity = request.CreateNaturalDisasterEventDto.Map(isConfirmedEvent, eventHazardUnitId);
             await _naturalDisasterEventRepository.AddAsync(entity, cancellationToken);
+
+            if (!isConfirmedEvent)
+            {
+                var unconfirmedEvent = new UnconfirmedEvent()
+                {
+                    EventId = entity.Id,
+                    UserId = (int)request.CreateNaturalDisasterEventDto.UserId!,
+                    IsChecked = false,
+                };
+                await _unitOfWork.UnconfirmedEventRepository.AddAsync(unconfirmedEvent, cancellationToken);
+            }
             await _unitOfWork.SaveAsync(cancellationToken);
             return entity.Id;
         }
