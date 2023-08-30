@@ -36,14 +36,7 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
                 eventHazardUnitId = eventHazardUnits.First(ehu => ehu.ThresholdValue <= request.CreateNaturalDisasterEventDto.MagnitudeValue).Id;
             }
 
-            var coordinate = new EventCoordinate()
-            {
-                Latitude = request.CreateNaturalDisasterEventDto.Latitude,
-                Longitude = request.CreateNaturalDisasterEventDto.Longitude,
-            };
-            await _unitOfWork.EventCoordinateRepository.AddAsync(coordinate, cancellationToken);
-
-            var entity = request.CreateNaturalDisasterEventDto.Map(eventSource.SourceType!="User", eventHazardUnitId, coordinate.Id);
+            var entity = request.CreateNaturalDisasterEventDto.Map(eventSource.SourceType!="User", eventHazardUnitId);
             await _naturalDisasterEventRepository.AddAsync(entity, cancellationToken);
             await _unitOfWork.SaveAsync(cancellationToken);
             return entity.Id;

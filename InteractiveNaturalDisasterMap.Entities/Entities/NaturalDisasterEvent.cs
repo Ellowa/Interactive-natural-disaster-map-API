@@ -24,8 +24,6 @@
 
         public int MagnitudeUnitId { get; set; }
 
-        public int CoordinateId { get; set; }
-
         public int EventHazardUnitId { get; set; }
 
         public EventCategory Category { get; set; } = null!;
