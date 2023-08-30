@@ -12,7 +12,6 @@ namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql
         public DbSet<EventCategory> EventsCategories { get; set; }
         public DbSet<EventSource> EventSources { get; set; }
         public DbSet<MagnitudeUnit> MagnitudeUnits { get; set; }
-        public DbSet<EventCoordinate> EventCoordinates { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<EventsCollection> EventsCollections { get; set; }

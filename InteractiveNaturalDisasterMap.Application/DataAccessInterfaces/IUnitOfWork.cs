@@ -6,7 +6,6 @@ namespace InteractiveNaturalDisasterMap.Application.DataAccessInterfaces
     {
         IGenericBaseEntityRepository<EventCategory> EventCategoryRepository { get; }
         INaturalDisasterEventRepository NaturalDisasterEventRepository { get; }
-        IGenericBaseEntityRepository<EventCoordinate> EventCoordinateRepository { get; }
         IGenericBaseEntityRepository<EventSource> EventSourceRepository { get; }
         IGenericBaseEntityRepository<MagnitudeUnit> MagnitudeUnitRepository { get; }
         IEventsCollectionRepository EventsCollectionRepository { get; }

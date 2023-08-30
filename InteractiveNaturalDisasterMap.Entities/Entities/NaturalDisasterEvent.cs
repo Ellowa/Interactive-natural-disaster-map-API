@@ -14,6 +14,10 @@
 
         public bool Confirmed { get; set; }
 
+        public double Latitude { get; set; }
+
+        public double Longitude { get; set; }
+
         public int EventCategoryId { get; set; }
 
         public int SourceId { get; set; }
@@ -29,8 +33,6 @@
         public EventSource Source { get; set; } = null!;
 
         public MagnitudeUnit MagnitudeUnit { get; set; } = null!;
-
-        public EventCoordinate Coordinate { get; set; } = null!;
 
         public UnconfirmedEvent UnconfirmedEvent { get; set; } = null!;
 
