@@ -19,7 +19,7 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.EventsCollectionInf
         {
             Expression<Func<EventsCollectionInfo, bool>> filter = eci => eci.UserId == request.GetAllEventsCollectionInfoDto.UserId;
             var eventsCollectionInfos =
-                (await _eventsCollectionInfoRepository.GetAllAsync(cancellationToken, filter, eci => eci.User));
+                (await _eventsCollectionInfoRepository.GetAllAsync(cancellationToken, filter, eci => eci.User, eci => eci.EventsCollection.Select(ec => ec.Event)));
             IList<EventsCollectionInfoDto> eventsCollectionInfoDtos = new List<EventsCollectionInfoDto>(); 
             foreach (var eventsCollectionInfo in eventsCollectionInfos)
             {
