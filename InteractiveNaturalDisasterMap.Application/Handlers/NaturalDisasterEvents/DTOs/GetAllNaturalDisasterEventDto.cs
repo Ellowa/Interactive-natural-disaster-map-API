@@ -4,6 +4,6 @@
     {
         public int? UserId { get; set; }
 
-        public DateTime? Period { get; set; }
+        public DateTime? ExtendedPeriodEndPoint { get; set; }
     }
 }
