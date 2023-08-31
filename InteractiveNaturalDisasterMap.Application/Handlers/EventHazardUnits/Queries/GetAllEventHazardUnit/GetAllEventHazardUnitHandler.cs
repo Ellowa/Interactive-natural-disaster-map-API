@@ -16,7 +16,7 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.EventHazardUnits.Qu
 
         public async Task<IList<EventHazardUnitDto>> Handle(GetAllEventHazardUnitRequest request, CancellationToken cancellationToken)
         {
-            var hazardUnits = await _eventHazardUnitRepository.GetAllAsync(cancellationToken, ehu => ehu.MagnitudeUnit);
+            var hazardUnits = await _eventHazardUnitRepository.GetAllAsync(cancellationToken, null, ehu => ehu.MagnitudeUnit);
             IList<EventHazardUnitDto> hazardUnitDtos = new List<EventHazardUnitDto>(); 
             foreach (var hazardUnit in hazardUnits)
             {

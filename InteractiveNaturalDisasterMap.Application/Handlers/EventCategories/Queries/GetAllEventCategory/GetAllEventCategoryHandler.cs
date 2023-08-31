@@ -16,7 +16,7 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.EventCategories.Que
 
         public async Task<IList<EventCategoryDto>> Handle(GetAllEventCategoryRequest request, CancellationToken cancellationToken)
         {
-            var eventCategories = await _eventCategoryRepository.GetAllAsync(cancellationToken);
+            var eventCategories = await _eventCategoryRepository.GetAllAsync(cancellationToken, null);
             IList<EventCategoryDto> eventCategoryDtos = new List<EventCategoryDto>(); 
             foreach (var eventCategory in eventCategories)
             {

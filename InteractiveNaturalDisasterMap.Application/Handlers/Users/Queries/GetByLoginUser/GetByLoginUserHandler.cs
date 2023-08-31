@@ -3,6 +3,7 @@ using InteractiveNaturalDisasterMap.Application.Exceptions;
 using InteractiveNaturalDisasterMap.Application.Handlers.Users.DTOs;
 using InteractiveNaturalDisasterMap.Domain.Entities;
 using MediatR;
+using System.Linq.Expressions;
 
 namespace InteractiveNaturalDisasterMap.Application.Handlers.Users.Queries.GetByLoginUser
 {
@@ -17,9 +18,9 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.Users.Queries.GetBy
 
         public async Task<UserDto> Handle(GetByLoginUserRequest request, CancellationToken cancellationToken)
         {
-            var user = (await _userRepository.GetAllAsync(cancellationToken, u => u.Role))
-                       .FirstOrDefault(u => u.Login == request.GetByLoginUserDto.Login)
-                       ?? throw new NotFoundException(nameof(User), request.GetByLoginUserDto.Login);
+            Expression<Func<User, bool>> filter = u => u.Login == request.GetByLoginUserDto.Login;
+            var user = (await _userRepository.GetAllAsync(cancellationToken, filter, u => u.Role))
+                       .FirstOrDefault() ?? throw new NotFoundException(nameof(User), request.GetByLoginUserDto.Login);
 
             return new UserDto(user);
         }

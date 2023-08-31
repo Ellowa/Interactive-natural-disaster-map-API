@@ -16,7 +16,7 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.UserRoles.Queries.G
 
         public async Task<IList<UserRoleDto>> Handle(GetAllUserRoleRequest request, CancellationToken cancellationToken)
         {
-            var userRoles = await _userRoleRepository.GetAllAsync(cancellationToken);
+            var userRoles = await _userRoleRepository.GetAllAsync(cancellationToken, null);
             IList<UserRoleDto> userRoleDtos = new List<UserRoleDto>(); 
             foreach (var userRole in userRoles)
             {

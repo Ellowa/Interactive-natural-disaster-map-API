@@ -16,7 +16,7 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.EventSources.Querie
 
         public async Task<IList<EventSourceDto>> Handle(GetAllEventSourceRequest request, CancellationToken cancellationToken)
         {
-            var eventSources = await _eventSourceRepository.GetAllAsync(cancellationToken);
+            var eventSources = await _eventSourceRepository.GetAllAsync(cancellationToken, null);
             IList<EventSourceDto> eventSourceDtos = new List<EventSourceDto>(); 
             foreach (var eventSource in eventSources)
             {
