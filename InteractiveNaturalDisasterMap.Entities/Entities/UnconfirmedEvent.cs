@@ -6,6 +6,8 @@
 
         public int UserId { get; set; }
 
+        public bool IsChecked { get; set; } 
+
         public NaturalDisasterEvent Event { get; set; } = null!;
 
         public User User { get; set; } = null!;
