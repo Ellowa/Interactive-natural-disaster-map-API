@@ -1,6 +1,4 @@
-﻿
-
-namespace InteractiveNaturalDisasterMap.Application.Handlers.UnconfirmedEvents.DTOs
+﻿namespace InteractiveNaturalDisasterMap.Application.Handlers.UnconfirmedEvents.DTOs
 {
     public class GetByIdUnconfirmedEventDto
     {

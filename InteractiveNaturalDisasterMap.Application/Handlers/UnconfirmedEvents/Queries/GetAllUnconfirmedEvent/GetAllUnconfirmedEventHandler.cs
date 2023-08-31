@@ -1,5 +1,7 @@
-﻿using InteractiveNaturalDisasterMap.Application.DataAccessInterfaces;
+﻿using System.Linq.Expressions;
+using InteractiveNaturalDisasterMap.Application.DataAccessInterfaces;
 using InteractiveNaturalDisasterMap.Application.Handlers.UnconfirmedEvents.DTOs;
+using InteractiveNaturalDisasterMap.Domain.Entities;
 using MediatR;
 
 namespace InteractiveNaturalDisasterMap.Application.Handlers.UnconfirmedEvents.Queries.GetAllUnconfirmedEvent
@@ -15,7 +17,12 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.UnconfirmedEvents.Q
 
         public async Task<IList<UnconfirmedEventDto>> Handle(GetAllUnconfirmedEventRequest request, CancellationToken cancellationToken)
         {
-            var unconfirmedEvents = await _unconfirmedEventRepository.GetAllAsync(cancellationToken, ue => ue.User, ue => ue.Event);
+            Expression<Func<UnconfirmedEvent, bool>>? filter =
+                request.GetAllUnconfirmedEventDto.AddIsChecked == null ||
+                request.GetAllUnconfirmedEventDto.AddIsChecked == false
+                    ? ue => !ue.IsChecked
+                    : null;
+            var unconfirmedEvents = await _unconfirmedEventRepository.GetAllAsync(cancellationToken, filter, ue => ue.User, ue => ue.Event);
             IList<UnconfirmedEventDto> unconfirmedEventDtos = new List<UnconfirmedEventDto>(); 
             foreach (var unconfirmedEvent in unconfirmedEvents)
             {

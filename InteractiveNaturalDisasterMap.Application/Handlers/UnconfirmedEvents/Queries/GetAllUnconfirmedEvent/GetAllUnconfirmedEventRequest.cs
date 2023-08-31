@@ -5,5 +5,6 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.UnconfirmedEvents.Q
 {
     public class GetAllUnconfirmedEventRequest : IRequest<IList<UnconfirmedEventDto>>
     {
+        public GetAllUnconfirmedEventDto GetAllUnconfirmedEventDto { get; set; } = null!;
     }
 }

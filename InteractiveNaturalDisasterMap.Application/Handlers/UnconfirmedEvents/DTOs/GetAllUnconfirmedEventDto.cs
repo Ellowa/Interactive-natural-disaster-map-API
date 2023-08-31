@@ -1,7 +1,7 @@
 ﻿namespace InteractiveNaturalDisasterMap.Application.Handlers.UnconfirmedEvents.DTOs
 {
-    public class GetByUserIdUnconfirmedEventDto
+    public class GetAllUnconfirmedEventDto
     {
-        public int UserId { get; set; }
+        public bool? AddIsChecked { get; set; }
     }
 }
