@@ -14,9 +14,8 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.EventHazardUnits.DT
 
         public async Task<EventHazardUnit> MapAsync(IUnitOfWork unitOfWork, CancellationToken cancellationToken)
         {
-            var magnitudeUnit = (await unitOfWork.MagnitudeUnitRepository.GetAllAsync(cancellationToken))
-                                .FirstOrDefault(mu=> mu.MagnitudeUnitName == this.MagnitudeUnitName)
-                                ?? throw new NotFoundException(nameof(MagnitudeUnit), $"With name {MagnitudeUnitName}");
+            var magnitudeUnit = (await unitOfWork.MagnitudeUnitRepository.GetAllAsync(cancellationToken, mu => mu.MagnitudeUnitName == this.MagnitudeUnitName))
+                                .FirstOrDefault() ?? throw new NotFoundException(nameof(MagnitudeUnit), $"With name {MagnitudeUnitName}");
 
             EventHazardUnit eventHazardUnit = new EventHazardUnit()
             {
