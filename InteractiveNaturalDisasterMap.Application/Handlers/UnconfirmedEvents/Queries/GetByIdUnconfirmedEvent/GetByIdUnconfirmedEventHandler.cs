@@ -19,8 +19,12 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.UnconfirmedEvents.Q
             CancellationToken cancellationToken)
         {
             var unconfirmedEvent = await _unconfirmedEventRepository.GetByEventId(
-                                       request.GetByIdUnconfirmedEventDto.EventId, cancellationToken, ue => ue.User,
-                                       ue => ue.Event)
+                                       request.GetByIdUnconfirmedEventDto.EventId, cancellationToken, 
+                                       ue => ue.User.Role,
+                                       ue => ue.Event.Category,
+                                       ue => ue.Event.Source,
+                                       ue => ue.Event.MagnitudeUnit,
+                                       ue => ue.Event.EventHazardUnit)
                                    ?? throw new NotFoundException(nameof(UnconfirmedEvent),
                                        request.GetByIdUnconfirmedEventDto.EventId);
 

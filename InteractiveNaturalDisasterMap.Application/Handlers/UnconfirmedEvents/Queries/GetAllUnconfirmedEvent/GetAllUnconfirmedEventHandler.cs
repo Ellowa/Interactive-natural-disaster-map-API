@@ -22,7 +22,12 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.UnconfirmedEvents.Q
                 request.GetAllUnconfirmedEventDto.AddIsChecked == false
                     ? ue => !ue.IsChecked
                     : null;
-            var unconfirmedEvents = await _unconfirmedEventRepository.GetAllAsync(cancellationToken, filter, ue => ue.User, ue => ue.Event);
+            var unconfirmedEvents = await _unconfirmedEventRepository.GetAllAsync(cancellationToken, filter,
+                ue => ue.User.Role, 
+                ue => ue.Event.Category,
+                ue => ue.Event.Source,
+                ue => ue.Event.MagnitudeUnit,
+                ue => ue.Event.EventHazardUnit);
             IList<UnconfirmedEventDto> unconfirmedEventDtos = new List<UnconfirmedEventDto>(); 
             foreach (var unconfirmedEvent in unconfirmedEvents)
             {
