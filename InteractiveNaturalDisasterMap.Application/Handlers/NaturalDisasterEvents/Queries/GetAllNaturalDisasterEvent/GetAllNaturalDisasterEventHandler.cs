@@ -34,7 +34,12 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
             if (request.GetAllNaturalDisasterEventDto.UserId != null)
             {
                 userUnconfirmedEvents = (await _unitOfWork.UnconfirmedEventRepository
-                    .GetByUserId((int)request.GetAllNaturalDisasterEventDto.UserId, cancellationToken)).Select(ue => ue.Event);
+                    .GetAllAsync(cancellationToken, ue=> ue.UserId == request.GetAllNaturalDisasterEventDto.UserId, 
+                        ue => ue.Event.Category,
+                        ue => ue.Event.MagnitudeUnit,
+                        ue => ue.Event.EventHazardUnit,
+                        ue => ue.Event.Source))
+                    .Select(ue => ue.Event);
             }
             naturalDisasterEvents = naturalDisasterEvents.Union(userUnconfirmedEvents);
 

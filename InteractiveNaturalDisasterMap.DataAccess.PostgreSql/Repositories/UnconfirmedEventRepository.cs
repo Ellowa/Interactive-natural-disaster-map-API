@@ -11,18 +11,6 @@ namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql.Repositories
         {
         }
 
-        public async Task<IReadOnlyList<UnconfirmedEvent>> GetByUserId(int userId, CancellationToken cancellationToken,
-            params Expression<Func<UnconfirmedEvent, object>>[] includes)
-        {
-            IQueryable<UnconfirmedEvent> query = DbSet;
-            foreach (var include in includes)
-            {
-                query = query.Include(include);
-            }
-
-            return await query.Where(e => e.UserId == userId).ToListAsync(cancellationToken);
-        }
-
         public async Task<UnconfirmedEvent?> GetByEventId(int eventId, CancellationToken cancellationToken,
             params Expression<Func<UnconfirmedEvent, object>>[] includes)
         {

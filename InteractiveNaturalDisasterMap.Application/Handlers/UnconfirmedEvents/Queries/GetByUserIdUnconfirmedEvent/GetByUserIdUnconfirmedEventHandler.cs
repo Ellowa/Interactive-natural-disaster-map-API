@@ -18,8 +18,8 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.UnconfirmedEvents.Q
         public async Task<IList<UnconfirmedEventDto>> Handle(GetByUserIdUnconfirmedEventRequest request,
             CancellationToken cancellationToken)
         {
-            var unconfirmedEvents = await _unconfirmedEventRepository.GetByUserId(
-                request.GetByUserIdUnconfirmedEventDto.UserId, cancellationToken, 
+            var unconfirmedEvents = await _unconfirmedEventRepository.GetAllAsync(cancellationToken,
+                ue => ue.UserId == request.GetByUserIdUnconfirmedEventDto.UserId, 
                 ue => ue.User.Role,
                 ue => ue.Event.Category,
                 ue => ue.Event.Source,
