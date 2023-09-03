@@ -8,11 +8,11 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.EventHazardUnits.DT
     {
         public int Id { get; set; }
 
-        public string HazardName { get; set; } = null!;
+        public string? HazardName { get; set; } = null!;
 
-        public string MagnitudeUnitName { get; set; } = null!;
+        public string? MagnitudeUnitName { get; set; } = null!;
 
-        public double? ThresholdValue { get; set; }
+        public double? ThresholdValue { get; set; } // required but can be null
 
         public async Task<EventHazardUnit> MapAsync(IUnitOfWork unitOfWork, CancellationToken cancellationToken)
         {
@@ -22,7 +22,7 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.EventHazardUnits.DT
             EventHazardUnit eventHazardUnit = new EventHazardUnit()
             {
                 Id = this.Id,
-                HazardName = this.HazardName,
+                HazardName = this.HazardName!,
                 MagnitudeUnitId = magnitudeUnit.Id,
                 ThresholdValue = this.ThresholdValue,
             };

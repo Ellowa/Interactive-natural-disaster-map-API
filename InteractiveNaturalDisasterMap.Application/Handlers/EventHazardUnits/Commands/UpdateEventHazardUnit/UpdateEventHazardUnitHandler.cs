@@ -18,10 +18,14 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.EventHazardUnits.Co
 
         public async Task Handle(UpdateEventHazardUnitRequest request, CancellationToken cancellationToken)
         {
-            if (await _eventHazardUnitRepository.GetByIdAsync(request.UpdateEventHazardUnitDto.Id, cancellationToken) == null)
-                throw new NotFoundException(nameof(EventHazardUnit), request.UpdateEventHazardUnitDto.Id);
+            var oldEntity = (await _eventHazardUnitRepository.GetByIdAsync(request.UpdateEventHazardUnitDto.Id, cancellationToken, ehu=> ehu.MagnitudeUnit))
+                            ?? throw new NotFoundException(nameof(EventHazardUnit), request.UpdateEventHazardUnitDto.Id);
 
-            _eventHazardUnitRepository.Update(await request.UpdateEventHazardUnitDto.MapAsync(_unitOfWork, cancellationToken));
+            var newEntity = request.UpdateEventHazardUnitDto;
+            newEntity.HazardName ??= oldEntity.HazardName;
+            newEntity.MagnitudeUnitName ??= oldEntity.MagnitudeUnit.MagnitudeUnitName;
+
+            _eventHazardUnitRepository.Update(await newEntity.MapAsync(_unitOfWork, cancellationToken));
             await _unitOfWork.SaveAsync(cancellationToken);
         }
     }
