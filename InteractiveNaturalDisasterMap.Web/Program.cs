@@ -1,5 +1,5 @@
+using InteractiveNaturalDisasterMap.Application;
 using InteractiveNaturalDisasterMap.DataAccess.PostgreSql;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,8 +10,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<InteractiveNaturalDisasterMapDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQLConnection")));
+builder.Services.ConfigureApplicationServices();
+builder.Services.ConfigureDataAccessPostgreSqlServices(builder.Configuration);
 
 var app = builder.Build();
 
