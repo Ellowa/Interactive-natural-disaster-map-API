@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace InteractiveNaturalDisasterMap.Web.Controllers
 {
     [Route("api/[controller]")]
+    [ApiController]
     public class EventHazardUnitController : BaseController
     {
         // GET: api/EventHazardUnit
