@@ -17,10 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\InteractiveNaturalDisasterMap.DataAccess.PostgreSql\InteractiveNaturalDisasterMap.DataAccess.PostgreSql.csproj" />
   </ItemGroup>
 
