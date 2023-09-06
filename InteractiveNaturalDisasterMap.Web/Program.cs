@@ -1,5 +1,6 @@
 using InteractiveNaturalDisasterMap.Application;
 using InteractiveNaturalDisasterMap.DataAccess.PostgreSql;
+using InteractiveNaturalDisasterMap.Web.Middlewares.ExceptionHandling;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,8 @@ if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseHttpsRedirection();
 
