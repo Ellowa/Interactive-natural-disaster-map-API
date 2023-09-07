@@ -18,10 +18,11 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.MagnitudeUnits.Comm
 
         public async Task Handle(UpdateMagnitudeUnitRequest request, CancellationToken cancellationToken)
         {
-            if (await _magnitudeUnitRepository.GetByIdAsync(request.UpdateMagnitudeUnitDto.Id, cancellationToken) == null)
-                throw new NotFoundException(nameof(MagnitudeUnit), request.UpdateMagnitudeUnitDto.Id);
+            var magnitudeUnit = await _magnitudeUnitRepository.GetByIdAsync(request.UpdateMagnitudeUnitDto.Id, cancellationToken) 
+                                ?? throw new NotFoundException(nameof(MagnitudeUnit), request.UpdateMagnitudeUnitDto.Id);
 
-            _magnitudeUnitRepository.Update(request.UpdateMagnitudeUnitDto.Map());
+            magnitudeUnit.MagnitudeUnitName = request.UpdateMagnitudeUnitDto.MagnitudeUnitName;
+            _magnitudeUnitRepository.Update(magnitudeUnit);
             await _unitOfWork.SaveAsync(cancellationToken);
         }
     }
