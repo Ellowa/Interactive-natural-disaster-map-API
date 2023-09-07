@@ -18,10 +18,11 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.EventSources.Comman
 
         public async Task Handle(UpdateEventSourceRequest request, CancellationToken cancellationToken)
         {
-            if (await _eventSourceRepository.GetByIdAsync(request.UpdateEventSourceDto.Id, cancellationToken) == null)
-                throw new NotFoundException(nameof(EventSource), request.UpdateEventSourceDto.Id);
+            var eventSource = await _eventSourceRepository.GetByIdAsync(request.UpdateEventSourceDto.Id, cancellationToken) 
+                              ?? throw new NotFoundException(nameof(EventSource), request.UpdateEventSourceDto.Id);
 
-            _eventSourceRepository.Update(request.UpdateEventSourceDto.Map());
+            eventSource.SourceType = request.UpdateEventSourceDto.SourceType;
+            _eventSourceRepository.Update(eventSource);
             await _unitOfWork.SaveAsync(cancellationToken);
         }
     }
