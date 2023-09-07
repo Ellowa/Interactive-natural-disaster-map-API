@@ -18,10 +18,12 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.UserRoles.Commands.
 
         public async Task Handle(UpdateUserRoleRequest request, CancellationToken cancellationToken)
         {
-            if (await _userRoleRepository.GetByIdAsync(request.UpdateUserRoleDto.Id, cancellationToken) == null)
-                throw new NotFoundException(nameof(UserRole), request.UpdateUserRoleDto.Id);
+            var userRole = await _userRoleRepository.GetByIdAsync(request.UpdateUserRoleDto.Id, cancellationToken) 
+                           ?? throw new NotFoundException(nameof(UserRole), request.UpdateUserRoleDto.Id);
 
-            _userRoleRepository.Update(request.UpdateUserRoleDto.Map());
+            userRole.RoleName = request.UpdateUserRoleDto.RoleName;
+
+            _userRoleRepository.Update(userRole);
             await _unitOfWork.SaveAsync(cancellationToken);
         }
     }

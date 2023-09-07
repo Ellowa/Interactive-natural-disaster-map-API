@@ -23,8 +23,8 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.EventsCollectionInf
             if (collectionInfo.User.Id != request.UserId)
                 throw new AuthorizationException(nameof(collectionInfo), request.UserId);
 
-
-            _eventsCollectionInfoRepository.Update(request.UpdateEventsCollectionInfoDto.Map());
+            collectionInfo.CollectionName = request.UpdateEventsCollectionInfoDto.CollectionName;
+            _eventsCollectionInfoRepository.Update(collectionInfo);
             await _unitOfWork.SaveAsync(cancellationToken);
         }
     }

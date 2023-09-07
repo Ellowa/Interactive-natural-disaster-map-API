@@ -13,20 +13,5 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.EventHazardUnits.DT
         public string MagnitudeUnitName { get; set; } = null!;
 
         public double? ThresholdValue { get; set; } // required but can be null
-
-        public async Task<EventHazardUnit> MapAsync(IUnitOfWork unitOfWork, CancellationToken cancellationToken)
-        {
-            var magnitudeUnit = (await unitOfWork.MagnitudeUnitRepository.GetAllAsync(cancellationToken, mu => mu.MagnitudeUnitName == this.MagnitudeUnitName))
-                                .FirstOrDefault() ?? throw new NotFoundException(nameof(MagnitudeUnit), $"With name {MagnitudeUnitName}");
-
-            EventHazardUnit eventHazardUnit = new EventHazardUnit()
-            {
-                Id = this.Id,
-                HazardName = this.HazardName,
-                MagnitudeUnitId = magnitudeUnit.Id,
-                ThresholdValue = this.ThresholdValue,
-            };
-            return eventHazardUnit;
-        }
     }
 }

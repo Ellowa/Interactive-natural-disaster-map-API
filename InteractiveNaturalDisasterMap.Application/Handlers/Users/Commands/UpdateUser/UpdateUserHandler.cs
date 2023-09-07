@@ -19,7 +19,7 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.Users.Commands.Upda
 
         public async Task Handle(UpdateUserRequest request, CancellationToken cancellationToken)
         {
-            var role = (await _userRepository.GetByIdAsync(request.UpdateUserDto.Id, cancellationToken))
+            var user = (await _userRepository.GetByIdAsync(request.UpdateUserDto.Id, cancellationToken))
                        ?? throw new NotFoundException(nameof(User), request.UpdateUserDto.Id);
 
             byte[] passwordHash, passwordSalt;
@@ -29,7 +29,16 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.Users.Commands.Upda
                 passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(request.UpdateUserDto.Password));
             }
 
-            _userRepository.Update(request.UpdateUserDto.Map(passwordHash, passwordSalt, role.Id));
+            user.FirstName = request.UpdateUserDto.FirstName;
+            user.SecondName = request.UpdateUserDto.SecondName;
+            user.LastName = request.UpdateUserDto.LastName;
+            user.Email = request.UpdateUserDto.Email;
+            user.Telegram = request.UpdateUserDto.Telegram;
+            user.Login = request.UpdateUserDto.Login;
+            user.PasswordHash = passwordHash;
+            user.PasswordSalt = passwordSalt;
+
+            _userRepository.Update(user);
             await _unitOfWork.SaveAsync(cancellationToken);
         }
     }
