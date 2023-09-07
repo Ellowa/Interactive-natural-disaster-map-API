@@ -18,12 +18,19 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.EventHazardUnits.Co
 
         public async Task Handle(UpdateEventHazardUnitRequest request, CancellationToken cancellationToken)
         {
-            if (await _eventHazardUnitRepository.GetByIdAsync(request.UpdateEventHazardUnitDto.Id, cancellationToken,
-                    ehu => ehu.MagnitudeUnit) == null)
-                throw new NotFoundException(nameof(EventHazardUnit), request.UpdateEventHazardUnitDto.Id);
+            var eventHazardUnit = await _eventHazardUnitRepository.GetByIdAsync(request.UpdateEventHazardUnitDto.Id, cancellationToken,
+                    ehu => ehu.MagnitudeUnit) 
+                                  ?? throw new NotFoundException(nameof(EventHazardUnit), request.UpdateEventHazardUnitDto.Id);
 
-            _eventHazardUnitRepository.Update(
-                await request.UpdateEventHazardUnitDto.MapAsync(_unitOfWork, cancellationToken));
+            var magnitudeUnit = (await _unitOfWork.MagnitudeUnitRepository.GetAllAsync(cancellationToken,
+                    mu => mu.MagnitudeUnitName == request.UpdateEventHazardUnitDto.MagnitudeUnitName))
+                .FirstOrDefault() ?? throw new NotFoundException(nameof(MagnitudeUnit), $"With name {request.UpdateEventHazardUnitDto.MagnitudeUnitName}");
+
+            eventHazardUnit.HazardName = request.UpdateEventHazardUnitDto.HazardName;
+            eventHazardUnit.MagnitudeUnitId = magnitudeUnit.Id;
+            eventHazardUnit.ThresholdValue = request.UpdateEventHazardUnitDto.ThresholdValue;
+
+            _eventHazardUnitRepository.Update(eventHazardUnit);
             await _unitOfWork.SaveAsync(cancellationToken);
         }
     }
