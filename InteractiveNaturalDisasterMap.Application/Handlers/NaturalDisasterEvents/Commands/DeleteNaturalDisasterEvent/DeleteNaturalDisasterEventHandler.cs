@@ -20,8 +20,8 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
         {
             var unconfirmedEvent = await _unitOfWork.UnconfirmedEventRepository.GetByEventId(request.DeleteNaturalDisasterEventDto.Id, cancellationToken) 
                                    ?? throw new NotFoundException(nameof(UnconfirmedEvent), request.DeleteNaturalDisasterEventDto.Id);
-            if (unconfirmedEvent.UserId != request.DeleteNaturalDisasterEventDto.UserId)
-                throw new AuthorizationException(nameof(unconfirmedEvent), request.DeleteNaturalDisasterEventDto.UserId);
+            if (unconfirmedEvent.UserId != request.UserId)
+                throw new AuthorizationException(nameof(unconfirmedEvent), request.UserId);
 
             await _naturalDisasterEventRepository.DeleteByIdAsync(request.DeleteNaturalDisasterEventDto.Id, cancellationToken);
             await _unitOfWork.SaveAsync(cancellationToken);

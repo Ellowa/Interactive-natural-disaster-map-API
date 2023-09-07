@@ -20,8 +20,8 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.EventsCollections.C
         {
             var collectionInfo = await _unitOfWork.EventsCollectionInfoRepository.GetByIdAsync(request.CreateEventsCollectionDto.CollectionId, cancellationToken)
                          ?? throw new NotFoundException(nameof(EventsCollectionInfo), request.CreateEventsCollectionDto.CollectionId);
-            if (collectionInfo.UserId != request.CreateEventsCollectionDto.UserId)
-                throw new AuthorizationException(nameof(collectionInfo), request.CreateEventsCollectionDto.UserId);
+            if (collectionInfo.UserId != request.UserId)
+                throw new AuthorizationException(nameof(collectionInfo), request.UserId);
 
             var entity = request.CreateEventsCollectionDto.Map();
             await _eventsCollectionRepository.AddAsync(entity, cancellationToken);

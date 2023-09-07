@@ -6,5 +6,6 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.EventsCollections.C
     public class CreateEventsCollectionRequest : IRequest
     {
         public CreateEventsCollectionDto CreateEventsCollectionDto { get; set; } = null!;
+        public int UserId { get; set; }
     }
 }

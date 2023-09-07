@@ -7,7 +7,6 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.EventsCollectionInf
     {
         public int Id { get; set; }
         public string CollectionName { get; set; } = null!;
-        public int UserId { get; set; }
 
         public EventsCollectionInfo Map()
         {

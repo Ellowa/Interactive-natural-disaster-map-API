@@ -6,5 +6,6 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
     public class DeleteNaturalDisasterEventRequest : IRequest
     {
         public DeleteNaturalDisasterEventDto DeleteNaturalDisasterEventDto { get; set; } = null!;
+        public int UserId { get; set; }
     }
 }

@@ -6,5 +6,6 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.EventsCollectionInf
     public class DeleteEventsCollectionInfoRequest : IRequest
     {
         public DeleteEventsCollectionInfoDto DeleteEventsCollectionInfoDto { get; set; } = null!;
+        public int UserId { get; set; }
     }
 }

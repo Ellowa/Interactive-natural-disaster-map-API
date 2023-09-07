@@ -20,8 +20,8 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.EventsCollectionInf
         {
             var collectionInfo = await _eventsCollectionInfoRepository.GetByIdAsync(request.DeleteEventsCollectionInfoDto.Id, cancellationToken)
                                  ?? throw new NotFoundException(nameof(EventsCollectionInfo), request.DeleteEventsCollectionInfoDto.Id);
-            if (collectionInfo.User.Id != request.DeleteEventsCollectionInfoDto.UserId)
-                throw new AuthorizationException(nameof(collectionInfo), request.DeleteEventsCollectionInfoDto.UserId);
+            if (collectionInfo.User.Id != request.UserId)
+                throw new AuthorizationException(nameof(collectionInfo), request.UserId);
 
             await _eventsCollectionInfoRepository.DeleteByIdAsync(request.DeleteEventsCollectionInfoDto.Id, cancellationToken);
             await _unitOfWork.SaveAsync(cancellationToken);
