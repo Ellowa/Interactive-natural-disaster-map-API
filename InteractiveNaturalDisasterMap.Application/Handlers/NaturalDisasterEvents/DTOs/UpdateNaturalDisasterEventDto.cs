@@ -23,24 +23,5 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
         public double Latitude { get; set; }
 
         public double Longitude { get; set; }
-
-        public NaturalDisasterEvent Map(int eventHazardUnitId)
-        {
-            NaturalDisasterEvent naturalDisasterEvent = new NaturalDisasterEvent()
-            {
-                Id = this.Id,
-                Title = this.Title,
-                Link = this.Link,
-                StartDate = this.StartDate,
-                EndDate = this.EndDate,
-                MagnitudeValue = this.MagnitudeValue,
-                EventCategoryId = this.EventCategoryId,
-                MagnitudeUnitId = this.MagnitudeUnitId,
-                EventHazardUnitId = eventHazardUnitId,
-                Latitude = Latitude,
-                Longitude = Longitude,
-            };
-            return naturalDisasterEvent;
-        }
     }
 }
