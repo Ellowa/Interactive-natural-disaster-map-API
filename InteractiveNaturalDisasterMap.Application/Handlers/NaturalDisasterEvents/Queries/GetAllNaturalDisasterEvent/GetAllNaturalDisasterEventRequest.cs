@@ -6,5 +6,6 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
     public class GetAllNaturalDisasterEventRequest : IRequest<IList<NaturalDisasterEventDto>>
     {
         public GetAllNaturalDisasterEventDto GetAllNaturalDisasterEventDto { get; set; } = null!;
+        public int? UserId { get; set; }
     }
 }

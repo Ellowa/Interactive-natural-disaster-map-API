@@ -31,10 +31,10 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
                 nde => nde.Category, nde => nde.Source, nde => nde.MagnitudeUnit, nde => nde.EventHazardUnit);
             
             IEnumerable<NaturalDisasterEvent> userUnconfirmedEvents = new List<NaturalDisasterEvent>();
-            if (request.GetAllNaturalDisasterEventDto.UserId != null)
+            if (request.UserId != null)
             {
                 userUnconfirmedEvents = (await _unitOfWork.UnconfirmedEventRepository
-                    .GetAllAsync(cancellationToken, ue=> ue.UserId == request.GetAllNaturalDisasterEventDto.UserId, 
+                    .GetAllAsync(cancellationToken, ue=> ue.UserId == request.UserId, 
                         ue => ue.Event.Category,
                         ue => ue.Event.MagnitudeUnit,
                         ue => ue.Event.EventHazardUnit,
