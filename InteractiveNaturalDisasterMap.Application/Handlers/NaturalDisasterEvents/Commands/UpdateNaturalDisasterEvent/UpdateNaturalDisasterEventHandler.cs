@@ -28,13 +28,16 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
             if (unconfirmedEvent.UserId != request.UserId)
                 throw new AuthorizationException(nameof(unconfirmedEvent), request.UserId);
 
-            var eventHazardUnits = 
-                (await _unitOfWork.MagnitudeUnitRepository.GetByIdAsync(request.UpdateNaturalDisasterEventDto.MagnitudeUnitId, cancellationToken, mu => mu.EventHazardUnits) 
-                 ?? throw new NotFoundException(nameof(MagnitudeUnit), request.UpdateNaturalDisasterEventDto.MagnitudeUnitId))
-                .EventHazardUnits;
+            var eventCategory = (await _unitOfWork.EventCategoryRepository.GetAllAsync(cancellationToken, mu => mu.CategoryName == request.UpdateNaturalDisasterEventDto.EventCategoryName))
+                .FirstOrDefault() ?? throw new NotFoundException(nameof(EventCategory), $"With name {request.UpdateNaturalDisasterEventDto.EventCategoryName}");
+
+            var magnitudeUnit = (await _unitOfWork.MagnitudeUnitRepository.GetAllAsync(cancellationToken, mu => mu.MagnitudeUnitName == request.UpdateNaturalDisasterEventDto.MagnitudeUnitName,
+                    mu => mu.EventHazardUnits))
+                .FirstOrDefault() ?? throw new NotFoundException(nameof(MagnitudeUnit), $"With name {request.UpdateNaturalDisasterEventDto.MagnitudeUnitName}");
+            var eventHazardUnits = magnitudeUnit.EventHazardUnits;
             if (eventHazardUnits == null || eventHazardUnits.Count == 0)
                 throw new NotFoundException(nameof(EventHazardUnit),
-                    $"With MagnitudeUnitId: {request.UpdateNaturalDisasterEventDto.MagnitudeUnitId}");
+                    $"With MagnitudeUnitName: {request.UpdateNaturalDisasterEventDto.MagnitudeUnitName}");
 
             eventHazardUnits = eventHazardUnits.OrderByDescending(ehu => ehu.ThresholdValue).ToArray();
             int eventHazardUnitId = eventHazardUnits.Last().Id;
@@ -50,8 +53,8 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
             naturalDisasterEvent.StartDate = request.UpdateNaturalDisasterEventDto.StartDate;
             naturalDisasterEvent.EndDate = request.UpdateNaturalDisasterEventDto.EndDate;
             naturalDisasterEvent.MagnitudeValue = request.UpdateNaturalDisasterEventDto.MagnitudeValue;
-            naturalDisasterEvent.EventCategoryId = request.UpdateNaturalDisasterEventDto.EventCategoryId;
-            naturalDisasterEvent.MagnitudeUnitId = request.UpdateNaturalDisasterEventDto.MagnitudeUnitId;
+            naturalDisasterEvent.EventCategoryId = eventCategory.Id;
+            naturalDisasterEvent.MagnitudeUnitId = magnitudeUnit.Id;
             naturalDisasterEvent.EventHazardUnitId = eventHazardUnitId;
             naturalDisasterEvent.Latitude = request.UpdateNaturalDisasterEventDto.Latitude;
             naturalDisasterEvent.Longitude = request.UpdateNaturalDisasterEventDto.Longitude;

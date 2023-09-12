@@ -16,9 +16,9 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
 
         public double? MagnitudeValue { get; set; }
 
-        public int EventCategoryId { get; set; }
+        public string EventCategoryName { get; set; } = string.Empty;
 
-        public int MagnitudeUnitId { get; set; }
+        public string MagnitudeUnitName { get; set; } = string.Empty;
 
         public double Latitude { get; set; }
 
