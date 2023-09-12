@@ -38,7 +38,7 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
 
             bool isConfirmedEvent = eventSource.SourceType != "User";
 
-            var entity = request.CreateNaturalDisasterEventDto.Map(isConfirmedEvent, eventHazardUnitId);
+            var entity = request.CreateNaturalDisasterEventDto.Map(isConfirmedEvent, eventHazardUnitId, request.SourceId);
             await _naturalDisasterEventRepository.AddAsync(entity, cancellationToken);
 
             if (!isConfirmedEvent)

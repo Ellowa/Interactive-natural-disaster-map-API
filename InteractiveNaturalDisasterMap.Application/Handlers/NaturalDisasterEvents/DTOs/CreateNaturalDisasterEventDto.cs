@@ -22,7 +22,7 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
 
         public double Longitude { get; set; }
 
-        public NaturalDisasterEvent Map(bool confirmed, int eventHazardUnitId)
+        public NaturalDisasterEvent Map(bool confirmed, int eventHazardUnitId, int sourceId)
         {
             NaturalDisasterEvent naturalDisasterEvent = new NaturalDisasterEvent()
             {
@@ -33,7 +33,7 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
                 MagnitudeValue = this.MagnitudeValue,
                 Confirmed = confirmed,
                 EventCategoryId = this.EventCategoryId,
-                SourceId = this.SourceId,
+                SourceId = sourceId,
                 MagnitudeUnitId = this.MagnitudeUnitId,
                 EventHazardUnitId = eventHazardUnitId,
                 Latitude = Latitude,
