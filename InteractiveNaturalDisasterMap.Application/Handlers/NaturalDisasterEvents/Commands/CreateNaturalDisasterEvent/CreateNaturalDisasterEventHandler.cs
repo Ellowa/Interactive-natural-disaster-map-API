@@ -20,8 +20,8 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
         {
             if (await _unitOfWork.EventCategoryRepository.GetByIdAsync(request.CreateNaturalDisasterEventDto.EventCategoryId, cancellationToken) == null)
                 throw new NotFoundException(nameof(EventCategory), request.CreateNaturalDisasterEventDto.EventCategoryId);
-            var eventSource = await _unitOfWork.EventSourceRepository.GetByIdAsync(request.CreateNaturalDisasterEventDto.SourceId, cancellationToken)
-                              ?? throw new NotFoundException(nameof(EventSource), request.CreateNaturalDisasterEventDto.SourceId);
+            var eventSource = await _unitOfWork.EventSourceRepository.GetByIdAsync(request.SourceId, cancellationToken)
+                              ?? throw new NotFoundException(nameof(EventSource), request.SourceId);
             var eventHazardUnits = (await _unitOfWork.MagnitudeUnitRepository
                                         .GetByIdAsync(request.CreateNaturalDisasterEventDto.MagnitudeUnitId, cancellationToken, mu => mu.EventHazardUnits)
                                     ?? throw new NotFoundException(nameof(MagnitudeUnit), request.CreateNaturalDisasterEventDto.MagnitudeUnitId))
@@ -46,7 +46,7 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
                 var unconfirmedEvent = new UnconfirmedEvent()
                 {
                     EventId = entity.Id,
-                    UserId = (int)request.CreateNaturalDisasterEventDto.UserId!,
+                    UserId = (int)request.UserId!,
                     IsChecked = false,
                 };
                 await _unitOfWork.UnconfirmedEventRepository.AddAsync(unconfirmedEvent, cancellationToken);

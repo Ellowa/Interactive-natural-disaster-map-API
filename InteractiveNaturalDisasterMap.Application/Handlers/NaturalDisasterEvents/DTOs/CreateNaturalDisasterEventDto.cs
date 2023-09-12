@@ -16,15 +16,11 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
 
         public int EventCategoryId { get; set; }
 
-        public int SourceId { get; set; }
-
         public int MagnitudeUnitId { get; set; }
 
         public double Latitude { get; set; }
 
         public double Longitude { get; set; }
-
-        public int? UserId { get; set; }
 
         public NaturalDisasterEvent Map(bool confirmed, int eventHazardUnitId)
         {
