@@ -6,7 +6,7 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
     public class CreateNaturalDisasterEventRequest : IRequest<int>
     {
         public CreateNaturalDisasterEventDto CreateNaturalDisasterEventDto { get; set; } = null!;
-        public int SourceId { get; set; }
+        public string SourceName { get; set; } = string.Empty;
         public int? UserId { get; set; }
     }
 }

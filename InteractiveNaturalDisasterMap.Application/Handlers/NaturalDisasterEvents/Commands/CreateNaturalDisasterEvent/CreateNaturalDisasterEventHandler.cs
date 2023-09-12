@@ -18,16 +18,16 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
 
         public async Task<int> Handle(CreateNaturalDisasterEventRequest request, CancellationToken cancellationToken)
         {
-            if (await _unitOfWork.EventCategoryRepository.GetByIdAsync(request.CreateNaturalDisasterEventDto.EventCategoryId, cancellationToken) == null)
-                throw new NotFoundException(nameof(EventCategory), request.CreateNaturalDisasterEventDto.EventCategoryId);
-            var eventSource = await _unitOfWork.EventSourceRepository.GetByIdAsync(request.SourceId, cancellationToken)
-                              ?? throw new NotFoundException(nameof(EventSource), request.SourceId);
-            var eventHazardUnits = (await _unitOfWork.MagnitudeUnitRepository
-                                        .GetByIdAsync(request.CreateNaturalDisasterEventDto.MagnitudeUnitId, cancellationToken, mu => mu.EventHazardUnits)
-                                    ?? throw new NotFoundException(nameof(MagnitudeUnit), request.CreateNaturalDisasterEventDto.MagnitudeUnitId))
-                                    .EventHazardUnits;
+            var eventCategory = (await _unitOfWork.EventCategoryRepository.GetAllAsync(cancellationToken, mu => mu.CategoryName == request.CreateNaturalDisasterEventDto.EventCategoryName))
+                .FirstOrDefault() ?? throw new NotFoundException(nameof(EventCategory), $"With name {request.CreateNaturalDisasterEventDto.EventCategoryName}");
+            var eventSource = (await _unitOfWork.EventSourceRepository.GetAllAsync(cancellationToken, mu => mu.SourceType == request.SourceName))
+                .FirstOrDefault() ?? throw new NotFoundException(nameof(EventSource), $"With name {request.SourceName}");
+            var magnitudeUnit = (await _unitOfWork.MagnitudeUnitRepository.GetAllAsync(cancellationToken, mu => mu.MagnitudeUnitName == request.CreateNaturalDisasterEventDto.MagnitudeUnitName, 
+                    mu => mu.EventHazardUnits))
+                .FirstOrDefault() ?? throw new NotFoundException(nameof(MagnitudeUnit), $"With name {request.CreateNaturalDisasterEventDto.MagnitudeUnitName}");
+            var eventHazardUnits = magnitudeUnit.EventHazardUnits;
             if(eventHazardUnits == null || eventHazardUnits.Count == 0)
-                throw new NotFoundException(nameof(EventHazardUnit), $"With MagnitudeUnitId: {request.CreateNaturalDisasterEventDto.MagnitudeUnitId}");
+                throw new NotFoundException(nameof(EventHazardUnit), $"With MagnitudeUnitName: {request.CreateNaturalDisasterEventDto.MagnitudeUnitName}");
 
             eventHazardUnits = eventHazardUnits.OrderByDescending(ehu => ehu.ThresholdValue).ToArray();
             int eventHazardUnitId = eventHazardUnits.Last().Id;
@@ -38,7 +38,7 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
 
             bool isConfirmedEvent = eventSource.SourceType != "User";
 
-            var entity = request.CreateNaturalDisasterEventDto.Map(isConfirmedEvent, eventHazardUnitId, request.SourceId);
+            var entity = request.CreateNaturalDisasterEventDto.Map(isConfirmedEvent, eventHazardUnitId, eventSource.Id, eventCategory.Id, magnitudeUnit.Id);
             await _naturalDisasterEventRepository.AddAsync(entity, cancellationToken);
 
             if (!isConfirmedEvent)
