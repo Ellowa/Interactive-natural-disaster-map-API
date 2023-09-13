@@ -2,7 +2,7 @@
 
 namespace InteractiveNaturalDisasterMap.Application.Handlers.EventsCollections.DTOs
 {
-    public class DeleteEventsCollectionDto
+    public class AddToEventsCollectionDto
     {
         public int EventId { get; set; }
         public int CollectionId { get; set; }
