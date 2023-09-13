@@ -6,5 +6,6 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.UnconfirmedEvents.C
     public class ConfirmOrRejectUnconfirmedEventRequest : IRequest
     {
         public ConfirmOrRejectUnconfirmedEventDto ConfirmUnconfirmedEventDto { get; set; } = null!;
+        public bool? Reject { get; set; }
     }
 }

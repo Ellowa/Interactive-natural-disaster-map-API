@@ -22,7 +22,7 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.UnconfirmedEvents.C
                 (await _unconfirmedEventRepository.GetByEventId(request.ConfirmUnconfirmedEventDto.EventId, cancellationToken, ue => ue.Event))
                 ?? throw new NotFoundException(nameof(UnconfirmedEvent), request.ConfirmUnconfirmedEventDto.EventId);
 
-            if (request.ConfirmUnconfirmedEventDto.Reject == null || request.ConfirmUnconfirmedEventDto.Reject == false)
+            if (request.Reject == null || request.Reject == false)
             {
                 unconfirmedEvent.Event.Confirmed = true;
                 _unitOfWork.NaturalDisasterEventRepository.Update(unconfirmedEvent.Event);
