@@ -5,18 +5,18 @@ using MediatR;
 
 namespace InteractiveNaturalDisasterMap.Application.Handlers.UnconfirmedEvents.Commands.ConfirmUnconfirmedEvent
 {
-    public class ConfirmUnconfirmedEventHandler : IRequestHandler<ConfirmUnconfirmedEventRequest>
+    public class ConfirmOrRejectUnconfirmedEventHandler : IRequestHandler<ConfirmOrRejectUnconfirmedEventRequest>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IUnconfirmedEventRepository _unconfirmedEventRepository;
 
-        public ConfirmUnconfirmedEventHandler(IUnitOfWork unitOfWork)
+        public ConfirmOrRejectUnconfirmedEventHandler(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
             _unconfirmedEventRepository = unitOfWork.UnconfirmedEventRepository;
         }
 
-        public async Task Handle(ConfirmUnconfirmedEventRequest request, CancellationToken cancellationToken)
+        public async Task Handle(ConfirmOrRejectUnconfirmedEventRequest request, CancellationToken cancellationToken)
         {
             var unconfirmedEvent =
                 (await _unconfirmedEventRepository.GetByEventId(request.ConfirmUnconfirmedEventDto.EventId, cancellationToken, ue => ue.Event))

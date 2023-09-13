@@ -1,6 +1,6 @@
 ﻿namespace InteractiveNaturalDisasterMap.Application.Handlers.UnconfirmedEvents.DTOs
 {
-    public class ConfirmUnconfirmedEventDto
+    public class ConfirmOrRejectUnconfirmedEventDto
     {
         public int EventId { get; set; }
         public bool? Reject { get; set; }

@@ -3,8 +3,8 @@ using MediatR;
 
 namespace InteractiveNaturalDisasterMap.Application.Handlers.UnconfirmedEvents.Commands.ConfirmUnconfirmedEvent
 {
-    public class ConfirmUnconfirmedEventRequest : IRequest
+    public class ConfirmOrRejectUnconfirmedEventRequest : IRequest
     {
-        public ConfirmUnconfirmedEventDto ConfirmUnconfirmedEventDto { get; set; } = null!;
+        public ConfirmOrRejectUnconfirmedEventDto ConfirmUnconfirmedEventDto { get; set; } = null!;
     }
 }
