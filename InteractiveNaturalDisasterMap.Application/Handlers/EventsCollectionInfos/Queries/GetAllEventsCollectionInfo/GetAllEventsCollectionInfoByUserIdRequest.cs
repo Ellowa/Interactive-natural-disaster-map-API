@@ -6,5 +6,7 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.EventsCollectionInf
     public class GetAllEventsCollectionInfoByUserIdRequest : IRequest<IList<EventsCollectionInfoDto>>
     {
         public GetAllEventsCollectionInfoDto GetAllEventsCollectionInfoDto { get; set; } = null!;
+
+        public int CurrentUserId { get; set; }
     }
 }
