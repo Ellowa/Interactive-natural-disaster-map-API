@@ -17,7 +17,7 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.EventsCollectionInf
 
         public async Task<int> Handle(CreateEventsCollectionInfoRequest request, CancellationToken cancellationToken)
         {
-            var entity = request.CreateEventsCollectionInfoDto.Map();
+            var entity = request.CreateEventsCollectionInfoDto.Map(request.UserId);
             await _eventsCollectionInfoRepository.AddAsync(entity, cancellationToken);
             await _unitOfWork.SaveAsync(cancellationToken);
             return entity.Id;
