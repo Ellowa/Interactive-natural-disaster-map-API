@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\InteractiveNaturalDisasterMap.DataAccess.PostgreSql\InteractiveNaturalDisasterMap.DataAccess.PostgreSql.csproj" />
+    <ProjectReference Include="..\InteractiveNaturalDisasterMap.Infrastructure\InteractiveNaturalDisasterMap.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
