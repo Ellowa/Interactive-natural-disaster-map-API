@@ -23,6 +23,7 @@ namespace InteractiveNaturalDisasterMap.Infrastructure.Authentication
             {
                 new(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
                 new(JwtRegisteredClaimNames.Name, user.Login),
+                new(ClaimTypes.Role, user.Role.RoleName),
             };
 
             var signingCredentials = new SigningCredentials(
