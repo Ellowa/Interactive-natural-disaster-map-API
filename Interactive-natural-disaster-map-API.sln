@@ -19,6 +19,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InteractiveNaturalDisasterM
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InteractiveNaturalDisasterMap.Web", "InteractiveNaturalDisasterMap.Web\InteractiveNaturalDisasterMap.Web.csproj", "{C04E1F48-A4BF-494D-BC13-3FD7D1BB617D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "InteractiveNaturalDisasterMap.Infrastructure", "InteractiveNaturalDisasterMap.Infrastructure", "{88328458-F6FE-4860-91F1-5E8006F90670}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InteractiveNaturalDisasterMap.Infrastructure", "InteractiveNaturalDisasterMap.Infrastructure\InteractiveNaturalDisasterMap.Infrastructure.csproj", "{9D4BB93D-1ADC-4A68-B4B7-984E4B0BA186}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +45,10 @@ Global
 		{C04E1F48-A4BF-494D-BC13-3FD7D1BB617D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C04E1F48-A4BF-494D-BC13-3FD7D1BB617D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C04E1F48-A4BF-494D-BC13-3FD7D1BB617D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D4BB93D-1ADC-4A68-B4B7-984E4B0BA186}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D4BB93D-1ADC-4A68-B4B7-984E4B0BA186}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D4BB93D-1ADC-4A68-B4B7-984E4B0BA186}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D4BB93D-1ADC-4A68-B4B7-984E4B0BA186}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -50,6 +58,7 @@ Global
 		{50E78B76-0BBF-41EB-A8D5-8B9929937EE4} = {6C2CDBE2-80D7-4382-8A94-AABB1E472E15}
 		{0FD41E47-A728-45F4-BC4D-E029791B5E04} = {82E73AC5-DBC0-4B1E-A783-9F2EBBC2244D}
 		{C04E1F48-A4BF-494D-BC13-3FD7D1BB617D} = {93C3C280-5CD5-4BF3-920F-2E8EFCDFC411}
+		{9D4BB93D-1ADC-4A68-B4B7-984E4B0BA186} = {88328458-F6FE-4860-91F1-5E8006F90670}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5B7EAFD9-E9D8-4951-A8EB-D12C109BF5EE}
