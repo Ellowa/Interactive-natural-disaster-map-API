@@ -1,5 +1,6 @@
 using InteractiveNaturalDisasterMap.Application;
 using InteractiveNaturalDisasterMap.DataAccess.PostgreSql;
+using InteractiveNaturalDisasterMap.Infrastructure.ServicesRegistration;
 using InteractiveNaturalDisasterMap.Web.Middlewares.ExceptionHandling;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.ConfigureApplicationServices();
 builder.Services.ConfigureDataAccessPostgreSqlServices(builder.Configuration);
+builder.Services.ConfigureInfrastructureServices();
 
 var app = builder.Build();
 
@@ -26,6 +28,10 @@ if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
+
+app.UseAuthorization();
 
 app.UseAuthorization();
 

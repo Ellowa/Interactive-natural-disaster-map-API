@@ -7,15 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MediatR" Version="12.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.22" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\InteractiveNaturalDisasterMap.Entities\InteractiveNaturalDisasterMap.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="InfrastructureInterfaces\" />
+    <ProjectReference Include="..\InteractiveNaturalDisasterMap.Application\InteractiveNaturalDisasterMap.Application.csproj" />
   </ItemGroup>
 
 </Project>
