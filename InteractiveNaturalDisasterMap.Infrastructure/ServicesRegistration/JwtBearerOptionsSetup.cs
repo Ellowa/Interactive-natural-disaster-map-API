@@ -6,7 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace InteractiveNaturalDisasterMap.Infrastructure.ServicesRegistration
 {
-    internal class JwtBearerOptionsSetup : IConfigureOptions<JwtBearerOptions>
+    internal class JwtBearerOptionsSetup : IConfigureNamedOptions<JwtBearerOptions>
     {
         private readonly JwtOptions _jwtOptions;
 
@@ -27,6 +27,11 @@ namespace InteractiveNaturalDisasterMap.Infrastructure.ServicesRegistration
                 ValidAudience = _jwtOptions.Audience,
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.SecretKey))
             };
+        }
+
+        public void Configure(string name, JwtBearerOptions options)
+        {
+            Configure(options);
         }
     }
 }
