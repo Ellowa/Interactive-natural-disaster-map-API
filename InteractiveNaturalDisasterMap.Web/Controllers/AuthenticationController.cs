@@ -6,8 +6,9 @@ namespace InteractiveNaturalDisasterMap.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthorizationController : BaseController
+    public class AuthenticationController : BaseController
     {
+        [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginUserDto loginUserDto)
         {
             var request = new LoginUserRequest()
