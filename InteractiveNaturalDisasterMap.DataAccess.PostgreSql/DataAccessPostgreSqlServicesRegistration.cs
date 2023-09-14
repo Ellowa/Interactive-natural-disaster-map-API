@@ -12,8 +12,7 @@ namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql
         public static IServiceCollection ConfigureDataAccessPostgreSqlServices(this IServiceCollection services, IConfiguration configuration)
         {
             var connectionString = configuration.GetConnectionString("PostgreSQLConnection");
-            if(string.IsNullOrEmpty(connectionString))
-                Environment.GetEnvironmentVariable("ConnectionStrings:PostgreSQLConnection");
+
             services.AddDbContext<InteractiveNaturalDisasterMapDbContext>(options =>
                 options.UseNpgsql(connectionString));
 
