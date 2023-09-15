@@ -6,5 +6,6 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.Users.Commands.Dele
     public class DeleteUserRequest : IRequest
     {
         public DeleteUserDto DeleteUserDto { get; set; } = null!;
+        public int UserId { get; set; }
     }
 }

@@ -6,5 +6,6 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.Users.Commands.Upda
     public class UpdateUserRequest : IRequest
     {
         public UpdateUserDto UpdateUserDto { get; set; } = null!;
+        public int UserId { get; set; }
     }
 }
