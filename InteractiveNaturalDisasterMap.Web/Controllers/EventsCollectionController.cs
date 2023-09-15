@@ -18,7 +18,7 @@ namespace InteractiveNaturalDisasterMap.Web.Controllers
             var request = new AddToEventsCollectionRequest()
             {
                 AddToEventsCollectionDto = addToEventsCollectionDto,
-                //Todo userId
+                UserId = (int)UserId!,
             };
             await Mediator.Send(request);
             return NoContent();
@@ -33,6 +33,7 @@ namespace InteractiveNaturalDisasterMap.Web.Controllers
             var request = new DeleteFromEventsCollectionRequest()
             {
                 DeleteFromEventsCollectionDto = deleteFromEventsCollectionDto,
+                UserId = (int)UserId!,
             };
             await Mediator.Send(request);
             return NoContent();
