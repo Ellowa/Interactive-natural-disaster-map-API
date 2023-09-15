@@ -4,12 +4,15 @@ using InteractiveNaturalDisasterMap.Application.Handlers.EventCategories.Command
 using InteractiveNaturalDisasterMap.Application.Handlers.EventCategories.DTOs;
 using InteractiveNaturalDisasterMap.Application.Handlers.EventCategories.Queries.GetAllEventCategory;
 using InteractiveNaturalDisasterMap.Application.Handlers.EventCategories.Queries.GetByIdEventCategory;
+using InteractiveNaturalDisasterMap.Web.Utilities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InteractiveNaturalDisasterMap.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = $"{UserRoles.Moderator}")]
     public class EventCategoryController : BaseController
     {
         // GET: api/EventCategory

@@ -1,6 +1,8 @@
 ﻿using InteractiveNaturalDisasterMap.Application.Handlers.EventsCollections.Commands.AddToEventsCollection;
 using InteractiveNaturalDisasterMap.Application.Handlers.EventsCollections.Commands.DeleteFromEventsCollection;
 using InteractiveNaturalDisasterMap.Application.Handlers.EventsCollections.DTOs;
+using InteractiveNaturalDisasterMap.Web.Utilities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InteractiveNaturalDisasterMap.Web.Controllers
@@ -13,6 +15,7 @@ namespace InteractiveNaturalDisasterMap.Web.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = $"{UserRoles.Moderator}, {UserRoles.User}")]
         public async Task<IActionResult> AddEventToCollection([FromBody] AddToEventsCollectionDto addToEventsCollectionDto)
         {
             var request = new AddToEventsCollectionRequest()
@@ -28,6 +31,7 @@ namespace InteractiveNaturalDisasterMap.Web.Controllers
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = $"{UserRoles.Moderator}, {UserRoles.User}")]
         public async Task<IActionResult> DeleteEventFromCollection([FromBody] DeleteFromEventsCollectionDto deleteFromEventsCollectionDto)
         {
             var request = new DeleteFromEventsCollectionRequest()

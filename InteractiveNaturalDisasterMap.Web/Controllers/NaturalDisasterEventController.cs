@@ -4,6 +4,8 @@ using InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEvents.C
 using InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEvents.DTOs;
 using InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEvents.Queries.GetAllNaturalDisasterEvent;
 using InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEvents.Queries.GetByIdNaturalDisasterEvent;
+using InteractiveNaturalDisasterMap.Web.Utilities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InteractiveNaturalDisasterMap.Web.Controllers
@@ -13,7 +15,7 @@ namespace InteractiveNaturalDisasterMap.Web.Controllers
     public class NaturalDisasterEventController : BaseController
     {
         // GET: api/NaturalDisasterEvent
-        [HttpGet]
+        [HttpGet, AllowAnonymous]
         public async Task<IEnumerable<NaturalDisasterEventDto>> Get([FromQuery]GetAllNaturalDisasterEventDto getAllNaturalDisasterEventDto)
         {
             var request = new GetAllNaturalDisasterEventRequest()
@@ -25,7 +27,7 @@ namespace InteractiveNaturalDisasterMap.Web.Controllers
         }
 
         // GET api/NaturalDisasterEvent/5
-        [HttpGet("{id}")]
+        [HttpGet("{id}"), AllowAnonymous]
         [ProducesResponseType(typeof(NaturalDisasterEventDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetById(int id)
@@ -41,6 +43,7 @@ namespace InteractiveNaturalDisasterMap.Web.Controllers
         // POST api/NaturalDisasterEvent
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
+        [Authorize(Roles = $"{UserRoles.Moderator}, {UserRoles.User}")]
         public async Task<IActionResult> Create([FromBody] CreateNaturalDisasterEventDto createNaturalDisasterEventDto)
         {
             var request = new CreateNaturalDisasterEventRequest()
@@ -58,6 +61,7 @@ namespace InteractiveNaturalDisasterMap.Web.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = $"{UserRoles.Moderator}, {UserRoles.User}")]
         public async Task<IActionResult> Update(int id, [FromBody] UpdateNaturalDisasterEventDto updateNaturalDisasterEventDto)
         {
             if (id != updateNaturalDisasterEventDto.Id) return BadRequest();
@@ -75,6 +79,7 @@ namespace InteractiveNaturalDisasterMap.Web.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = $"{UserRoles.Moderator}, {UserRoles.User}")]
         public async Task<IActionResult> Delete(int id)
         {
             var request = new DeleteNaturalDisasterEventRequest()

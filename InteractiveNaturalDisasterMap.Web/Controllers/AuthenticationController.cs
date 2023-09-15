@@ -1,5 +1,6 @@
 ﻿using InteractiveNaturalDisasterMap.Application.Handlers.Users.Commands.LoginUser;
 using InteractiveNaturalDisasterMap.Application.Handlers.Users.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InteractiveNaturalDisasterMap.Web.Controllers
@@ -8,7 +9,7 @@ namespace InteractiveNaturalDisasterMap.Web.Controllers
     [ApiController]
     public class AuthenticationController : BaseController
     {
-        [HttpPost("login")]
+        [HttpPost("login"), AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginUserDto loginUserDto)
         {
             var request = new LoginUserRequest()
