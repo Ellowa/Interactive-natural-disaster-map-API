@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InteractiveNaturalDisasterMap.Web.Controllers
@@ -10,5 +9,15 @@ namespace InteractiveNaturalDisasterMap.Web.Controllers
     {
         private IMediator _mediator;
         protected IMediator Mediator { get { return _mediator ??= HttpContext.RequestServices.GetService<IMediator>()!;} }
+
+        protected int? UserId
+        {
+            get 
+            { 
+                return !User.Identity.IsAuthenticated 
+                ? null 
+                : Convert.ToInt32(User.Claims.First(c => c.Type == "sub").Value);
+            }
+        }
     }
 }
