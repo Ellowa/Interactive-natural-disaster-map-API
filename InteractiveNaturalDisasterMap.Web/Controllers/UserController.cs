@@ -4,6 +4,7 @@ using InteractiveNaturalDisasterMap.Application.Handlers.Users.Commands.UpdateUs
 using InteractiveNaturalDisasterMap.Application.Handlers.Users.DTOs;
 using InteractiveNaturalDisasterMap.Application.Handlers.Users.Queries.GetAllUser;
 using InteractiveNaturalDisasterMap.Application.Handlers.Users.Queries.GetByIdUser;
+using InteractiveNaturalDisasterMap.Application.Handlers.Users.Queries.GetByLoginUser;
 using InteractiveNaturalDisasterMap.Web.Utilities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -34,6 +35,21 @@ namespace InteractiveNaturalDisasterMap.Web.Controllers
             {
                 GetByIdUserDto = new GetByIdUserDto() { Id = id },
                 UserId = (int)UserId!,
+            };
+            var userDto = await Mediator.Send(request);
+            return Ok(userDto);
+        }
+
+        // GET api/User/login
+        [HttpGet("{login}")]
+        [ProducesResponseType(typeof(UserDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = $"{UserRoles.Moderator}")]
+        public async Task<IActionResult> GetByLogin(string login)
+        {
+            var request = new GetByLoginUserRequest()
+            {
+                GetByLoginUserDto = new GetByLoginUserDto() { Login = login },
             };
             var userDto = await Mediator.Send(request);
             return Ok(userDto);
