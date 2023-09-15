@@ -4,22 +4,24 @@ using InteractiveNaturalDisasterMap.Application.Handlers.EventsCollectionInfos.D
 using InteractiveNaturalDisasterMap.Domain.Entities;
 using MediatR;
 using System.Linq.Expressions;
+using InteractiveNaturalDisasterMap.Application.Interfaces;
 
 namespace InteractiveNaturalDisasterMap.Application.Handlers.EventsCollectionInfos.Queries.GetAllEventsCollectionInfo
 {
     public class GetAllEventsCollectionInfoByUserIdHandler : IRequestHandler<GetAllEventsCollectionInfoByUserIdRequest, IList<EventsCollectionInfoDto>>
     {
         private readonly IGenericBaseEntityRepository<EventsCollectionInfo> _eventsCollectionInfoRepository;
+        private readonly IAuthorizationService _authorizationService;
 
-        public GetAllEventsCollectionInfoByUserIdHandler(IUnitOfWork unitOfWork)
+        public GetAllEventsCollectionInfoByUserIdHandler(IUnitOfWork unitOfWork, IAuthorizationService authorizationService)
         {
+            _authorizationService = authorizationService;
             _eventsCollectionInfoRepository = unitOfWork.EventsCollectionInfoRepository;
         }
 
         public async Task<IList<EventsCollectionInfoDto>> Handle(GetAllEventsCollectionInfoByUserIdRequest request, CancellationToken cancellationToken)
         {
-            if (request.GetAllEventsCollectionInfoDto.UserId != request.UserId)
-                throw new AuthorizationException(nameof(EventsCollectionInfo), request.UserId);
+            await _authorizationService.AuthorizeAsync(request.UserId, request.GetAllEventsCollectionInfoDto.UserId, cancellationToken, null);
 
             Expression<Func<EventsCollectionInfo, bool>> filter = eci => eci.UserId == request.GetAllEventsCollectionInfoDto.UserId;
             var eventsCollectionInfos =

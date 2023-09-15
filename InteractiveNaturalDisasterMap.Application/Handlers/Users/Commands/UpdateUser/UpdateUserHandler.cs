@@ -1,6 +1,7 @@
 ﻿using System.Security.Cryptography;
 using InteractiveNaturalDisasterMap.Application.DataAccessInterfaces;
 using InteractiveNaturalDisasterMap.Application.Exceptions;
+using InteractiveNaturalDisasterMap.Application.Interfaces;
 using InteractiveNaturalDisasterMap.Domain.Entities;
 using MediatR;
 
@@ -10,10 +11,12 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.Users.Commands.Upda
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IGenericBaseEntityRepository<User> _userRepository;
+        private readonly IAuthorizationService _authorizationService;
 
-        public UpdateUserHandler(IUnitOfWork unitOfWork)
+        public UpdateUserHandler(IUnitOfWork unitOfWork, IAuthorizationService authorizationService)
         {
             _unitOfWork = unitOfWork;
+            _authorizationService = authorizationService;
             _userRepository = unitOfWork.UserRepository;
         }
 
@@ -21,6 +24,8 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.Users.Commands.Upda
         {
             var user = (await _userRepository.GetByIdAsync(request.UpdateUserDto.Id, cancellationToken))
                        ?? throw new NotFoundException(nameof(User), request.UpdateUserDto.Id);
+
+            await _authorizationService.AuthorizeAsync(request.UserId, user.Id, cancellationToken, user);
 
             byte[] passwordHash, passwordSalt;
             using (var hmac = new HMACSHA256())
