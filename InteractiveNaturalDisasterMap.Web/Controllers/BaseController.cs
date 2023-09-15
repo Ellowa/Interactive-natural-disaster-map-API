@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using System.IdentityModel.Tokens.Jwt;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InteractiveNaturalDisasterMap.Web.Controllers
@@ -16,7 +17,7 @@ namespace InteractiveNaturalDisasterMap.Web.Controllers
             { 
                 return !User.Identity.IsAuthenticated 
                 ? null 
-                : Convert.ToInt32(User.Claims.First(c => c.Type == "sub").Value);
+                : Convert.ToInt32(User.Claims.First(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value);
             }
         }
     }
