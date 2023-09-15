@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using System.Security.Cryptography;
 using InteractiveNaturalDisasterMap.Application.DataAccessInterfaces;
 using InteractiveNaturalDisasterMap.Application.Exceptions;
 using InteractiveNaturalDisasterMap.Application.InfrastructureInterfaces;
@@ -24,7 +25,10 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.Users.Commands.Logi
             User user = (await _userRepository.GetAllAsync(cancellationToken, filter, u => u.Role)).FirstOrDefault()
                         ?? throw new NotFoundException(nameof(User), "With login " + request.LoginUserDto.Login);
 
-            //Todo check pass
+            using var hmac = new HMACSHA256(user.PasswordSalt);
+            var requestPasswordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(request.LoginUserDto.Password));
+            if (!requestPasswordHash.SequenceEqual(user.PasswordHash))
+                throw new RequestArgumentException(nameof(request.LoginUserDto.Password), request.LoginUserDto.Password);
 
             string token = _jwtProvider.Generate(user);
 
