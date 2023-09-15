@@ -4,12 +4,15 @@ using InteractiveNaturalDisasterMap.Application.Handlers.EventHazardUnits.Comman
 using InteractiveNaturalDisasterMap.Application.Handlers.EventHazardUnits.DTOs;
 using InteractiveNaturalDisasterMap.Application.Handlers.EventHazardUnits.Queries.GetAllEventHazardUnit;
 using InteractiveNaturalDisasterMap.Application.Handlers.EventHazardUnits.Queries.GetByIdEventHazardUnit;
+using InteractiveNaturalDisasterMap.Web.Utilities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InteractiveNaturalDisasterMap.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = $"{UserRoles.Moderator}")]
     public class EventHazardUnitController : BaseController
     {
         // GET: api/EventHazardUnit

@@ -4,12 +4,15 @@ using InteractiveNaturalDisasterMap.Application.Handlers.UserRoles.Commands.Upda
 using InteractiveNaturalDisasterMap.Application.Handlers.UserRoles.DTOs;
 using InteractiveNaturalDisasterMap.Application.Handlers.UserRoles.Queries.GetAllUserRole;
 using InteractiveNaturalDisasterMap.Application.Handlers.UserRoles.Queries.GetByIdUserRole;
+using InteractiveNaturalDisasterMap.Web.Utilities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InteractiveNaturalDisasterMap.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = $"{UserRoles.Moderator}")]
     public class UserRoleController : BaseController
     {
         // GET: api/UserRole

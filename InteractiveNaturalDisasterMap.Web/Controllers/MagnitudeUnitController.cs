@@ -4,12 +4,15 @@ using InteractiveNaturalDisasterMap.Application.Handlers.MagnitudeUnits.Commands
 using InteractiveNaturalDisasterMap.Application.Handlers.MagnitudeUnits.DTOs;
 using InteractiveNaturalDisasterMap.Application.Handlers.MagnitudeUnits.Queries.GetAllMagnitudeUnit;
 using InteractiveNaturalDisasterMap.Application.Handlers.MagnitudeUnits.Queries.GetByIdMagnitudeUnit;
+using InteractiveNaturalDisasterMap.Web.Utilities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InteractiveNaturalDisasterMap.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = $"{UserRoles.Moderator}")]
     public class MagnitudeUnitController : BaseController
     {
         // GET: api/MagnitudeUnit
