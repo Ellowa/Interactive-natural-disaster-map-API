@@ -14,7 +14,7 @@ namespace InteractiveNaturalDisasterMap.Application.Utilities
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<bool> AuthorizeAsync(int currentUserId, int resourceUserId, CancellationToken cancellationToken, BaseEntity? resource)
+        public async Task<bool> AuthorizeAsync(int currentUserId, int resourceUserId, CancellationToken cancellationToken, object? resource)
         {
             var user = await _unitOfWork.UserRepository.GetByIdAsync(currentUserId, cancellationToken, u => u.Role) ??
                 throw new NotFoundException(nameof(User), currentUserId);
