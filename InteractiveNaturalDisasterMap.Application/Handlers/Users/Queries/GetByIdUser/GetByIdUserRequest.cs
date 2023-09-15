@@ -7,5 +7,6 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.Users.Queries.GetBy
     public class GetByIdUserRequest : IRequest<UserDto>
     {
         public GetByIdUserDto GetByIdUserDto { get; set; } = null!;
+        public int UserId { get; set; }
     }
 }

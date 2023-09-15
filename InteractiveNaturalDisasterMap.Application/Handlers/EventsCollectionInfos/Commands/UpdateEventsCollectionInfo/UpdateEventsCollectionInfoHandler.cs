@@ -1,5 +1,6 @@
 ﻿using InteractiveNaturalDisasterMap.Application.DataAccessInterfaces;
 using InteractiveNaturalDisasterMap.Application.Exceptions;
+using InteractiveNaturalDisasterMap.Application.Interfaces;
 using InteractiveNaturalDisasterMap.Domain.Entities;
 using MediatR;
 
@@ -9,10 +10,12 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.EventsCollectionInf
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IGenericBaseEntityRepository<EventsCollectionInfo> _eventsCollectionInfoRepository;
+        private readonly IAuthorizationService _authorizationService;
 
-        public UpdateEventsCollectionInfoHandler(IUnitOfWork unitOfWork)
+        public UpdateEventsCollectionInfoHandler(IUnitOfWork unitOfWork, IAuthorizationService authorizationService)
         {
             _unitOfWork = unitOfWork;
+            _authorizationService = authorizationService;
             _eventsCollectionInfoRepository = unitOfWork.EventsCollectionInfoRepository;
         }
 
@@ -20,8 +23,8 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.EventsCollectionInf
         {
             var collectionInfo = await _eventsCollectionInfoRepository.GetByIdAsync(request.UpdateEventsCollectionInfoDto.Id, cancellationToken) 
                                  ?? throw new NotFoundException(nameof(EventsCollectionInfo), request.UpdateEventsCollectionInfoDto.Id);
-            if (collectionInfo.User.Id != request.UserId)
-                throw new AuthorizationException(nameof(collectionInfo), request.UserId);
+
+            await _authorizationService.AuthorizeAsync(request.UserId, collectionInfo.UserId, cancellationToken, collectionInfo);
 
             collectionInfo.CollectionName = request.UpdateEventsCollectionInfoDto.CollectionName;
             _eventsCollectionInfoRepository.Update(collectionInfo);

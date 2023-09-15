@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <Folder Include="InfrastructureInterfaces\" />
+    <Folder Include="Interfaces\" />
   </ItemGroup>
 
 </Project>

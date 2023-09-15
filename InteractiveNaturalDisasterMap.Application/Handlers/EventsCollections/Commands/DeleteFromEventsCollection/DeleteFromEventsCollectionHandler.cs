@@ -1,5 +1,6 @@
 ﻿using InteractiveNaturalDisasterMap.Application.DataAccessInterfaces;
 using InteractiveNaturalDisasterMap.Application.Exceptions;
+using InteractiveNaturalDisasterMap.Application.Interfaces;
 using InteractiveNaturalDisasterMap.Domain.Entities;
 using MediatR;
 
@@ -9,10 +10,12 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.EventsCollections.C
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IEventsCollectionRepository _eventsCollectionRepository;
+        private readonly IAuthorizationService _authorizationService;
 
-        public DeleteFromEventsCollectionHandler(IUnitOfWork unitOfWork)
+        public DeleteFromEventsCollectionHandler(IUnitOfWork unitOfWork, IAuthorizationService authorizationService)
         {
             _unitOfWork = unitOfWork;
+            _authorizationService = authorizationService;
             _eventsCollectionRepository = unitOfWork.EventsCollectionRepository;
         }
 
@@ -20,8 +23,8 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.EventsCollections.C
         {
             var collectionInfo = await _unitOfWork.EventsCollectionInfoRepository.GetByIdAsync(request.DeleteFromEventsCollectionDto.CollectionId, cancellationToken)
                                  ?? throw new NotFoundException(nameof(EventsCollectionInfo), request.DeleteFromEventsCollectionDto.CollectionId);
-            if (collectionInfo.UserId != request.UserId)
-                throw new AuthorizationException(nameof(collectionInfo), request.UserId);
+
+            await _authorizationService.AuthorizeAsync(request.UserId, collectionInfo.UserId, cancellationToken, collectionInfo);
 
             var entity = request.DeleteFromEventsCollectionDto.Map();
             _eventsCollectionRepository.Delete(entity);

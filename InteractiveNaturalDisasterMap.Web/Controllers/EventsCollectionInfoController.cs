@@ -19,7 +19,7 @@ namespace InteractiveNaturalDisasterMap.Web.Controllers
             var request = new GetAllEventsCollectionInfoByUserIdRequest()
             {
                 GetAllEventsCollectionInfoDto = getAllEventsCollectionInfoDto,
-                //Todo userId
+                UserId = (int)UserId!,
             };
             return await Mediator.Send(request);
         }
@@ -46,7 +46,7 @@ namespace InteractiveNaturalDisasterMap.Web.Controllers
             var request = new CreateEventsCollectionInfoRequest()
             {
                 CreateEventsCollectionInfoDto = createEventsCollectionInfoDto,
-                //Todo userId
+                UserId = (int)UserId!,
             };
             int createdEventsCollectionInfoId = await Mediator.Send(request);
             return CreatedAtAction(nameof(GetById), new { id = createdEventsCollectionInfoId }, createdEventsCollectionInfoId);
@@ -64,7 +64,7 @@ namespace InteractiveNaturalDisasterMap.Web.Controllers
             var request = new UpdateEventsCollectionInfoRequest()
             {
                 UpdateEventsCollectionInfoDto = updateEventsCollectionInfoDto,
-                //Todo userId
+                UserId = (int)UserId!,
             };
             await Mediator.Send(request);
             return NoContent();
@@ -79,6 +79,7 @@ namespace InteractiveNaturalDisasterMap.Web.Controllers
             var request = new DeleteEventsCollectionInfoRequest()
             {
                 DeleteEventsCollectionInfoDto = new DeleteEventsCollectionInfoDto() { Id = id },
+                UserId = (int)UserId!,
             };
             await Mediator.Send(request);
             return NoContent();
