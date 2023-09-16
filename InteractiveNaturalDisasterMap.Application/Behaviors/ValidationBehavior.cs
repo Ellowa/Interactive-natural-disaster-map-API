@@ -4,7 +4,7 @@ using MediatR;
 namespace InteractiveNaturalDisasterMap.Application.Behaviors
 {
     public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-        where TRequest : IRequest, new()
+        where TRequest : IBaseRequest
     {
         private readonly IEnumerable<IValidator<TRequest>> _validators;
 
@@ -21,8 +21,10 @@ namespace InteractiveNaturalDisasterMap.Application.Behaviors
                 return await next();
             }
 
-            var errors = _validators
-                .Select(validator => validator.Validate(request))
+            var validationFailures = await Task.WhenAll(
+                _validators.Select(validator => validator.ValidateAsync(request)));
+
+            var errors = validationFailures
                 .Where(validationResult => !validationResult.IsValid)
                 .SelectMany(validationResult => validationResult.Errors)
                 .ToList();
