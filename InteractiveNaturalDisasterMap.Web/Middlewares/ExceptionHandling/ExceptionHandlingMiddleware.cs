@@ -1,5 +1,6 @@
 ﻿using InteractiveNaturalDisasterMap.Application.Exceptions;
 using System.Net;
+using FluentValidation;
 
 namespace InteractiveNaturalDisasterMap.Web.Middlewares.ExceptionHandling
 {
@@ -49,6 +50,10 @@ namespace InteractiveNaturalDisasterMap.Web.Middlewares.ExceptionHandling
             catch (NotFoundException ex)
             {
                 await HandleAsync(context, HttpStatusCode.NotFound, ex.Message);
+            }
+            catch (ValidationException ex)
+            {
+                await HandleAsync(context, HttpStatusCode.BadRequest, ex.Message);
             }
             catch (Exception ex)
             {

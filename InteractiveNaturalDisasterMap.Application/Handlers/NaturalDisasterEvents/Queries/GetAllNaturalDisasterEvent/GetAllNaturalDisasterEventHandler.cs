@@ -21,7 +21,8 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
         public async Task<IList<NaturalDisasterEventDto>> Handle(GetAllNaturalDisasterEventRequest request, CancellationToken cancellationToken)
         {
             if (request.GetAllNaturalDisasterEventDto.ExtendedPeriodEndPoint != null &&
-                request.GetAllNaturalDisasterEventDto.ExtendedPeriodEndPoint < (DateTime.Now - TimeSpan.FromDays(1827)).ToUniversalTime())
+                (request.GetAllNaturalDisasterEventDto.ExtendedPeriodEndPoint < (DateTime.Now - TimeSpan.FromDays(1827)).ToUniversalTime() ||
+                 request.GetAllNaturalDisasterEventDto.ExtendedPeriodEndPoint > DateTime.Now.ToUniversalTime()))
                 throw new RequestArgumentException(nameof(request.GetAllNaturalDisasterEventDto.ExtendedPeriodEndPoint), request.GetAllNaturalDisasterEventDto.ExtendedPeriodEndPoint);
 
             Expression<Func<NaturalDisasterEvent, bool>> filter = request.GetAllNaturalDisasterEventDto.ExtendedPeriodEndPoint == null
