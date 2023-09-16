@@ -8,7 +8,7 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
         public GetAllNaturalDisasterEventValidator()
         {
             RuleFor(g => g.ExtendedPeriodEndPoint)
-                .LessThan((DateTime.UtcNow - TimeSpan.FromDays(364)).ToUniversalTime())
+                .LessThan(DateTime.UtcNow.ToUniversalTime())
                 .GreaterThanOrEqualTo((DateTime.Now - TimeSpan.FromDays(1827)).ToUniversalTime())
                 .When(g => g.ExtendedPeriodEndPoint != null);
         }
