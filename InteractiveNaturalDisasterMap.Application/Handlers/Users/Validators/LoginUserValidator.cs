@@ -1,15 +1,14 @@
-﻿using System.Security.Cryptography.X509Certificates;
-using FluentValidation;
-using InteractiveNaturalDisasterMap.Application.Handlers.Users.DTOs;
+﻿using FluentValidation;
+using InteractiveNaturalDisasterMap.Application.Handlers.Users.Commands.LoginUser;
 
 namespace InteractiveNaturalDisasterMap.Application.Handlers.Users.Validators
 {
-    public sealed class LoginUserValidator : AbstractValidator<LoginUserDto>
+    public sealed class LoginUserValidator : AbstractValidator<LoginUserRequest>
     {
         public LoginUserValidator()
         {
-            RuleFor(l => l.Login).NotEmpty();
-            RuleFor(l => l.Password).NotEmpty();
+            RuleFor(l => l.LoginUserDto.Login).NotEmpty();
+            RuleFor(l => l.LoginUserDto.Password).NotEmpty();
         }
     }
 }

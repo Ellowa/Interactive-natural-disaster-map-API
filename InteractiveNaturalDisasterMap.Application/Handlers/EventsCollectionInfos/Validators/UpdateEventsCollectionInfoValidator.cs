@@ -1,14 +1,14 @@
 ﻿using FluentValidation;
-using InteractiveNaturalDisasterMap.Application.Handlers.EventsCollectionInfos.DTOs;
+using InteractiveNaturalDisasterMap.Application.Handlers.EventsCollectionInfos.Commands.UpdateEventsCollectionInfo;
 
 namespace InteractiveNaturalDisasterMap.Application.Handlers.EventsCollectionInfos.Validators
 {
-    public sealed class UpdateEventsCollectionInfoValidator : AbstractValidator<UpdateEventsCollectionInfoDto>
+    public sealed class UpdateEventsCollectionInfoValidator : AbstractValidator<UpdateEventsCollectionInfoRequest>
     {
         public UpdateEventsCollectionInfoValidator()
         {
-            RuleFor(c => c.Id).NotNull();
-            RuleFor(c => c.CollectionName).NotEmpty();
+            RuleFor(c => c.UpdateEventsCollectionInfoDto.Id).NotNull();
+            RuleFor(c => c.UpdateEventsCollectionInfoDto.CollectionName).NotEmpty();
         }
     }
 }

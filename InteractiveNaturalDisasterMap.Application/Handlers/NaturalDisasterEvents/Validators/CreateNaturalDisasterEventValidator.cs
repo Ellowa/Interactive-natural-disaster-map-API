@@ -1,24 +1,24 @@
 ﻿using FluentValidation;
-using InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEvents.DTOs;
+using InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEvents.Commands.CreateNaturalDisasterEvent;
 
 namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEvents.Validators
 {
-    public sealed class CreateNaturalDisasterEventValidator : AbstractValidator<CreateNaturalDisasterEventDto>
+    public sealed class CreateNaturalDisasterEventValidator : AbstractValidator<CreateNaturalDisasterEventRequest>
     {
         public CreateNaturalDisasterEventValidator()
         {
-            RuleFor(c => c.Title).NotEmpty();
-            RuleFor(c => c.StartDate).LessThanOrEqualTo(DateTime.Now.ToUniversalTime());
-            RuleFor(c => c.EndDate)
-                .GreaterThan(c => c.StartDate)
-                .LessThanOrEqualTo(DateTime.Now.ToUniversalTime()).When(c => c.EndDate != null);
-            RuleFor(c => c.MagnitudeValue)
+            RuleFor(c => c.CreateNaturalDisasterEventDto.Title).NotEmpty();
+            RuleFor(c => c.CreateNaturalDisasterEventDto.StartDate).LessThanOrEqualTo(DateTime.Now.ToUniversalTime());
+            RuleFor(c => c.CreateNaturalDisasterEventDto.EndDate)
+                .GreaterThan(c => c.CreateNaturalDisasterEventDto.StartDate)
+                .LessThanOrEqualTo(DateTime.Now.ToUniversalTime()).When(c => c.CreateNaturalDisasterEventDto.EndDate != null);
+            RuleFor(c => c.CreateNaturalDisasterEventDto.MagnitudeValue)
                 .GreaterThan(0)
-                .When(c => c.MagnitudeValue != null);
-            RuleFor(c => c.EventCategoryName).NotEmpty();
-            RuleFor(c => c.MagnitudeUnitName).NotEmpty();
-            RuleFor(c => c.Latitude).GreaterThanOrEqualTo(-90).LessThanOrEqualTo(90);
-            RuleFor(c => c.Longitude).GreaterThanOrEqualTo(-180).LessThanOrEqualTo(180);
+                .When(c => c.CreateNaturalDisasterEventDto.MagnitudeValue != null);
+            RuleFor(c => c.CreateNaturalDisasterEventDto.EventCategoryName).NotEmpty();
+            RuleFor(c => c.CreateNaturalDisasterEventDto.MagnitudeUnitName).NotEmpty();
+            RuleFor(c => c.CreateNaturalDisasterEventDto.Latitude).GreaterThanOrEqualTo(-90).LessThanOrEqualTo(90);
+            RuleFor(c => c.CreateNaturalDisasterEventDto.Longitude).GreaterThanOrEqualTo(-180).LessThanOrEqualTo(180);
         }
     }
 }
