@@ -25,7 +25,7 @@ namespace InteractiveNaturalDisasterMap.Web.Controllers
         }
 
         // GET api/User/5
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         [ProducesResponseType(typeof(UserDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [Authorize(Roles = $"{UserRoles.Moderator}, {UserRoles.User}")]
@@ -41,7 +41,7 @@ namespace InteractiveNaturalDisasterMap.Web.Controllers
         }
 
         // GET api/User/login
-        [HttpGet("{login}")]
+        [HttpGet("{login:alpha}")]
         [ProducesResponseType(typeof(UserDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [Authorize(Roles = $"{UserRoles.Moderator}")]
