@@ -7,7 +7,7 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.Users.Validators
     {
         public CreateUserValidator()
         {
-            RuleFor(c => c.CreateUserDto.Login).Length(5, 20);
+            RuleFor(c => c.CreateUserDto.Login).Length(4, 20);
             RuleFor(c => c.CreateUserDto.Password)
                 .NotEmpty().WithMessage("Password cannot be empty")
                 .MinimumLength(8).WithMessage("Password must be at least 8 characters long")
