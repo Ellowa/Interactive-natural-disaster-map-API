@@ -9,7 +9,7 @@ namespace InteractiveNaturalDisasterMap.Application.DataAccessInterfaces
         IGenericBaseEntityRepository<EventSource> EventSourceRepository { get; }
         IGenericBaseEntityRepository<MagnitudeUnit> MagnitudeUnitRepository { get; }
         IEventsCollectionRepository EventsCollectionRepository { get; }
-        IGenericBaseEntityRepository<EventsCollectionInfo> EventsCollectionInfoRepository { get; }
+        IEventsCollectionInfoRepository EventsCollectionInfoRepository { get; }
         IGenericBaseEntityRepository<User> UserRepository { get; }
         IGenericBaseEntityRepository<UserRole> UserRoleRepository { get; }
         IUnconfirmedEventRepository UnconfirmedEventRepository { get; }

@@ -12,7 +12,7 @@ namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql
         private IGenericBaseEntityRepository<EventSource> _eventSourceRepository;
         private IGenericBaseEntityRepository<MagnitudeUnit> _magnitudeUnitRepository;
         private IEventsCollectionRepository _eventsCollectionRepository;
-        private IGenericBaseEntityRepository<EventsCollectionInfo> _eventsCollectionInfoRepository;
+        private IEventsCollectionInfoRepository _eventsCollectionInfoRepository;
         private IGenericBaseEntityRepository<User> _userRepository;
         private IGenericBaseEntityRepository<UserRole> _userRoleRepository;
         private IUnconfirmedEventRepository _unconfirmedEventRepository;
@@ -40,8 +40,8 @@ namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql
         public IEventsCollectionRepository EventsCollectionRepository =>
             _eventsCollectionRepository ??= new EventsCollectionRepository(_context);
 
-        public IGenericBaseEntityRepository<EventsCollectionInfo> EventsCollectionInfoRepository =>
-            _eventsCollectionInfoRepository ??= new GenericBaseEntityRepository<EventsCollectionInfo>(_context);
+        public IEventsCollectionInfoRepository EventsCollectionInfoRepository =>
+            _eventsCollectionInfoRepository ??= new EventsCollectionInfoRepository(_context);
 
         public IGenericBaseEntityRepository<User> UserRepository =>
             _userRepository ??= new GenericBaseEntityRepository<User>(_context);
