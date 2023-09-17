@@ -12,7 +12,11 @@ namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql.EntityTypeConfigur
                 .HasOne(eci => eci.User)
                 .WithMany(u => u.EventsCollectionInfos)
                 .HasForeignKey(eci => eci.UserId);
-            builder.HasIndex(eci => eci.CollectionName).IsUnique();
+            builder
+                .HasMany(eci => eci.EventsCollection)
+                .WithOne(ec => ec.EventsCollectionInfo)
+                .HasForeignKey(ec => ec.CollectionId);
+            builder.HasIndex(eci => new{ eci.CollectionName, eci.UserId}).IsUnique();
         }
     }
 }
