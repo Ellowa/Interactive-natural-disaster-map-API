@@ -36,10 +36,11 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
                 eventHazardUnitId = eventHazardUnits.First(ehu => ehu.ThresholdValue <= request.CreateNaturalDisasterEventDto.MagnitudeValue).Id;
             }
 
-            bool isConfirmedEvent = eventSource.SourceType != "User";
+            bool isConfirmedEvent = eventSource.SourceType != "user";
 
             var entity = request.CreateNaturalDisasterEventDto.Map(isConfirmedEvent, eventHazardUnitId, eventSource.Id, eventCategory.Id, magnitudeUnit.Id);
             await _naturalDisasterEventRepository.AddAsync(entity, cancellationToken);
+            await _unitOfWork.SaveAsync(cancellationToken);
 
             if (!isConfirmedEvent)
             {
@@ -50,8 +51,8 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
                     IsChecked = false,
                 };
                 await _unitOfWork.UnconfirmedEventRepository.AddAsync(unconfirmedEvent, cancellationToken);
+                await _unitOfWork.SaveAsync(cancellationToken);
             }
-            await _unitOfWork.SaveAsync(cancellationToken);
             return entity.Id;
         }
     }

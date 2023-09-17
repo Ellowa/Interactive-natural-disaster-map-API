@@ -49,7 +49,7 @@ namespace InteractiveNaturalDisasterMap.Web.Controllers
             var request = new CreateNaturalDisasterEventRequest()
             {
                 CreateNaturalDisasterEventDto = createNaturalDisasterEventDto,
-                SourceName = "User",
+                SourceName = "user",
                 UserId = UserId,
             };
             int createdNaturalDisasterEventId = await Mediator.Send(request);
