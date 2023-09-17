@@ -25,8 +25,8 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.Users.Commands.Crea
                 passwordSalt = hmac.Key;
                 passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(request.CreateUserDto.Password));
             }
-            var userRole = (await _unitOfWork.UserRoleRepository.GetAllAsync(cancellationToken, ur => ur.RoleName == "User"))
-                .FirstOrDefault() ?? throw new NotFoundException(nameof(UserRole), "With roleName User");
+            var userRole = (await _unitOfWork.UserRoleRepository.GetAllAsync(cancellationToken, ur => ur.RoleName == "user"))
+                .FirstOrDefault() ?? throw new NotFoundException(nameof(UserRole), "With roleName user");
 
 
             var entity = request.CreateUserDto.Map(passwordHash, passwordSalt, userRole.Id);

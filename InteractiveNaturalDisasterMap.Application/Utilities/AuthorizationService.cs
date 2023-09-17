@@ -19,7 +19,7 @@ namespace InteractiveNaturalDisasterMap.Application.Utilities
             var user = await _unitOfWork.UserRepository.GetByIdAsync(currentUserId, cancellationToken, u => u.Role) ??
                 throw new NotFoundException(nameof(User), currentUserId);
 
-            if (user.Role.RoleName == "Moderator") return true;
+            if (user.Role.RoleName == "moderator") return true;
 
             if (currentUserId != resourceUserId)
                 throw new AuthorizationException(nameof(resource), currentUserId);

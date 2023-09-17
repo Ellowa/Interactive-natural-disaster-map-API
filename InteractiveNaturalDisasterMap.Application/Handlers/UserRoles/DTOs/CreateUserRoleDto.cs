@@ -10,7 +10,7 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.UserRoles.DTOs
         {
             UserRole userRole = new UserRole()
             {
-                RoleName = this.RoleName,
+                RoleName = this.RoleName.ToLower(),
             };
             return userRole;
         }
