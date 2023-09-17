@@ -38,22 +38,46 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
 
             bool isConfirmedEvent = eventSource.SourceType != "user";
 
-            var entity = request.CreateNaturalDisasterEventDto.Map(isConfirmedEvent, eventHazardUnitId, eventSource.Id, eventCategory.Id, magnitudeUnit.Id);
-            await _naturalDisasterEventRepository.AddAsync(entity, cancellationToken);
+            var naturalDisasterEventEntity = request.CreateNaturalDisasterEventDto.Map(isConfirmedEvent, eventHazardUnitId, eventSource.Id, eventCategory.Id, magnitudeUnit.Id);
+            await _naturalDisasterEventRepository.AddAsync(naturalDisasterEventEntity, cancellationToken);
             await _unitOfWork.SaveAsync(cancellationToken);
 
             if (!isConfirmedEvent)
             {
                 var unconfirmedEvent = new UnconfirmedEvent()
                 {
-                    EventId = entity.Id,
+                    EventId = naturalDisasterEventEntity.Id,
                     UserId = (int)request.UserId!,
                     IsChecked = false,
                 };
                 await _unitOfWork.UnconfirmedEventRepository.AddAsync(unconfirmedEvent, cancellationToken);
+
+                var userEventsCollection =
+                    (await _unitOfWork.EventsCollectionInfoRepository.GetAllAsync(cancellationToken,
+                        mu => mu.CollectionName == "your Events")).FirstOrDefault();
+                if (userEventsCollection == null)
+                {
+                    userEventsCollection = new EventsCollectionInfo
+                    {
+                        CollectionName = "your Events",
+                        UserId = (int)request.UserId!,
+                    };
+                    await _unitOfWork.EventsCollectionInfoRepository.AddAsync(userEventsCollection, cancellationToken);
+                    await _unitOfWork.SaveAsync(cancellationToken);
+                }
+
+                await _unitOfWork.EventsCollectionRepository.AddAsync(
+                    new EventsCollection
+                    {
+                        EventId = naturalDisasterEventEntity.Id, 
+                        CollectionId = userEventsCollection.Id,
+                    },
+                    cancellationToken);
+
                 await _unitOfWork.SaveAsync(cancellationToken);
             }
-            return entity.Id;
+
+            return naturalDisasterEventEntity.Id;
         }
     }
 }
