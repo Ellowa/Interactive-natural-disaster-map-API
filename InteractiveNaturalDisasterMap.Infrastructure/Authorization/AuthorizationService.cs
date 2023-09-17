@@ -3,7 +3,7 @@ using InteractiveNaturalDisasterMap.Application.Exceptions;
 using InteractiveNaturalDisasterMap.Application.Interfaces;
 using InteractiveNaturalDisasterMap.Domain.Entities;
 
-namespace InteractiveNaturalDisasterMap.Application.Utilities
+namespace InteractiveNaturalDisasterMap.Infrastructure.Authorization
 {
     internal class AuthorizationService : IAuthorizationService
     {
