@@ -1,5 +1,4 @@
-﻿using InteractiveNaturalDisasterMap.Application.Handlers.MagnitudeUnits.DTOs;
-using InteractiveNaturalDisasterMap.Domain.Entities;
+﻿using InteractiveNaturalDisasterMap.Domain.Entities;
 
 namespace InteractiveNaturalDisasterMap.Application.Handlers.EventHazardUnits.DTOs
 {
@@ -13,15 +12,13 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.EventHazardUnits.DT
 
         public double? ThresholdValue { get; set; }
 
-        public MagnitudeUnitDto MagnitudeUnitDto { get; set; }
-
         public EventHazardUnitDto(EventHazardUnit eventHazardUnit)
         {
             Id = eventHazardUnit.Id;
             HazardName = eventHazardUnit.HazardName;
             ThresholdValue = eventHazardUnit.ThresholdValue;
             MagnitudeUnitName = eventHazardUnit.MagnitudeUnit.MagnitudeUnitName;
-            MagnitudeUnitDto = new MagnitudeUnitDto(eventHazardUnit.MagnitudeUnit);
         }
+
     }
 }
