@@ -14,7 +14,7 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.Users.Validators
                 .Matches("[A-Z]").WithMessage("Password must contain at least one uppercase letter")
                 .Matches("[a-z]").WithMessage("Password must contain at least one lowercase letter")
                 .Matches("[0-9]").WithMessage("Password must contain at least one digit")
-                .Matches("[!@#$%^&*]").WithMessage("Password must contain at least one special character (!@#$%^&*)");
+                .Matches("[!@#$%^&*_]").WithMessage("Password must contain at least one special character (!@#$%^&*_)");
             RuleFor(c => c.CreateUserDto.Email)
                 .EmailAddress()
                 .When(c => c.CreateUserDto.Email != null);
