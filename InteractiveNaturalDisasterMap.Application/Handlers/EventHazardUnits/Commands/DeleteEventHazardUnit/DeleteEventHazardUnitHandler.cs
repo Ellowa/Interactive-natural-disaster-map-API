@@ -22,8 +22,8 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.EventHazardUnits.Co
                 throw new NotFoundException(nameof(EventHazardUnit), request.DeleteEventHazardUnitDto.Id);
 
             var events = await _unitOfWork.NaturalDisasterEventRepository.GetAllAsync(cancellationToken, ndu => ndu.EventHazardUnitId == request.DeleteEventHazardUnitDto.Id);
-            var undefinedEventHazardUnit = (await _eventHazardUnitRepository.GetAllAsync(cancellationToken, mu => mu.HazardName == "Undefined")).FirstOrDefault() 
-                                         ?? throw new NotFoundException(nameof(EventHazardUnit), "With name Undefined");
+            var undefinedEventHazardUnit = (await _eventHazardUnitRepository.GetAllAsync(cancellationToken, mu => mu.HazardName == "undefined")).FirstOrDefault() 
+                                         ?? throw new NotFoundException(nameof(EventHazardUnit), "With name undefined");
 
             foreach (NaturalDisasterEvent naturalDisasterEvent in events)
             {

@@ -22,10 +22,10 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.MagnitudeUnits.Comm
                 throw new NotFoundException(nameof(MagnitudeUnit), request.DeleteMagnitudeUnitDto.Id);
 
             var events = await _unitOfWork.NaturalDisasterEventRepository.GetAllAsync(cancellationToken, nde => nde.MagnitudeUnitId == request.DeleteMagnitudeUnitDto.Id);
-            var undefinedMagnitudeUnit = (await _magnitudeUnitRepository.GetAllAsync(cancellationToken, mu => mu.MagnitudeUnitName == "Undefined")).FirstOrDefault() 
-                                         ?? throw new NotFoundException(nameof(MagnitudeUnit), "With name Undefined");
-            var undefinedEventHazardUnit = (await _unitOfWork.EventHazardUnitRepository.GetAllAsync(cancellationToken, mu => mu.HazardName == "Undefined")).FirstOrDefault()
-                                           ?? throw new NotFoundException(nameof(EventHazardUnit), "With name Undefined");
+            var undefinedMagnitudeUnit = (await _magnitudeUnitRepository.GetAllAsync(cancellationToken, mu => mu.MagnitudeUnitName == "undefined")).FirstOrDefault() 
+                                         ?? throw new NotFoundException(nameof(MagnitudeUnit), "With name undefined");
+            var undefinedEventHazardUnit = (await _unitOfWork.EventHazardUnitRepository.GetAllAsync(cancellationToken, mu => mu.HazardName == "undefined")).FirstOrDefault()
+                                           ?? throw new NotFoundException(nameof(EventHazardUnit), "With name undefined");
 
             foreach (NaturalDisasterEvent naturalDisasterEvent in events)
             {
