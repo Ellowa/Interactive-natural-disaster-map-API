@@ -18,8 +18,22 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.EventSources.Comman
 
         public async Task Handle(DeleteEventSourceRequest request, CancellationToken cancellationToken)
         {
-            if(await _eventSourceRepository.GetByIdAsync(request.DeleteEventSourceDto.Id, cancellationToken) == null)
+            if (await _eventSourceRepository.GetByIdAsync(request.DeleteEventSourceDto.Id, cancellationToken) == null)
                 throw new NotFoundException(nameof(EventSource), request.DeleteEventSourceDto.Id);
+
+            var events = await _unitOfWork.NaturalDisasterEventRepository.GetAllAsync(
+                cancellationToken,
+                nde => nde.SourceId == request.DeleteEventSourceDto.Id);
+            var unknownSourceType = (await _eventSourceRepository.GetAllAsync(
+                               cancellationToken,
+                               es => es.SourceType == "unknown")).FirstOrDefault()
+                           ?? throw new NotFoundException(nameof(EventSource), "With name unknown");
+
+            foreach (NaturalDisasterEvent naturalDisasterEvent in events)
+            {
+                naturalDisasterEvent.SourceId = unknownSourceType.Id;
+                _unitOfWork.NaturalDisasterEventRepository.Update(naturalDisasterEvent);
+            }
 
             await _eventSourceRepository.DeleteByIdAsync(request.DeleteEventSourceDto.Id, cancellationToken);
             await _unitOfWork.SaveAsync(cancellationToken);
