@@ -19,9 +19,12 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.EventsCollectionInf
             UserId = eventsCollectionInfo.UserId;
             UserLogin = eventsCollectionInfo.User.Login;
             EventDtos = new List<NaturalDisasterEventDto>();
-            foreach (var naturalDisasterEvent in eventsCollectionInfo.EventsCollection.Select(ec => ec.Event))
+            if (eventsCollectionInfo.EventsCollection.Any())
             {
-                EventDtos.Add(new NaturalDisasterEventDto(naturalDisasterEvent));
+                foreach (var naturalDisasterEvent in eventsCollectionInfo.EventsCollection.Select(ec => ec.Event))
+                {
+                    EventDtos.Add(new NaturalDisasterEventDto(naturalDisasterEvent));
+                }
             }
         }
     }

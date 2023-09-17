@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 using InteractiveNaturalDisasterMap.Application.DataAccessInterfaces;
 using InteractiveNaturalDisasterMap.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +11,9 @@ namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql.Repositories
         {
         }
 
-        public override async Task<IReadOnlyList<EventsCollectionInfo>> GetAllAsync(CancellationToken cancellationToken, Expression<Func<EventsCollectionInfo, bool>>? filter, params Expression<Func<EventsCollectionInfo, object>>[] includes)
+        public override async Task<IReadOnlyList<EventsCollectionInfo>> GetAllAsync(CancellationToken cancellationToken,
+            Expression<Func<EventsCollectionInfo, bool>>? filter,
+            params Expression<Func<EventsCollectionInfo, object>>[] includes)
         {
             IQueryable<EventsCollectionInfo> query = DbSet;
 
@@ -21,7 +22,7 @@ namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql.Repositories
                 query = query.Include(include);
             }
 
-            query.Include(eci => eci.User)
+            query = query.Include(eci => eci.User)
                 .Include(eci => eci.EventsCollection).ThenInclude(ec => ec.Event.Category)
                 .Include(eci => eci.EventsCollection).ThenInclude(ec => ec.Event.Source)
                 .Include(eci => eci.EventsCollection).ThenInclude(ec => ec.Event.MagnitudeUnit)
