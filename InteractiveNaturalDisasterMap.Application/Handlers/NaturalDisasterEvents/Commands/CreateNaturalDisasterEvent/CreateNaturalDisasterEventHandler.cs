@@ -54,7 +54,7 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
 
                 var userEventsCollection =
                     (await _unitOfWork.EventsCollectionInfoRepository.GetAllAsync(cancellationToken,
-                        mu => mu.CollectionName == "your Events")).FirstOrDefault();
+                        mu => (mu.CollectionName == "your Events") && mu.UserId == (int)request.UserId)).FirstOrDefault();
                 if (userEventsCollection == null)
                 {
                     userEventsCollection = new EventsCollectionInfo
