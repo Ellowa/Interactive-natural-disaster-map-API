@@ -28,8 +28,8 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
             {
                 Title = this.Title,
                 Link = this.Link,
-                StartDate = this.StartDate,
-                EndDate = this.EndDate,
+                StartDate = this.StartDate.ToUniversalTime(),
+                EndDate = this.EndDate!,
                 MagnitudeValue = this.MagnitudeValue,
                 Confirmed = confirmed,
                 EventCategoryId = eventCategoryId,
@@ -39,6 +39,10 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
                 Latitude = Latitude,
                 Longitude = Longitude,
             };
+            if (naturalDisasterEvent.EndDate != null)
+            {
+                naturalDisasterEvent.EndDate = ((DateTime)naturalDisasterEvent.EndDate).ToUniversalTime();
+            }
             return naturalDisasterEvent;
         }
     }
