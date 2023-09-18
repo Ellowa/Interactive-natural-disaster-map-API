@@ -57,6 +57,12 @@ if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
+app.UseCors(policyBuilder =>
+    policyBuilder
+        .AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader());
+
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
