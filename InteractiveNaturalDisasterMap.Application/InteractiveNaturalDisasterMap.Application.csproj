@@ -16,9 +16,4 @@
     <ProjectReference Include="..\InteractiveNaturalDisasterMap.Entities\InteractiveNaturalDisasterMap.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="InfrastructureInterfaces\" />
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
-
 </Project>

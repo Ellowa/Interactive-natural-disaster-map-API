@@ -3,7 +3,7 @@ using InteractiveNaturalDisasterMap.Application.Handlers.EventsCollectionInfos.D
 using InteractiveNaturalDisasterMap.Domain.Entities;
 using MediatR;
 using System.Linq.Expressions;
-using InteractiveNaturalDisasterMap.Application.Interfaces;
+using InteractiveNaturalDisasterMap.Application.InfrastructureInterfaces;
 
 namespace InteractiveNaturalDisasterMap.Application.Handlers.EventsCollectionInfos.Queries.GetAllEventsCollectionInfo
 {

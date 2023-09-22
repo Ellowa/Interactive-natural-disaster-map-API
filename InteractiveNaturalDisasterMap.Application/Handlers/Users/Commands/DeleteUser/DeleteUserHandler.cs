@@ -1,6 +1,6 @@
 ﻿using InteractiveNaturalDisasterMap.Application.DataAccessInterfaces;
 using InteractiveNaturalDisasterMap.Application.Exceptions;
-using InteractiveNaturalDisasterMap.Application.Interfaces;
+using InteractiveNaturalDisasterMap.Application.InfrastructureInterfaces;
 using InteractiveNaturalDisasterMap.Domain.Entities;
 using MediatR;
 

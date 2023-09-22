@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using InteractiveNaturalDisasterMap.Application.InfrastructureInterfaces;
-using InteractiveNaturalDisasterMap.Application.Interfaces;
 using InteractiveNaturalDisasterMap.Infrastructure.Authentication;
 using InteractiveNaturalDisasterMap.Infrastructure.Authorization;
 

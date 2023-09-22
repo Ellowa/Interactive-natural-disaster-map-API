@@ -1,4 +1,4 @@
-﻿namespace InteractiveNaturalDisasterMap.Application.Interfaces
+﻿namespace InteractiveNaturalDisasterMap.Application.InfrastructureInterfaces
 {
     public interface IAuthorizationService
     {
