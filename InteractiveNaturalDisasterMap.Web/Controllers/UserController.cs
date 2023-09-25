@@ -57,15 +57,15 @@ namespace InteractiveNaturalDisasterMap.Web.Controllers
 
         // POST api/User
         [HttpPost, AllowAnonymous]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Create([FromBody] CreateUserDto createUserDto)
         {
             var request = new CreateUserRequest()
             {
                 CreateUserDto = createUserDto,
             };
-            int createdUserId = await Mediator.Send(request);
-            return CreatedAtAction(nameof(GetById), new { id = createdUserId }, createdUserId);
+            string createdUserJwt = await Mediator.Send(request);
+            return Ok(createdUserJwt);
         }
 
         // PUT api/User/5

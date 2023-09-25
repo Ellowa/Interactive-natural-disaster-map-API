@@ -1,23 +1,26 @@
 ﻿using InteractiveNaturalDisasterMap.Application.DataAccessInterfaces;
 using InteractiveNaturalDisasterMap.Application.Exceptions;
+using InteractiveNaturalDisasterMap.Application.InfrastructureInterfaces;
 using InteractiveNaturalDisasterMap.Domain.Entities;
 using MediatR;
 using System.Security.Cryptography;
 
 namespace InteractiveNaturalDisasterMap.Application.Handlers.Users.Commands.CreateUser
 {
-    public class CreateUserHandler : IRequestHandler<CreateUserRequest, int>
+    public class CreateUserHandler : IRequestHandler<CreateUserRequest, string>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IGenericBaseEntityRepository<User> _userRepository;
+        private readonly IJwtProvider _jwtProvider;
 
-        public CreateUserHandler(IUnitOfWork unitOfWork)
+        public CreateUserHandler(IUnitOfWork unitOfWork, IJwtProvider jwtProvider)
         {
             _unitOfWork = unitOfWork;
+            _jwtProvider = jwtProvider;
             _userRepository = unitOfWork.UserRepository;
         }
 
-        public async Task<int> Handle(CreateUserRequest request, CancellationToken cancellationToken)
+        public async Task<string> Handle(CreateUserRequest request, CancellationToken cancellationToken)
         {
             byte[] passwordHash, passwordSalt;
             using (var hmac = new HMACSHA256())
@@ -29,10 +32,12 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.Users.Commands.Crea
                 .FirstOrDefault() ?? throw new NotFoundException(nameof(UserRole), "With roleName user");
 
 
-            var entity = request.CreateUserDto.Map(passwordHash, passwordSalt, userRole.Id);
-            await _userRepository.AddAsync(entity, cancellationToken);
+            var user = request.CreateUserDto.Map(passwordHash, passwordSalt, userRole.Id);
+            await _userRepository.AddAsync(user, cancellationToken);
             await _unitOfWork.SaveAsync(cancellationToken);
-            return entity.Id;
+
+            string token = _jwtProvider.Generate(user);
+            return token;
         }
     }
 }
