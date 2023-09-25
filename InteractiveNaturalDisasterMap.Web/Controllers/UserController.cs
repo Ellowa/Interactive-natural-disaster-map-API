@@ -1,5 +1,6 @@
 ﻿using InteractiveNaturalDisasterMap.Application.Handlers.Users.Commands.CreateUser;
 using InteractiveNaturalDisasterMap.Application.Handlers.Users.Commands.DeleteUser;
+using InteractiveNaturalDisasterMap.Application.Handlers.Users.Commands.SetModeratorPermission;
 using InteractiveNaturalDisasterMap.Application.Handlers.Users.Commands.UpdateUser;
 using InteractiveNaturalDisasterMap.Application.Handlers.Users.DTOs;
 using InteractiveNaturalDisasterMap.Application.Handlers.Users.Queries.GetAllUser;
@@ -98,6 +99,22 @@ namespace InteractiveNaturalDisasterMap.Web.Controllers
             {
                 DeleteUserDto = new DeleteUserDto() { Id = id },
                 UserId = (int)UserId!,
+            };
+            await Mediator.Send(request);
+            return NoContent();
+        }
+
+        // POST api/User/5
+        [HttpPost("sertmoderator/{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = $"{UserRoles.Moderator}")]
+        public async Task<IActionResult> SetModeratorPermission(int id)
+        {
+
+            var request = new SetModeratorPermissionRequest()
+            {
+                SetModeratorPermissionDto = new() { Id = id }
             };
             await Mediator.Send(request);
             return NoContent();
