@@ -2,6 +2,6 @@
 {
     public interface IAuthorizationService
     {
-        Task<bool> AuthorizeAsync(int currentUserId, int resourceUserId, CancellationToken cancellationToken, object? resource);
+        Task<bool> AuthorizeAsync(int currentUserId, int resourceUserId, CancellationToken cancellationToken, object? resource, int? resourceId);
     }
 }

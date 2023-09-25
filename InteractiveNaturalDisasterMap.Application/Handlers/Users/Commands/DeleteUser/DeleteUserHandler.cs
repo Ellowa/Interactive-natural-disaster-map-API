@@ -24,7 +24,7 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.Users.Commands.Dele
             var user = (await _userRepository.GetByIdAsync(request.DeleteUserDto.Id, cancellationToken))
                        ?? throw new NotFoundException(nameof(User), request.DeleteUserDto.Id);
 
-            await _authorizationService.AuthorizeAsync(request.UserId, user.Id, cancellationToken, user);
+            await _authorizationService.AuthorizeAsync(request.UserId, user.Id, cancellationToken, user, user.Id);
 
             await _userRepository.DeleteByIdAsync(request.DeleteUserDto.Id, cancellationToken);
             await _unitOfWork.SaveAsync(cancellationToken);

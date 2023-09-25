@@ -25,7 +25,7 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.Users.Commands.Upda
             var user = (await _userRepository.GetByIdAsync(request.UpdateUserDto.Id, cancellationToken))
                        ?? throw new NotFoundException(nameof(User), request.UpdateUserDto.Id);
 
-            await _authorizationService.AuthorizeAsync(request.UserId, user.Id, cancellationToken, user);
+            await _authorizationService.AuthorizeAsync(request.UserId, user.Id, cancellationToken, user, user.Id);
 
             byte[] passwordHash, passwordSalt;
             using (var hmac = new HMACSHA256())

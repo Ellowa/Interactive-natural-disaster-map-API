@@ -14,7 +14,7 @@ namespace InteractiveNaturalDisasterMap.Infrastructure.Authorization
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<bool> AuthorizeAsync(int currentUserId, int resourceUserId, CancellationToken cancellationToken, object? resource)
+        public async Task<bool> AuthorizeAsync(int currentUserId, int resourceUserId, CancellationToken cancellationToken, object? resource, int? resourceId)
         {
             var user = await _unitOfWork.UserRepository.GetByIdAsync(currentUserId, cancellationToken, u => u.Role) ??
                 throw new NotFoundException(nameof(User), currentUserId);
@@ -22,7 +22,7 @@ namespace InteractiveNaturalDisasterMap.Infrastructure.Authorization
             if (user.Role.RoleName == "moderator") return true;
 
             if (currentUserId != resourceUserId)
-                throw new AuthorizationException(nameof(resource), currentUserId);
+                throw new AuthorizationException($"{resource?.GetType()}(id - {resourceId})", currentUserId);
 
             return true;
         }

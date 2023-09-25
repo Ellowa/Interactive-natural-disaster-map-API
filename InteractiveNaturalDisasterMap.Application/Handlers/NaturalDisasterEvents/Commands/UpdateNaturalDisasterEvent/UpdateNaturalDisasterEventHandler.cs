@@ -26,10 +26,21 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
                 ?? throw new NotFoundException(nameof(NaturalDisasterEvent), request.UpdateNaturalDisasterEventDto.Id);
 
             var unconfirmedEvent =
-                await _unitOfWork.UnconfirmedEventRepository.GetByEventId(request.UpdateNaturalDisasterEventDto.Id, cancellationToken)
-                ?? throw new NotFoundException(nameof(UnconfirmedEvent), request.UpdateNaturalDisasterEventDto.Id);
+                await _unitOfWork.UnconfirmedEventRepository.GetByEventId(request.UpdateNaturalDisasterEventDto.Id, cancellationToken);
 
-            await _authorizationService.AuthorizeAsync(request.UserId, unconfirmedEvent.UserId, cancellationToken, unconfirmedEvent);
+            if (unconfirmedEvent == null)
+            {
+                var user = await _unitOfWork.UserRepository.GetByIdAsync(request.UserId, cancellationToken, u => u.Role) ??
+                           throw new NotFoundException(nameof(User), request.UserId);
+                if (user.Role.RoleName != "moderator")
+                {
+                    throw new NotFoundException(nameof(UnconfirmedEvent), request.UpdateNaturalDisasterEventDto.Id);
+                }
+            }
+            else
+            {
+                await _authorizationService.AuthorizeAsync(request.UserId, unconfirmedEvent.UserId, cancellationToken, unconfirmedEvent, unconfirmedEvent.EventId);
+            }
 
             var eventCategory = (await _unitOfWork.EventCategoryRepository.GetAllAsync(cancellationToken, mu => mu.CategoryName == request.UpdateNaturalDisasterEventDto.EventCategoryName))
                 .FirstOrDefault() ?? throw new NotFoundException(nameof(EventCategory), $"With name {request.UpdateNaturalDisasterEventDto.EventCategoryName}");
@@ -50,7 +61,6 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
                     ehu.ThresholdValue <= request.UpdateNaturalDisasterEventDto.MagnitudeValue).Id;
             }
 
-            naturalDisasterEvent.Id = request.UpdateNaturalDisasterEventDto.Id;
             naturalDisasterEvent.Title = request.UpdateNaturalDisasterEventDto.Title;
             naturalDisasterEvent.Link = request.UpdateNaturalDisasterEventDto.Link;
             naturalDisasterEvent.StartDate = request.UpdateNaturalDisasterEventDto.StartDate;
@@ -63,8 +73,13 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
             naturalDisasterEvent.Longitude = request.UpdateNaturalDisasterEventDto.Longitude;
 
             _naturalDisasterEventRepository.Update(naturalDisasterEvent);
-            unconfirmedEvent.IsChecked = false;
-            _unitOfWork.UnconfirmedEventRepository.Update(unconfirmedEvent);
+
+            if (unconfirmedEvent != null)
+            {
+                unconfirmedEvent.IsChecked = false;
+                _unitOfWork.UnconfirmedEventRepository.Update(unconfirmedEvent);
+            }
+
             await _unitOfWork.SaveAsync(cancellationToken);
         }
     }

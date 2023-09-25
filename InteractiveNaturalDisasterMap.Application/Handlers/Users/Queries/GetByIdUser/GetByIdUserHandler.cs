@@ -23,7 +23,7 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.Users.Queries.GetBy
             var user = await _userRepository.GetByIdAsync(request.GetByIdUserDto.Id, cancellationToken, u => u.Role)
                        ?? throw new NotFoundException(nameof(User), request.GetByIdUserDto.Id);
 
-            await _authorizationService.AuthorizeAsync(request.UserId, user.Id, cancellationToken, user);
+            await _authorizationService.AuthorizeAsync(request.UserId, user.Id, cancellationToken, user, user.Id);
 
             return new UserDto(user);
         }

@@ -21,12 +21,30 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
 
         public async Task Handle(DeleteNaturalDisasterEventRequest request, CancellationToken cancellationToken)
         {
-            var unconfirmedEvent = await _unitOfWork.UnconfirmedEventRepository.GetByEventId(request.DeleteNaturalDisasterEventDto.Id, cancellationToken) 
-                                   ?? throw new NotFoundException(nameof(UnconfirmedEvent), request.DeleteNaturalDisasterEventDto.Id);
+            var naturalDisasterEvent =
+                await _naturalDisasterEventRepository.GetByIdAsync(request.DeleteNaturalDisasterEventDto.Id, cancellationToken)
+                ?? throw new NotFoundException(nameof(NaturalDisasterEvent), request.DeleteNaturalDisasterEventDto.Id);
 
-            await _authorizationService.AuthorizeAsync(request.UserId, unconfirmedEvent.UserId, cancellationToken, unconfirmedEvent);
+            var unconfirmedEvent =
+                await _unitOfWork.UnconfirmedEventRepository.GetByEventId(naturalDisasterEvent.Id, cancellationToken);
 
-            await _naturalDisasterEventRepository.DeleteByIdAsync(request.DeleteNaturalDisasterEventDto.Id, cancellationToken);
+            if (unconfirmedEvent == null)
+            {
+                var user =
+                    await _unitOfWork.UserRepository.GetByIdAsync(request.UserId, cancellationToken, u => u.Role) 
+                    ?? throw new NotFoundException(nameof(User), request.UserId);
+                if (user.Role.RoleName != "moderator")
+                {
+                    throw new NotFoundException(nameof(UnconfirmedEvent), naturalDisasterEvent.Id);
+                }
+            }
+            else
+            {
+                await _authorizationService.AuthorizeAsync(request.UserId, unconfirmedEvent.UserId, cancellationToken, unconfirmedEvent, unconfirmedEvent.EventId);
+            }
+
+            await _naturalDisasterEventRepository.DeleteByIdAsync(naturalDisasterEvent.Id,
+                cancellationToken);
             await _unitOfWork.SaveAsync(cancellationToken);
         }
     }

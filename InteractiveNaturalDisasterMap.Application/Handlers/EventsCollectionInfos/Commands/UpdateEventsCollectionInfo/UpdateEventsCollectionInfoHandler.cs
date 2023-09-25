@@ -24,7 +24,7 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.EventsCollectionInf
             var collectionInfo = await _eventsCollectionInfoRepository.GetByIdAsync(request.UpdateEventsCollectionInfoDto.Id, cancellationToken) 
                                  ?? throw new NotFoundException(nameof(EventsCollectionInfo), request.UpdateEventsCollectionInfoDto.Id);
 
-            await _authorizationService.AuthorizeAsync(request.UserId, collectionInfo.UserId, cancellationToken, collectionInfo);
+            await _authorizationService.AuthorizeAsync(request.UserId, collectionInfo.UserId, cancellationToken, collectionInfo, collectionInfo.Id);
 
             collectionInfo.CollectionName = request.UpdateEventsCollectionInfoDto.CollectionName;
             _eventsCollectionInfoRepository.Update(collectionInfo);
