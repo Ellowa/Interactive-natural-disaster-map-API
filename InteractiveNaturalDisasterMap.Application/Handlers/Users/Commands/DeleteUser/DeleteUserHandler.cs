@@ -26,6 +26,15 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.Users.Commands.Dele
 
             await _authorizationService.AuthorizeAsync(request.UserId, user.Id, cancellationToken, user, user.Id);
 
+            //Delete all unconfirmed user events
+            var unconfirmedEvents =
+                await _unitOfWork.UnconfirmedEventRepository.GetAllAsync(cancellationToken, ue => ue.UserId == user.Id);
+            foreach (var unconfirmedEvent in unconfirmedEvents)
+            {
+                await _unitOfWork.NaturalDisasterEventRepository.DeleteByIdAsync(unconfirmedEvent.EventId,
+                    cancellationToken);
+            }
+
             await _userRepository.DeleteByIdAsync(request.DeleteUserDto.Id, cancellationToken);
             await _unitOfWork.SaveAsync(cancellationToken);
         }
