@@ -17,6 +17,8 @@ namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql.EntityTypeConfigur
                 .HasMany(ehu => ehu.NaturalDisasterEvents)
                 .WithOne(nte => nte.EventHazardUnit)
                 .HasForeignKey(nte => nte.EventHazardUnitId);
+            builder.HasIndex(ehu => new { ehu.HazardName, ehu.MagnitudeUnitId }).IsUnique();
+            builder.HasIndex(ehu => new { ehu.ThresholdValue, ehu.MagnitudeUnitId }).IsUnique();
         }
     }
 }
