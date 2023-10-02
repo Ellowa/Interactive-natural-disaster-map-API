@@ -16,14 +16,15 @@ namespace InteractiveNaturalDisasterMap.Web.Controllers
     {
         // GET: api/NaturalDisasterEvent
         [HttpGet, AllowAnonymous]
-        public async Task<IEnumerable<NaturalDisasterEventDto>> Get([FromQuery]GetAllNaturalDisasterEventDto getAllNaturalDisasterEventDto)
+        public async Task<NaturalDisasterEventGeoJsonDto> Get([FromQuery]GetAllNaturalDisasterEventDto getAllNaturalDisasterEventDto)
         {
             var request = new GetAllNaturalDisasterEventRequest()
             {
                 GetAllNaturalDisasterEventDto = getAllNaturalDisasterEventDto,
                 UserId = UserId,
             };
-            return await Mediator.Send(request);
+            var naturalDisasterEventDtos = await Mediator.Send(request);
+            return new NaturalDisasterEventGeoJsonDto(naturalDisasterEventDtos);
         }
 
         // GET api/NaturalDisasterEvent/5
