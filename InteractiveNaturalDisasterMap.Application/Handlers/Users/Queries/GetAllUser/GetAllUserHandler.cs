@@ -16,7 +16,7 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.Users.Queries.GetAl
 
         public async Task<IList<UserDto>> Handle(GetAllUserRequest request, CancellationToken cancellationToken)
         {
-            var users = await _userRepository.GetAllAsync(cancellationToken, null, u=> u.Role);
+            var users = (await _userRepository.GetAllAsync(cancellationToken, null, u=> u.Role)).OrderBy(u => u.Id);
             IList<UserDto> userDtos = new List<UserDto>(); 
             foreach (var user in users)
             {
