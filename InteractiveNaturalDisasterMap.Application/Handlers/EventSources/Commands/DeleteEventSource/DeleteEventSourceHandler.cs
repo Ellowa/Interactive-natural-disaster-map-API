@@ -1,5 +1,6 @@
 ﻿using InteractiveNaturalDisasterMap.Application.DataAccessInterfaces;
 using InteractiveNaturalDisasterMap.Application.Exceptions;
+using InteractiveNaturalDisasterMap.Application.Utilities;
 using InteractiveNaturalDisasterMap.Domain.Entities;
 using MediatR;
 
@@ -26,8 +27,8 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.EventSources.Comman
                 nde => nde.SourceId == request.DeleteEventSourceDto.Id);
             var unknownSourceType = (await _eventSourceRepository.GetAllAsync(
                                cancellationToken,
-                               es => es.SourceType == "unknown")).FirstOrDefault()
-                           ?? throw new NotFoundException(nameof(EventSource), "With name unknown");
+                               es => es.SourceType == EntityNamesByDefault.DefaultEventSource)).FirstOrDefault()
+                           ?? throw new NotFoundException(nameof(EventSource), $"With name {EntityNamesByDefault.DefaultEventSource}");
 
             foreach (NaturalDisasterEvent naturalDisasterEvent in events)
             {

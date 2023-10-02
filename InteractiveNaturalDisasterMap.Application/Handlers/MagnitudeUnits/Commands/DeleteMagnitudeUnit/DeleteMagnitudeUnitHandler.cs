@@ -1,5 +1,6 @@
 ﻿using InteractiveNaturalDisasterMap.Application.DataAccessInterfaces;
 using InteractiveNaturalDisasterMap.Application.Exceptions;
+using InteractiveNaturalDisasterMap.Application.Utilities;
 using InteractiveNaturalDisasterMap.Domain.Entities;
 using MediatR;
 
@@ -22,10 +23,10 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.MagnitudeUnits.Comm
                 throw new NotFoundException(nameof(MagnitudeUnit), request.DeleteMagnitudeUnitDto.Id);
 
             var events = await _unitOfWork.NaturalDisasterEventRepository.GetAllAsync(cancellationToken, nde => nde.MagnitudeUnitId == request.DeleteMagnitudeUnitDto.Id);
-            var undefinedMagnitudeUnit = (await _magnitudeUnitRepository.GetAllAsync(cancellationToken, mu => mu.MagnitudeUnitName == "undefined")).FirstOrDefault() 
-                                         ?? throw new NotFoundException(nameof(MagnitudeUnit), "With name undefined");
-            var undefinedEventHazardUnit = (await _unitOfWork.EventHazardUnitRepository.GetAllAsync(cancellationToken, mu => mu.HazardName == "undefined")).FirstOrDefault()
-                                           ?? throw new NotFoundException(nameof(EventHazardUnit), "With name undefined");
+            var undefinedMagnitudeUnit = (await _magnitudeUnitRepository.GetAllAsync(cancellationToken, mu => mu.MagnitudeUnitName == EntityNamesByDefault.DefaultMagnitudeUnit)).FirstOrDefault() 
+                                         ?? throw new NotFoundException(nameof(MagnitudeUnit), $"With name {EntityNamesByDefault.DefaultMagnitudeUnit}");
+            var undefinedEventHazardUnit = (await _unitOfWork.EventHazardUnitRepository.GetAllAsync(cancellationToken, mu => mu.HazardName == EntityNamesByDefault.DefaultEventHazardUnit)).FirstOrDefault()
+                                           ?? throw new NotFoundException(nameof(EventHazardUnit), $"With name {EntityNamesByDefault.DefaultEventHazardUnit}");
 
             foreach (NaturalDisasterEvent naturalDisasterEvent in events)
             {
