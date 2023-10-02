@@ -5,5 +5,6 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.EventHazardUnits.Qu
 {
     public class GetAllEventHazardUnitRequest : IRequest<IList<EventHazardUnitDto>>
     {
+        public GetAllEventHazardUnitDto GetAllEventHazardUnitDto { get; set; } = null!;
     }
 }
