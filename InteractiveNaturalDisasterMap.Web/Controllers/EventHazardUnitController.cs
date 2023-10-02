@@ -17,9 +17,12 @@ namespace InteractiveNaturalDisasterMap.Web.Controllers
     {
         // GET: api/EventHazardUnit
         [HttpGet]
-        public async Task<IEnumerable<EventHazardUnitDto>> Get()
+        public async Task<IEnumerable<EventHazardUnitDto>> Get([FromQuery]GetAllEventHazardUnitDto getAllEventHazardUnitDto)
         {
-            var request = new GetAllEventHazardUnitRequest();
+            var request = new GetAllEventHazardUnitRequest()
+            {
+                GetAllEventHazardUnitDto = getAllEventHazardUnitDto,
+            };
             return await Mediator.Send(request);
         }
 
