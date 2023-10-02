@@ -50,14 +50,9 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.UnconfirmedEvents.Q
                 ue => ue.Event.MagnitudeUnit,
                 ue => ue.Event.EventHazardUnit);
 
-            if (request.GetAllUnconfirmedEventDto.SortOrder?.ToLower() == "asc")
-            {
-                unconfirmedEvents = unconfirmedEvents.OrderBy(GetSortProperty(request).Compile());
-            }
-            else
-            {
-                unconfirmedEvents = unconfirmedEvents.OrderByDescending(GetSortProperty(request).Compile());
-            }
+            unconfirmedEvents = request.GetAllUnconfirmedEventDto.SortOrder?.ToLower() == "asc" 
+                ? unconfirmedEvents.OrderBy(GetSortProperty(request).Compile()) 
+                : unconfirmedEvents.OrderByDescending(GetSortProperty(request).Compile());
 
             IList<UnconfirmedEventDto> unconfirmedEventDtos = new List<UnconfirmedEventDto>(); 
             foreach (var unconfirmedEvent in unconfirmedEvents)
@@ -72,8 +67,8 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.UnconfirmedEvents.Q
         {
             return request.GetAllUnconfirmedEventDto.SortColumn?.ToLower() switch
             {
-                "eventHazardUnit" => ue => ue.Event.EventHazardUnit.HazardName,
-                "category" => ue => ue.Event.Category,
+                "hazard" => ue => ue.Event.EventHazardUnit.HazardName,
+                "category" => ue => ue.Event.EventCategoryId,
                 "user" => ue => ue.User.Login,
                 _ => ue => ue.Event.StartDate
             };

@@ -44,6 +44,10 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
             }
             naturalDisasterEvents = naturalDisasterEvents.Union(userUnconfirmedEvents);
 
+            naturalDisasterEvents = request.GetAllNaturalDisasterEventDto.SortOrder?.ToLower() == "asc"
+                ? naturalDisasterEvents.OrderBy(GetSortProperty(request).Compile())
+                : naturalDisasterEvents.OrderByDescending(GetSortProperty(request).Compile());
+
             IList<NaturalDisasterEventDto> naturalDisasterEventDtos = new List<NaturalDisasterEventDto>(); 
             foreach (var naturalDisasterEvent in naturalDisasterEvents)
             {
@@ -51,6 +55,20 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
             }
 
             return naturalDisasterEventDtos;
+        }
+
+        private static Expression<Func<NaturalDisasterEvent, object>> GetSortProperty(GetAllNaturalDisasterEventRequest request)
+        {
+            return request.GetAllNaturalDisasterEventDto.SortColumn?.ToLower() switch
+            {
+                "id" => nde => nde.Id,
+                "category" => nde => nde.EventCategoryId,
+                "enddate" => nde => nde.EndDate,
+                "hazard" => nde => nde.EventHazardUnit.HazardName,
+                "source" => nde => nde.SourceId,
+                "magnitude" => nde => nde.MagnitudeUnitId,
+                _ => nde => nde.StartDate
+            };
         }
     }
 }
