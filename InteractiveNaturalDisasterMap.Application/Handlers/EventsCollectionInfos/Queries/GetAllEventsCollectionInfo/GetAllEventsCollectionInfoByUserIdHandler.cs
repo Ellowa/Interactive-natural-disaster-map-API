@@ -20,7 +20,9 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.EventsCollectionInf
 
         public async Task<IList<EventsCollectionInfoDto>> Handle(GetAllEventsCollectionInfoByUserIdRequest request, CancellationToken cancellationToken)
         {
-            await _authorizationService.AuthorizeAsync(request.UserId, request.GetAllEventsCollectionInfoDto.UserId, cancellationToken, null, null);
+            request.GetAllEventsCollectionInfoDto.UserId ??= request.UserId;
+
+            await _authorizationService.AuthorizeAsync(request.UserId, (int)request.GetAllEventsCollectionInfoDto.UserId, cancellationToken, null, null);
 
             Expression<Func<EventsCollectionInfo, bool>> filter = eci => eci.UserId == request.GetAllEventsCollectionInfoDto.UserId;
             var eventsCollectionInfos = (await _eventsCollectionInfoRepository.GetAllAsync(cancellationToken, filter)).OrderBy(eci => eci.Id);
