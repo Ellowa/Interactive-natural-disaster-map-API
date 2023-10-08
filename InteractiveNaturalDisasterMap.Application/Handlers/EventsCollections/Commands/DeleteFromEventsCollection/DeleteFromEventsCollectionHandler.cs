@@ -21,13 +21,16 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.EventsCollections.C
 
         public async Task Handle(DeleteFromEventsCollectionRequest request, CancellationToken cancellationToken)
         {
-            var collectionInfo = await _unitOfWork.EventsCollectionInfoRepository.GetByIdAsync(request.DeleteFromEventsCollectionDto.CollectionId, cancellationToken)
+            var collectionInfo = await _unitOfWork.EventsCollectionInfoRepository.GetByIdAsync(request.DeleteFromEventsCollectionDto.CollectionId, cancellationToken,
+                                     eci => eci.EventsCollection)
                                  ?? throw new NotFoundException(nameof(EventsCollectionInfo), request.DeleteFromEventsCollectionDto.CollectionId);
 
             await _authorizationService.AuthorizeAsync(request.UserId, collectionInfo.UserId, cancellationToken, collectionInfo, collectionInfo.Id);
 
-            var entity = request.DeleteFromEventsCollectionDto.Map();
-            _eventsCollectionRepository.Delete(entity);
+            var eventsCollectionToDelete =  collectionInfo.EventsCollection.FirstOrDefault(ec => ec.EventId == request.DeleteFromEventsCollectionDto.EventId) 
+                ?? throw new NotFoundException(nameof(EventsCollection), "with EventId " + request.DeleteFromEventsCollectionDto.EventId);
+
+            _eventsCollectionRepository.Delete(eventsCollectionToDelete);
             await _unitOfWork.SaveAsync(cancellationToken);
         }
     }
