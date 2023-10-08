@@ -2,7 +2,7 @@
 using InteractiveNaturalDisasterMap.Domain.Entities;
 using MediatR;
 
-namespace InteractiveNaturalDisasterMap.Application.Handlers.EventsCollectionInfos.Commands.CreateEventsCollectionInfo
+namespace InteractiveNaturalDisasterMap.Application.Handlers.EventsCollections.Commands.CreateEventsCollectionInfo
 {
     public class CreateEventsCollectionInfoHandler : IRequestHandler<CreateEventsCollectionInfoRequest, int>
     {

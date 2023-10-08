@@ -1,6 +1,6 @@
 ﻿using InteractiveNaturalDisasterMap.Domain.Entities;
 
-namespace InteractiveNaturalDisasterMap.Application.Handlers.EventsCollectionInfos.DTOs
+namespace InteractiveNaturalDisasterMap.Application.Handlers.EventsCollections.DTOs
 {
     public class CreateEventsCollectionInfoDto
     {

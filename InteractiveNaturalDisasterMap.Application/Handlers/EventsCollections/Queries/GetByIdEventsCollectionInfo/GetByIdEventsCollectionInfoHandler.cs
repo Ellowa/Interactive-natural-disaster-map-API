@@ -1,10 +1,10 @@
 ﻿using InteractiveNaturalDisasterMap.Application.DataAccessInterfaces;
 using InteractiveNaturalDisasterMap.Application.Exceptions;
-using InteractiveNaturalDisasterMap.Application.Handlers.EventsCollectionInfos.DTOs;
+using InteractiveNaturalDisasterMap.Application.Handlers.EventsCollections.DTOs;
 using InteractiveNaturalDisasterMap.Domain.Entities;
 using MediatR;
 
-namespace InteractiveNaturalDisasterMap.Application.Handlers.EventsCollectionInfos.Queries.GetByIdEventsCollectionInfo
+namespace InteractiveNaturalDisasterMap.Application.Handlers.EventsCollections.Queries.GetByIdEventsCollectionInfo
 {
     public class GetByIdEventsCollectionInfoHandler : IRequestHandler<GetByIdEventsCollectionInfoRequest, EventsCollectionInfoDto>
     {

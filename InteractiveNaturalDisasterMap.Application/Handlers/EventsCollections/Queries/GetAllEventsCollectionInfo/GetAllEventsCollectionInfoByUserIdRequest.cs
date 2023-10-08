@@ -1,7 +1,7 @@
-﻿using InteractiveNaturalDisasterMap.Application.Handlers.EventsCollectionInfos.DTOs;
+﻿using InteractiveNaturalDisasterMap.Application.Handlers.EventsCollections.DTOs;
 using MediatR;
 
-namespace InteractiveNaturalDisasterMap.Application.Handlers.EventsCollectionInfos.Queries.GetAllEventsCollectionInfo
+namespace InteractiveNaturalDisasterMap.Application.Handlers.EventsCollections.Queries.GetAllEventsCollectionInfo
 {
     public class GetAllEventsCollectionInfoByUserIdRequest : IRequest<IList<EventsCollectionInfoDto>>
     {

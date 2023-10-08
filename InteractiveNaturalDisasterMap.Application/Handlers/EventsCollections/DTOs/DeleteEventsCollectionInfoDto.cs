@@ -1,5 +1,4 @@
-﻿
-namespace InteractiveNaturalDisasterMap.Application.Handlers.EventsCollectionInfos.DTOs
+﻿namespace InteractiveNaturalDisasterMap.Application.Handlers.EventsCollections.DTOs
 {
     public class DeleteEventsCollectionInfoDto
     {

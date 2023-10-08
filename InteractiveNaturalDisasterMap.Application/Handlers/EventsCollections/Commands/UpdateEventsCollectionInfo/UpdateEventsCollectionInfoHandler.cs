@@ -4,29 +4,30 @@ using InteractiveNaturalDisasterMap.Application.InfrastructureInterfaces;
 using InteractiveNaturalDisasterMap.Domain.Entities;
 using MediatR;
 
-namespace InteractiveNaturalDisasterMap.Application.Handlers.EventsCollectionInfos.Commands.DeleteEventsCollectionInfo
+namespace InteractiveNaturalDisasterMap.Application.Handlers.EventsCollections.Commands.UpdateEventsCollectionInfo
 {
-    public class DeleteEventsCollectionInfoHandler : IRequestHandler<DeleteEventsCollectionInfoRequest>
+    public class UpdateEventsCollectionInfoHandler : IRequestHandler<UpdateEventsCollectionInfoRequest>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IGenericBaseEntityRepository<EventsCollectionInfo> _eventsCollectionInfoRepository;
         private readonly IAuthorizationService _authorizationService;
 
-        public DeleteEventsCollectionInfoHandler(IUnitOfWork unitOfWork, IAuthorizationService authorizationService)
+        public UpdateEventsCollectionInfoHandler(IUnitOfWork unitOfWork, IAuthorizationService authorizationService)
         {
             _unitOfWork = unitOfWork;
             _authorizationService = authorizationService;
             _eventsCollectionInfoRepository = unitOfWork.EventsCollectionInfoRepository;
         }
 
-        public async Task Handle(DeleteEventsCollectionInfoRequest request, CancellationToken cancellationToken)
+        public async Task Handle(UpdateEventsCollectionInfoRequest request, CancellationToken cancellationToken)
         {
-            var collectionInfo = await _eventsCollectionInfoRepository.GetByIdAsync(request.DeleteEventsCollectionInfoDto.Id, cancellationToken)
-                                 ?? throw new NotFoundException(nameof(EventsCollectionInfo), request.DeleteEventsCollectionInfoDto.Id);
+            var collectionInfo = await _eventsCollectionInfoRepository.GetByIdAsync(request.UpdateEventsCollectionInfoDto.Id, cancellationToken) 
+                                 ?? throw new NotFoundException(nameof(EventsCollectionInfo), request.UpdateEventsCollectionInfoDto.Id);
 
             await _authorizationService.AuthorizeAsync(request.UserId, collectionInfo.UserId, cancellationToken, collectionInfo, collectionInfo.Id);
 
-            await _eventsCollectionInfoRepository.DeleteByIdAsync(request.DeleteEventsCollectionInfoDto.Id, cancellationToken);
+            collectionInfo.CollectionName = request.UpdateEventsCollectionInfoDto.CollectionName;
+            _eventsCollectionInfoRepository.Update(collectionInfo);
             await _unitOfWork.SaveAsync(cancellationToken);
         }
     }

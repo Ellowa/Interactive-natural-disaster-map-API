@@ -1,8 +1,7 @@
-﻿
-using InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEvents.DTOs;
+﻿using InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEvents.DTOs;
 using InteractiveNaturalDisasterMap.Domain.Entities;
 
-namespace InteractiveNaturalDisasterMap.Application.Handlers.EventsCollectionInfos.DTOs
+namespace InteractiveNaturalDisasterMap.Application.Handlers.EventsCollections.DTOs
 {
     public class EventsCollectionInfoDto
     {

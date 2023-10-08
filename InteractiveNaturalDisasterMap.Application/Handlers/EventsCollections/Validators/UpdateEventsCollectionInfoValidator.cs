@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using InteractiveNaturalDisasterMap.Application.Handlers.EventsCollectionInfos.Commands.UpdateEventsCollectionInfo;
+using InteractiveNaturalDisasterMap.Application.Handlers.EventsCollections.Commands.UpdateEventsCollectionInfo;
 
-namespace InteractiveNaturalDisasterMap.Application.Handlers.EventsCollectionInfos.Validators
+namespace InteractiveNaturalDisasterMap.Application.Handlers.EventsCollections.Validators
 {
     public sealed class UpdateEventsCollectionInfoValidator : AbstractValidator<UpdateEventsCollectionInfoRequest>
     {
