@@ -1,6 +1,8 @@
 ﻿using InteractiveNaturalDisasterMap.Application.Exceptions;
 using System.Net;
+using EntityFramework.Exceptions.Common;
 using FluentValidation;
+using Npgsql;
 
 namespace InteractiveNaturalDisasterMap.Web.Middlewares.ExceptionHandling
 {
@@ -52,6 +54,26 @@ namespace InteractiveNaturalDisasterMap.Web.Middlewares.ExceptionHandling
                 await HandleAsync(context, HttpStatusCode.NotFound, ex.Message);
             }
             catch (ValidationException ex)
+            {
+                await HandleAsync(context, HttpStatusCode.BadRequest, ex.Message);
+            }
+            catch (UniqueConstraintException ex) when (ex.InnerException is PostgresException pex)
+            {
+                await HandleAsync(context, HttpStatusCode.BadRequest, ex.Message + ". " + pex.Detail);
+            }
+            catch (CannotInsertNullException ex)
+            {
+                await HandleAsync(context, HttpStatusCode.BadRequest, ex.Message);
+            }
+            catch (ReferenceConstraintException ex)
+            {
+                await HandleAsync(context, HttpStatusCode.BadRequest, ex.Message);
+            }
+            catch (MaxLengthExceededException ex)
+            {
+                await HandleAsync(context, HttpStatusCode.BadRequest, ex.Message);
+            }
+            catch (NumericOverflowException ex)
             {
                 await HandleAsync(context, HttpStatusCode.BadRequest, ex.Message);
             }

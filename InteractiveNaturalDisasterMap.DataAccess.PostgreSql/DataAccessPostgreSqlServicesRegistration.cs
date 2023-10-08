@@ -1,4 +1,5 @@
-﻿using InteractiveNaturalDisasterMap.Application.DataAccessInterfaces;
+﻿using EntityFramework.Exceptions.PostgreSQL;
+using InteractiveNaturalDisasterMap.Application.DataAccessInterfaces;
 using InteractiveNaturalDisasterMap.DataAccess.PostgreSql.Repositories;
 using InteractiveNaturalDisasterMap.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +15,9 @@ namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql
             var connectionString = configuration.GetConnectionString("PostgreSQLConnection");
 
             services.AddDbContext<InteractiveNaturalDisasterMapDbContext>(options =>
-                options.UseNpgsql(connectionString));
+                options
+                    .UseNpgsql(connectionString)
+                    .UseExceptionProcessor());
 
             services.AddScoped<IGenericBaseEntityRepository<EventCategory>, GenericBaseEntityRepository<EventCategory>>();
             services.AddScoped<IGenericBaseEntityRepository<EventSource>, GenericBaseEntityRepository<EventSource>>();
