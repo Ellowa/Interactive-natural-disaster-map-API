@@ -37,8 +37,8 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.EventHazardUnits.Qu
             return request.GetAllEventHazardUnitDto.SortColumn?.ToLower() switch
             {
                 "name" => nde => nde.HazardName,
-                "magnitude" => nde => nde.MagnitudeUnitId,
-                _ => nde => nde.Id
+                "id" => nde => nde.Id,
+                _ => nde => nde.MagnitudeUnitId
             };
         }
     }
