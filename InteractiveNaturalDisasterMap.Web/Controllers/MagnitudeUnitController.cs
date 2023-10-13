@@ -12,11 +12,11 @@ namespace InteractiveNaturalDisasterMap.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = $"{UserRoles.Moderator}")]
     public class MagnitudeUnitController : BaseController
     {
         // GET: api/MagnitudeUnit
         [HttpGet]
+        [Authorize(Roles = $"{UserRoles.Moderator}, {UserRoles.User}")]
         public async Task<IEnumerable<MagnitudeUnitDto>> Get()
         {
             var request = new GetAllMagnitudeUnitRequest();
@@ -27,6 +27,7 @@ namespace InteractiveNaturalDisasterMap.Web.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(MagnitudeUnitDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = $"{UserRoles.Moderator}, {UserRoles.User}")]
         public async Task<IActionResult> GetById(int id)
         {
             var request = new GetByIdMagnitudeUnitRequest()
@@ -40,6 +41,7 @@ namespace InteractiveNaturalDisasterMap.Web.Controllers
         // POST api/MagnitudeUnit
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
+        [Authorize(Roles = $"{UserRoles.Moderator}")]
         public async Task<IActionResult> Create([FromBody] CreateMagnitudeUnitDto createMagnitudeUnitDto)
         {
             var request = new CreateMagnitudeUnitRequest()
@@ -55,6 +57,7 @@ namespace InteractiveNaturalDisasterMap.Web.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = $"{UserRoles.Moderator}")]
         public async Task<IActionResult> Update(int id, [FromBody] UpdateMagnitudeUnitDto updateMagnitudeUnitDto)
         {
             if (id != updateMagnitudeUnitDto.Id) return BadRequest();
@@ -71,6 +74,7 @@ namespace InteractiveNaturalDisasterMap.Web.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = $"{UserRoles.Moderator}")]
         public async Task<IActionResult> Delete(int id)
         {
             var request = new DeleteMagnitudeUnitRequest()
