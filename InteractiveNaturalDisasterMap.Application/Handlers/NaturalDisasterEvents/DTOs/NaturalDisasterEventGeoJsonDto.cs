@@ -6,7 +6,7 @@
 
         public List<NaturalDisasterEventFeaturesGeoJson> Features { get; set; }
 
-        public NaturalDisasterEventGeoJsonDto(IEnumerable<NaturalDisasterEventDto> naturalDisasterEventDtos)
+        public NaturalDisasterEventGeoJsonDto(params NaturalDisasterEventDto[] naturalDisasterEventDtos)
         {
             Features = new List<NaturalDisasterEventFeaturesGeoJson>();
             foreach (var naturalDisasterEventDto in naturalDisasterEventDtos)

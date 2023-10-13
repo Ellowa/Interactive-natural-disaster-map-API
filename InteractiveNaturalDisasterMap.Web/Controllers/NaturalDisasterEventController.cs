@@ -24,7 +24,7 @@ namespace InteractiveNaturalDisasterMap.Web.Controllers
                 UserId = UserId,
             };
             var naturalDisasterEventDtos = await Mediator.Send(request);
-            return new NaturalDisasterEventGeoJsonDto(naturalDisasterEventDtos);
+            return new NaturalDisasterEventGeoJsonDto(naturalDisasterEventDtos.ToArray());
         }
 
         // GET api/NaturalDisasterEvent/5
@@ -38,7 +38,7 @@ namespace InteractiveNaturalDisasterMap.Web.Controllers
                 GetByIdNaturalDisasterEventDto = new GetByIdNaturalDisasterEventDto() { Id = id },
             };
             var naturalDisasterEventDto = await Mediator.Send(request);
-            return Ok(naturalDisasterEventDto);
+            return Ok(new NaturalDisasterEventGeoJsonDto(naturalDisasterEventDto));
         }
 
         // POST api/NaturalDisasterEvent
