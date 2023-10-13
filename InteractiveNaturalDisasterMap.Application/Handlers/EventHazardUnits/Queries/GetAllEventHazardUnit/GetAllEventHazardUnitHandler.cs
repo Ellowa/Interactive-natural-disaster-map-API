@@ -20,8 +20,8 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.EventHazardUnits.Qu
             IEnumerable<EventHazardUnit> hazardUnits = await _eventHazardUnitRepository.GetAllAsync(cancellationToken, null, ehu => ehu.MagnitudeUnit);
 
             hazardUnits = request.GetAllEventHazardUnitDto.SortOrder?.ToLower() == "asc"
-                ? hazardUnits.OrderBy(GetSortProperty(request).Compile())
-                : hazardUnits.OrderByDescending(GetSortProperty(request).Compile());
+                ? hazardUnits.OrderBy(GetSortProperty(request).Compile()).ThenByDescending(ehu => ehu.ThresholdValue)
+                : hazardUnits.OrderByDescending(GetSortProperty(request).Compile()).ThenByDescending(ehu => ehu.ThresholdValue);
 
             IList<EventHazardUnitDto> hazardUnitDtos = new List<EventHazardUnitDto>(); 
             foreach (var hazardUnit in hazardUnits)
@@ -36,9 +36,9 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.EventHazardUnits.Qu
         {
             return request.GetAllEventHazardUnitDto.SortColumn?.ToLower() switch
             {
-                "name" => nde => nde.HazardName,
-                "id" => nde => nde.Id,
-                _ => nde => nde.MagnitudeUnitId
+                "name" => ehu => ehu.HazardName,
+                "id" => ehu => ehu.Id,
+                _ => ehu => ehu.MagnitudeUnitId
             };
         }
     }
