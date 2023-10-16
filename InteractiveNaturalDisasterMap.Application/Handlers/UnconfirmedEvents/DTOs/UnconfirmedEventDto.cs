@@ -9,10 +9,13 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.UnconfirmedEvents.D
         public NaturalDisasterEventDto EventDto { get; set; }
         public UserDto UserDto { get; set; }
 
+        public bool IsChecked { get; set; }
+
         public UnconfirmedEventDto(UnconfirmedEvent unconfirmedEvent)
         {
             UserDto = new UserDto(unconfirmedEvent.User);
             EventDto = new NaturalDisasterEventDto(unconfirmedEvent.Event);
+            IsChecked = unconfirmedEvent.IsChecked;
         }
     }
 }
