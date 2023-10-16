@@ -7,12 +7,14 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.MagnitudeUnits.DTOs
     {
         public int Id { get; set; }
         public string MagnitudeUnitName { get; set; }
+        public string MagnitudeUnitDescription { get; set; }
         public List<EventHazardUnitDto> HazardUnitDtos { get; set; }
 
         public MagnitudeUnitDto(MagnitudeUnit magnitudeUnit)
         {
             Id = magnitudeUnit.Id;
             MagnitudeUnitName = magnitudeUnit.MagnitudeUnitName;
+            MagnitudeUnitDescription = magnitudeUnit.MagnitudeUnitDescription;
             HazardUnitDtos = new List<EventHazardUnitDto>();
             foreach (var hazardUnit in magnitudeUnit.EventHazardUnits)
             {
