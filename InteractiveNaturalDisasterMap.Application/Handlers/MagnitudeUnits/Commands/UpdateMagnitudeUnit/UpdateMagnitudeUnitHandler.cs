@@ -22,6 +22,7 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.MagnitudeUnits.Comm
                                 ?? throw new NotFoundException(nameof(MagnitudeUnit), request.UpdateMagnitudeUnitDto.Id);
 
             magnitudeUnit.MagnitudeUnitName = request.UpdateMagnitudeUnitDto.MagnitudeUnitName;
+            magnitudeUnit.MagnitudeUnitDescription = request.UpdateMagnitudeUnitDto.MagnitudeUnitDescription;
             _magnitudeUnitRepository.Update(magnitudeUnit);
             await _unitOfWork.SaveAsync(cancellationToken);
         }
