@@ -11,12 +11,12 @@
     {
         public string Type { get; set; } = "Feature";
 
-        public EonetEventGeometry Geometry { get; set; } = null!;
+        public EventGeometryGeoJson Geometry { get; set; } = null!;
 
         public EonetEventProperties Properties { get; set; } = null!;
     }
 
-    public class EonetEventGeometry
+    public class EventGeometryGeoJson
     {
         public string Type { get; set; } = "Point";
 
