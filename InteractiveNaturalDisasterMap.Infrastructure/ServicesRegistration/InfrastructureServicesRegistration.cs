@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using InteractiveNaturalDisasterMap.Application.InfrastructureInterfaces;
 using InteractiveNaturalDisasterMap.Infrastructure.Authentication;
 using InteractiveNaturalDisasterMap.Infrastructure.Authorization;
+using Quartz;
+using InteractiveNaturalDisasterMap.Infrastructure.BackgroundJobs;
 
 namespace InteractiveNaturalDisasterMap.Infrastructure.ServicesRegistration
 {
@@ -20,6 +22,19 @@ namespace InteractiveNaturalDisasterMap.Infrastructure.ServicesRegistration
             services.ConfigureOptions<JwtBearerOptionsSetup>();
 
             services.AddScoped<IAuthorizationService, AuthorizationService>();
+
+            services.AddQuartz(options =>
+            {
+                options.UseMicrosoftDependencyInjectionJobFactory();
+            });
+
+            services.AddQuartzHostedService(options =>
+            {
+                options.WaitForJobsToComplete = true;
+            });
+
+            services.ConfigureOptions<AddEventsFromEonetApiBackgroundJobSetup>();
+            services.ConfigureOptions<AddEventsFromUsgsApiBackgroundJobSetup>();
             return services;
         }
     }

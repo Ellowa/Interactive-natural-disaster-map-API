@@ -6,6 +6,6 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
     public class UpdateNaturalDisasterEventRequest : IRequest
     {
         public UpdateNaturalDisasterEventDto UpdateNaturalDisasterEventDto { get; set; } = null!;
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
     }
 }

@@ -46,6 +46,8 @@ builder.Services.ConfigureApplicationServices();
 builder.Services.ConfigureDataAccessPostgreSqlServices(builder.Configuration);
 builder.Services.ConfigureInfrastructureServices();
 
+builder.Services.AddHttpClient();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
