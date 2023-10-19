@@ -8,5 +8,6 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
         public CreateNaturalDisasterEventDto CreateNaturalDisasterEventDto { get; set; } = null!;
         public string SourceName { get; set; } = string.Empty;
         public int? UserId { get; set; }
+        public string? IdInThirdPartyApi { get; set; }
     }
 }
