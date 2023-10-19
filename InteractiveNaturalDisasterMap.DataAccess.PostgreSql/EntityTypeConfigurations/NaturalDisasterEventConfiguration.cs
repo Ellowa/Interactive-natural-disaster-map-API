@@ -20,6 +20,8 @@ namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql.EntityTypeConfigur
                 .HasOne(e => e.MagnitudeUnit)
                 .WithMany(m => m.Events)
                 .HasForeignKey(e => e.MagnitudeUnitId);
+
+            builder.HasIndex(e => e.IdInThirdPartyApi).IsUnique();
         }
     }
 }

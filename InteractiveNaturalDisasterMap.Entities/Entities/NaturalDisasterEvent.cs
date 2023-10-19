@@ -2,6 +2,8 @@
 {
     public class NaturalDisasterEvent : BaseEntity
     {
+        public string? IdInThirdPartyApi { get; set; }
+
         public string Title { get; set; } = null!;
 
         public string? Link { get; set; }
@@ -34,7 +36,7 @@
 
         public UnconfirmedEvent UnconfirmedEvent { get; set; } = null!;
 
-        public EventHazardUnit EventHazardUnit { get; set; }
+        public EventHazardUnit EventHazardUnit { get; set; } = null!;
 
         public ICollection<EventsCollection> EventsCollection { get; set; } = null!;
     }
