@@ -28,18 +28,22 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
             var unconfirmedEvent =
                 await _unitOfWork.UnconfirmedEventRepository.GetByEventId(request.UpdateNaturalDisasterEventDto.Id, cancellationToken);
 
-            if (unconfirmedEvent == null)
+            if (request.UserId != null)
             {
-                var user = await _unitOfWork.UserRepository.GetByIdAsync(request.UserId, cancellationToken, u => u.Role) ??
-                           throw new NotFoundException(nameof(User), request.UserId);
-                if (user.Role.RoleName != "moderator")
+                if (unconfirmedEvent == null)
                 {
-                    throw new NotFoundException(nameof(UnconfirmedEvent), request.UpdateNaturalDisasterEventDto.Id);
+                    var user = await _unitOfWork.UserRepository.GetByIdAsync((int)request.UserId, cancellationToken, u => u.Role) ??
+                               throw new NotFoundException(nameof(User), request.UserId);
+                    if (user.Role.RoleName != "moderator")
+                    {
+                        throw new NotFoundException(nameof(UnconfirmedEvent), request.UpdateNaturalDisasterEventDto.Id);
+                    }
                 }
-            }
-            else
-            {
-                await _authorizationService.AuthorizeAsync(request.UserId, unconfirmedEvent.UserId, cancellationToken, unconfirmedEvent, unconfirmedEvent.EventId);
+                else
+                {
+                    await _authorizationService.AuthorizeAsync((int)request.UserId, unconfirmedEvent.UserId, cancellationToken, unconfirmedEvent,
+                        unconfirmedEvent.EventId);
+                }
             }
 
             var eventCategory = (await _unitOfWork.EventCategoryRepository.GetAllAsync(cancellationToken, mu => mu.CategoryName == request.UpdateNaturalDisasterEventDto.EventCategoryName))
