@@ -67,8 +67,8 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
 
             naturalDisasterEvent.Title = request.UpdateNaturalDisasterEventDto.Title;
             naturalDisasterEvent.Link = request.UpdateNaturalDisasterEventDto.Link;
-            naturalDisasterEvent.StartDate = request.UpdateNaturalDisasterEventDto.StartDate;
-            naturalDisasterEvent.EndDate = request.UpdateNaturalDisasterEventDto.EndDate;
+            naturalDisasterEvent.StartDate = request.UpdateNaturalDisasterEventDto.StartDate.ToUniversalTime();
+            naturalDisasterEvent.EndDate = request.UpdateNaturalDisasterEventDto.EndDate?.ToUniversalTime();
             naturalDisasterEvent.MagnitudeValue = request.UpdateNaturalDisasterEventDto.MagnitudeValue;
             naturalDisasterEvent.EventCategoryId = eventCategory.Id;
             naturalDisasterEvent.MagnitudeUnitId = magnitudeUnit.Id;
