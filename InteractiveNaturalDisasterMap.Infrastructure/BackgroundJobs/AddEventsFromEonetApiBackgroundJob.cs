@@ -32,7 +32,7 @@ namespace InteractiveNaturalDisasterMap.Infrastructure.BackgroundJobs
         {
             var client = _clientFactory.CreateClient();
             string requestUrl =
-                "https://eonet.gsfc.nasa.gov/api/v3/events/geojson?status=all&category=drought,earthquakes,floods,landslides,severeStorms,snow,tempExtremes,volcanoes,wildfires&days=1";
+                "https://eonet.gsfc.nasa.gov/api/v3/events/geojson?status=all&category=drought,earthquakes,floods,landslides,severeStorms,snow,tempExtremes,volcanoes,wildfires&days=30";
             var eonetEventFeatures = (await client.GetFromJsonAsync<EonetEventsGeoJson>(requestUrl))?.Features.OrderBy(f => f.Properties.Date);
 
             var eventsAddedCounter = 0;

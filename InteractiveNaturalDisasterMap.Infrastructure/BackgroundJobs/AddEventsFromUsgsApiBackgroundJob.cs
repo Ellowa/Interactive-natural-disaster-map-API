@@ -32,7 +32,7 @@ namespace InteractiveNaturalDisasterMap.Infrastructure.BackgroundJobs
         {
             var client = _clientFactory.CreateClient();
             string requestUrl =
-                "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_hour.geojson";
+                "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_month.geojson";
             var usgsEventFeatures = (await client.GetFromJsonAsync<UsgsEventsGeoJson>(requestUrl))?.Features.OrderBy(f => f.Properties.Time);
 
             var eventsAddedCounter = 0;
