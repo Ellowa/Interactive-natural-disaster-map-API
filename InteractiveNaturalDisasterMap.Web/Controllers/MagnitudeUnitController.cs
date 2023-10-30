@@ -1,5 +1,7 @@
-﻿using InteractiveNaturalDisasterMap.Application.Handlers.MagnitudeUnits.Commands.CreateMagnitudeUnit;
+﻿using InteractiveNaturalDisasterMap.Application.Handlers.MagnitudeUnits.Commands.AddMagnitudeUnitToEventCategory;
+using InteractiveNaturalDisasterMap.Application.Handlers.MagnitudeUnits.Commands.CreateMagnitudeUnit;
 using InteractiveNaturalDisasterMap.Application.Handlers.MagnitudeUnits.Commands.DeleteMagnitudeUnit;
+using InteractiveNaturalDisasterMap.Application.Handlers.MagnitudeUnits.Commands.DeleteMagnitudeUnitFromEventCategory;
 using InteractiveNaturalDisasterMap.Application.Handlers.MagnitudeUnits.Commands.UpdateMagnitudeUnit;
 using InteractiveNaturalDisasterMap.Application.Handlers.MagnitudeUnits.DTOs;
 using InteractiveNaturalDisasterMap.Application.Handlers.MagnitudeUnits.Queries.GetAllMagnitudeUnit;
@@ -65,6 +67,38 @@ namespace InteractiveNaturalDisasterMap.Web.Controllers
             var request = new UpdateMagnitudeUnitRequest()
             {
                 UpdateMagnitudeUnitDto = updateMagnitudeUnitDto,
+            };
+            await Mediator.Send(request);
+            return NoContent();
+        }
+
+        // POST api/MagnitudeUnit/AddToCategory
+        [HttpPost("AddToCategory")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = $"{UserRoles.Moderator}")]
+        public async Task<IActionResult> MagnitudeUnitAddToCategory([FromBody] MagnitudeUnitToEventCategoryDto addMagnitudeUnitToEventCategoryDto)
+        {
+            var request = new AddMagnitudeUnitToEventCategoryRequest()
+            {
+                AddMagnitudeUnitToEventCategoryDto = addMagnitudeUnitToEventCategoryDto,
+            };
+            await Mediator.Send(request);
+            return NoContent();
+        }
+
+        // DELETE api/MagnitudeUnit/DeleteFromCategory
+        [HttpDelete("DeleteFromCategory")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = $"{UserRoles.Moderator}")]
+        public async Task<IActionResult> MagnitudeUnitDeleteFromCategory([FromBody] MagnitudeUnitToEventCategoryDto deleteMagnitudeUnitToEventCategoryDto)
+        {
+            var request = new DeleteMagnitudeUnitFromEventCategoryRequest()
+            {
+                DeleteMagnitudeUnitFromEventCategoryDto = deleteMagnitudeUnitToEventCategoryDto,
             };
             await Mediator.Send(request);
             return NoContent();

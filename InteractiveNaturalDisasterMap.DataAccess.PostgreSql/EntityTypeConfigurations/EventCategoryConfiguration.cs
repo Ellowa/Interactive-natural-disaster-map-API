@@ -9,6 +9,10 @@ namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql.EntityTypeConfigur
         public void Configure(EntityTypeBuilder<EventCategory> builder)
         {
             builder.HasIndex(ec => ec.CategoryName).IsUnique();
+
+            builder
+                .HasMany(ec => ec.MagnitudeUnits)
+                .WithMany(mu => mu.EventCategories);
         }
     }
 }

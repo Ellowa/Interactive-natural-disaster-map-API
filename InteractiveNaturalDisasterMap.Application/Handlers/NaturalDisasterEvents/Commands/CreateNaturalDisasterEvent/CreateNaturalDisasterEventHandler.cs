@@ -18,16 +18,25 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
 
         public async Task<int> Handle(CreateNaturalDisasterEventRequest request, CancellationToken cancellationToken)
         {
-            var eventCategory = (await _unitOfWork.EventCategoryRepository.GetAllAsync(cancellationToken, mu => mu.CategoryName == request.CreateNaturalDisasterEventDto.EventCategoryName))
-                .FirstOrDefault() ?? throw new NotFoundException(nameof(EventCategory), $"With name {request.CreateNaturalDisasterEventDto.EventCategoryName}");
             var eventSource = (await _unitOfWork.EventSourceRepository.GetAllAsync(cancellationToken, mu => mu.SourceType == request.SourceName))
                 .FirstOrDefault() ?? throw new NotFoundException(nameof(EventSource), $"With name {request.SourceName}");
-            var magnitudeUnit = (await _unitOfWork.MagnitudeUnitRepository.GetAllAsync(cancellationToken, mu => mu.MagnitudeUnitName == request.CreateNaturalDisasterEventDto.MagnitudeUnitName, 
-                    mu => mu.EventHazardUnits))
-                .FirstOrDefault() ?? throw new NotFoundException(nameof(MagnitudeUnit), $"With name {request.CreateNaturalDisasterEventDto.MagnitudeUnitName}");
+            var magnitudeUnit = (await _unitOfWork.MagnitudeUnitRepository.GetAllAsync(cancellationToken,
+                    mu => mu.MagnitudeUnitName == request.CreateNaturalDisasterEventDto.MagnitudeUnitName,
+                    mu => mu.EventHazardUnits, mu => mu.EventCategories))
+                .FirstOrDefault() ?? throw new NotFoundException(nameof(MagnitudeUnit),
+                    $"With name {request.CreateNaturalDisasterEventDto.MagnitudeUnitName}");
             var eventHazardUnits = magnitudeUnit.EventHazardUnits;
-            if(eventHazardUnits == null || eventHazardUnits.Count == 0)
-                throw new NotFoundException(nameof(EventHazardUnit), $"With MagnitudeUnitName: {request.CreateNaturalDisasterEventDto.MagnitudeUnitName}");
+            if (eventHazardUnits == null || eventHazardUnits.Count == 0)
+                throw new NotFoundException(nameof(EventHazardUnit),
+                    $"With MagnitudeUnitName: {request.CreateNaturalDisasterEventDto.MagnitudeUnitName}");
+
+            var eventCategory = (await _unitOfWork.EventCategoryRepository.GetAllAsync(cancellationToken,
+                    mu => mu.CategoryName == request.CreateNaturalDisasterEventDto.EventCategoryName))
+                .FirstOrDefault() ?? throw new NotFoundException(nameof(EventCategory),
+                    $"With name {request.CreateNaturalDisasterEventDto.EventCategoryName}");
+            if (!magnitudeUnit.EventCategories.Contains(eventCategory))
+                throw new NotFoundException(nameof(EventCategory),
+                    $"With name {eventCategory.CategoryName} in this {magnitudeUnit.MagnitudeUnitName} magnitudeUnit");
 
             eventHazardUnits = eventHazardUnits.OrderByDescending(ehu => ehu.ThresholdValue).ToArray();
             int eventHazardUnitId = eventHazardUnits.Last().Id;
@@ -38,7 +47,8 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
 
             bool isConfirmedEvent = eventSource.SourceType != "user";
 
-            var naturalDisasterEventEntity = request.CreateNaturalDisasterEventDto.Map(isConfirmedEvent, eventHazardUnitId, eventSource.Id, eventCategory.Id, magnitudeUnit.Id, request.IdInThirdPartyApi);
+            var naturalDisasterEventEntity = request.CreateNaturalDisasterEventDto.Map(isConfirmedEvent, eventHazardUnitId, eventSource.Id,
+                eventCategory.Id, magnitudeUnit.Id, request.IdInThirdPartyApi);
             await _naturalDisasterEventRepository.AddAsync(naturalDisasterEventEntity, cancellationToken);
             await _unitOfWork.SaveAsync(cancellationToken);
 
@@ -69,7 +79,7 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
                 await _unitOfWork.EventsCollectionRepository.AddAsync(
                     new EventsCollection
                     {
-                        EventId = naturalDisasterEventEntity.Id, 
+                        EventId = naturalDisasterEventEntity.Id,
                         CollectionId = userEventsCollection.Id,
                     },
                     cancellationToken);

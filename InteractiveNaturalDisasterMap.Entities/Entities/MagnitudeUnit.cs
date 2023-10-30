@@ -9,5 +9,7 @@
         public ICollection<NaturalDisasterEvent> Events { get; set; } = null!;
 
         public ICollection<EventHazardUnit> EventHazardUnits { get; set; } = null!;
+
+        public ICollection<EventCategory> EventCategories { get; set; } = null!;
     }
 }

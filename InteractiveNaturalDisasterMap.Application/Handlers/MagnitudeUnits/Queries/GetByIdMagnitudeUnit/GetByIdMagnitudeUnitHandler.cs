@@ -17,7 +17,8 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.MagnitudeUnits.Quer
 
         public async Task<MagnitudeUnitDto> Handle(GetByIdMagnitudeUnitRequest request, CancellationToken cancellationToken)
         {
-            var magnitudeUnit = await _magnitudeUnitRepository.GetByIdAsync(request.GetByIdMagnitudeUnitDto.Id, cancellationToken, mu => mu.EventHazardUnits) 
+            var magnitudeUnit = await _magnitudeUnitRepository.GetByIdAsync(request.GetByIdMagnitudeUnitDto.Id, cancellationToken,
+                                    mu => mu.EventHazardUnits, mu => mu.EventCategories)
                                 ?? throw new NotFoundException(nameof(MagnitudeUnit), request.GetByIdMagnitudeUnitDto.Id);
 
             return new MagnitudeUnitDto(magnitudeUnit);
