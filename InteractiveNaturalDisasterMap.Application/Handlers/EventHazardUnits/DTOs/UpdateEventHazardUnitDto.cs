@@ -1,8 +1,4 @@
-﻿using InteractiveNaturalDisasterMap.Application.DataAccessInterfaces;
-using InteractiveNaturalDisasterMap.Application.Exceptions;
-using InteractiveNaturalDisasterMap.Domain.Entities;
-
-namespace InteractiveNaturalDisasterMap.Application.Handlers.EventHazardUnits.DTOs
+﻿namespace InteractiveNaturalDisasterMap.Application.Handlers.EventHazardUnits.DTOs
 {
     public class UpdateEventHazardUnitDto
     {

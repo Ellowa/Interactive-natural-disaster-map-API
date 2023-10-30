@@ -63,7 +63,7 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
             {
                 "id" => nde => nde.Id,
                 "category" => nde => nde.EventCategoryId,
-                "enddate" => nde => nde.EndDate,
+                "enddate" => nde => nde.EndDate!,
                 "hazard" => nde => nde.EventHazardUnit.HazardName,
                 "source" => nde => nde.SourceId,
                 "magnitude" => nde => nde.MagnitudeUnitId,

@@ -22,7 +22,7 @@ namespace InteractiveNaturalDisasterMap.Application.Behaviors
             }
 
             var validationFailures = await Task.WhenAll(
-                _validators.Select(validator => validator.ValidateAsync(request)));
+                _validators.Select(validator => validator.ValidateAsync(request, cancellationToken)));
 
             var errors = validationFailures
                 .Where(validationResult => !validationResult.IsValid)

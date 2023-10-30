@@ -8,16 +8,16 @@ namespace InteractiveNaturalDisasterMap.DataAccess.PostgreSql
     {
         private readonly InteractiveNaturalDisasterMapDbContext _context;
 
-        private IGenericBaseEntityRepository<EventCategory> _eventCategoryRepository;
-        private IGenericBaseEntityRepository<EventSource> _eventSourceRepository;
-        private IGenericBaseEntityRepository<MagnitudeUnit> _magnitudeUnitRepository;
-        private IEventsCollectionRepository _eventsCollectionRepository;
-        private IEventsCollectionInfoRepository _eventsCollectionInfoRepository;
-        private IGenericBaseEntityRepository<User> _userRepository;
-        private IGenericBaseEntityRepository<UserRole> _userRoleRepository;
-        private IUnconfirmedEventRepository _unconfirmedEventRepository;
-        private INaturalDisasterEventRepository _naturalDisasterEventRepository;
-        private IGenericBaseEntityRepository<EventHazardUnit> _eventHazardUnitRepository;
+        private IGenericBaseEntityRepository<EventCategory>? _eventCategoryRepository;
+        private IGenericBaseEntityRepository<EventSource>? _eventSourceRepository;
+        private IGenericBaseEntityRepository<MagnitudeUnit>? _magnitudeUnitRepository;
+        private IEventsCollectionRepository? _eventsCollectionRepository;
+        private IEventsCollectionInfoRepository? _eventsCollectionInfoRepository;
+        private IGenericBaseEntityRepository<User>? _userRepository;
+        private IGenericBaseEntityRepository<UserRole>? _userRoleRepository;
+        private IUnconfirmedEventRepository? _unconfirmedEventRepository;
+        private INaturalDisasterEventRepository? _naturalDisasterEventRepository;
+        private IGenericBaseEntityRepository<EventHazardUnit>? _eventHazardUnitRepository;
 
 
         public UnitOfWork(InteractiveNaturalDisasterMapDbContext context)

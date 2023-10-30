@@ -1,6 +1,4 @@
-﻿using InteractiveNaturalDisasterMap.Domain.Entities;
-
-namespace InteractiveNaturalDisasterMap.Application.Handlers.UserRoles.DTOs
+﻿namespace InteractiveNaturalDisasterMap.Application.Handlers.UserRoles.DTOs
 {
     public class UpdateUserRoleDto
     {

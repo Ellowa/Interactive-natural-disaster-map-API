@@ -1,7 +1,4 @@
-﻿
-using InteractiveNaturalDisasterMap.Domain.Entities;
-
-namespace InteractiveNaturalDisasterMap.Application.Handlers.EventCategories.DTOs
+﻿namespace InteractiveNaturalDisasterMap.Application.Handlers.EventCategories.DTOs
 {
     public class UpdateEventCategoryDto
     {

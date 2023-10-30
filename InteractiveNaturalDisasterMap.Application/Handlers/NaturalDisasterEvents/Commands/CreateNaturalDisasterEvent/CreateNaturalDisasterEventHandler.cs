@@ -40,7 +40,7 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
 
             eventHazardUnits = eventHazardUnits.OrderByDescending(ehu => ehu.ThresholdValue).ToArray();
             int eventHazardUnitId = eventHazardUnits.Last().Id;
-            if (request.CreateNaturalDisasterEventDto.MagnitudeValue != null && eventHazardUnits.Count() > 1)
+            if (request.CreateNaturalDisasterEventDto.MagnitudeValue != null && eventHazardUnits.Count > 1)
             {
                 eventHazardUnitId = eventHazardUnits.First(ehu => ehu.ThresholdValue <= request.CreateNaturalDisasterEventDto.MagnitudeValue).Id;
             }

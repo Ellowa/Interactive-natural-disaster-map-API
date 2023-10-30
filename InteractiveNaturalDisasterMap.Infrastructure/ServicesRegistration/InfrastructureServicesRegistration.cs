@@ -4,7 +4,6 @@ using InteractiveNaturalDisasterMap.Application.InfrastructureInterfaces;
 using InteractiveNaturalDisasterMap.Infrastructure.Authentication;
 using InteractiveNaturalDisasterMap.Infrastructure.Authorization;
 using Quartz;
-using InteractiveNaturalDisasterMap.Infrastructure.BackgroundJobs;
 
 namespace InteractiveNaturalDisasterMap.Infrastructure.ServicesRegistration
 {
@@ -23,10 +22,7 @@ namespace InteractiveNaturalDisasterMap.Infrastructure.ServicesRegistration
 
             services.AddScoped<IAuthorizationService, AuthorizationService>();
 
-            services.AddQuartz(options =>
-            {
-                options.UseMicrosoftDependencyInjectionJobFactory();
-            });
+            services.AddQuartz();
 
             services.AddQuartzHostedService(options =>
             {

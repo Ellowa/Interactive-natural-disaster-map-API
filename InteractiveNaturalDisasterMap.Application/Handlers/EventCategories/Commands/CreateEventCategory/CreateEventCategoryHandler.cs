@@ -25,8 +25,10 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.EventCategories.Com
                 (await _unitOfWork.MagnitudeUnitRepository.GetAllAsync(cancellationToken,
                     mu => mu.MagnitudeUnitName == EntityNamesByDefault.DefaultMagnitudeUnit)).FirstOrDefault()
                 ?? throw new NotFoundException(nameof(MagnitudeUnit), $"With name {EntityNamesByDefault.DefaultMagnitudeUnit}");
-            entity.MagnitudeUnits = new List<MagnitudeUnit>();
-            entity.MagnitudeUnits.Add(undefinedMagnitudeUnit);
+            entity.MagnitudeUnits = new List<MagnitudeUnit>
+            {
+                undefinedMagnitudeUnit
+            };
 
             await _eventCategoryRepository.AddAsync(entity, cancellationToken);
             await _unitOfWork.SaveAsync(cancellationToken);
