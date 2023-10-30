@@ -14,7 +14,7 @@ namespace InteractiveNaturalDisasterMap.Web.Controllers
         {
             get 
             { 
-                return User.Identity!.IsAuthenticated 
+                return !User.Identity!.IsAuthenticated 
                 ? null 
                 : Convert.ToInt32(User.Claims.First(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value);
             }
