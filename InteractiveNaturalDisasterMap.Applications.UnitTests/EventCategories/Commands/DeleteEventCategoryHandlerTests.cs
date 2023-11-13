@@ -51,7 +51,7 @@ namespace InteractiveNaturalDisasterMap.Applications.UnitTests.EventCategories.C
             _eventCategoryRepositoryMock.Setup(x =>
                     x.GetAllAsync(It.IsAny<CancellationToken>(), ec => ec.CategoryName == EntityNamesByDefault.DefaultEventCategory))
                 .ReturnsAsync(new List<EventCategory> { otherCategory });
-            _eventCategoryRepositoryMock.Setup(x => x.DeleteByIdAsync(1, It.IsAny<CancellationToken>()));
+            _eventCategoryRepositoryMock.Setup(x => x.DeleteByIdAsync(request.DeleteEventCategoryDto.Id, It.IsAny<CancellationToken>()));
 
             _unitOfWorkMock.Setup(x => x.EventCategoryRepository).Returns(_eventCategoryRepositoryMock.Object);
 
