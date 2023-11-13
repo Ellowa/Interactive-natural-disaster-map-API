@@ -70,7 +70,7 @@ namespace InteractiveNaturalDisasterMap.Applications.UnitTests.EventCategories.C
             Func<Task> act = async () => await handler.Handle(request, default);
 
             // Assert
-            await act.Should().ThrowAsync<NotFoundException>().WithMessage($"Entity - EventCategory({request.UpdateEventCategoryDto.Id}) not found");
+            await act.Should().ThrowAsync<NotFoundException>().WithMessage($"Entity TEST GITHUB ACTIONS TESTING - EventCategory({request.UpdateEventCategoryDto.Id}) not found");
 
             _eventCategoryRepositoryMock.Verify(ecr => ecr.Update(It.IsAny<EventCategory>()), Times.Never, "eventCategoryRepository Update() is calls");
             _unitOfWorkMock.Verify(u => u.SaveAsync(It.IsAny<CancellationToken>()), Times.Never, "unitOfWork SaveAsync() is calls");
