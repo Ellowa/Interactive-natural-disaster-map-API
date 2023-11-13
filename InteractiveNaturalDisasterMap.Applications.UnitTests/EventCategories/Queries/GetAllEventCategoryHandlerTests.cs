@@ -5,7 +5,7 @@ using InteractiveNaturalDisasterMap.Domain.Entities;
 using Moq;
 using System.Linq.Expressions;
 
-namespace InteractiveNaturalDisasterMap.Applications.UnitTests.EventCategories.Commands
+namespace InteractiveNaturalDisasterMap.Applications.UnitTests.EventCategories.Queries
 {
     public class GetAllEventCategoryHandlerTests
     {
