@@ -8,7 +8,7 @@ using InteractiveNaturalDisasterMap.Application.Utilities;
 using InteractiveNaturalDisasterMap.Domain.Entities;
 using Moq;
 
-namespace InteractiveNaturalDisasterMap.Applications.UnitTests.EventCategories.Commands.CreateEventCategory
+namespace InteractiveNaturalDisasterMap.Applications.UnitTests.EventCategories.Commands
 {
     public class CreateEventCategoryHandlerTests
     {
@@ -88,7 +88,7 @@ namespace InteractiveNaturalDisasterMap.Applications.UnitTests.EventCategories.C
             Func<Task> act = async () => await handler.Handle(request, default);
 
             // Assert
-            await act.Should().ThrowAsync<NotFoundException>().WithMessage("Entity - MagnitudeUnit(With name undefined) not found");
+            await act.Should().ThrowAsync<NotFoundException>().WithMessage($"Entity - MagnitudeUnit(With name {EntityNamesByDefault.DefaultMagnitudeUnit}) not found");
             _magnitudeUnitRepositoryMock.Verify(
                 mur => mur.GetAllAsync(It.IsAny<CancellationToken>(), It.IsAny<Expression<Func<MagnitudeUnit, bool>>>()), Times.Once,
                 "magnitudeUnitRepository GetAllAsync() is failed");
