@@ -29,7 +29,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "InteractiveNaturalDisasterMap.Applications.UnitTests", "InteractiveNaturalDisasterMap.Applications.UnitTests", "{75D1A771-F0E8-41C0-9345-51D473016781}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InteractiveNaturalDisasterMap.Applications.UnitTests", "InteractiveNaturalDisasterMap.Applications.UnitTests\InteractiveNaturalDisasterMap.Applications.UnitTests.csproj", "{FF14BC40-44CC-4A69-AF6B-11CF651FBEF2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InteractiveNaturalDisasterMap.Applications.UnitTests", "InteractiveNaturalDisasterMap.Applications.UnitTests\InteractiveNaturalDisasterMap.Applications.UnitTests.csproj", "{FF14BC40-44CC-4A69-AF6B-11CF651FBEF2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IntegrationTests", "IntegrationTests", "{223B921F-586C-451E-8B92-584DB1440CCA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "InteractiveNaturalDisasterMap.Applications.IntegrationTests", "InteractiveNaturalDisasterMap.Applications.IntegrationTests", "{2691B006-05DA-4970-9609-C4B172255C1A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InteractiveNaturalDisasterMap.Applications.IntegrationTests", "InteractiveNaturalDisasterMap.Applications.IntegrationTests\InteractiveNaturalDisasterMap.Applications.IntegrationTests.csproj", "{D1918D56-4E22-4BD3-BC64-999D6E4107A3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +67,10 @@ Global
 		{FF14BC40-44CC-4A69-AF6B-11CF651FBEF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF14BC40-44CC-4A69-AF6B-11CF651FBEF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF14BC40-44CC-4A69-AF6B-11CF651FBEF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1918D56-4E22-4BD3-BC64-999D6E4107A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1918D56-4E22-4BD3-BC64-999D6E4107A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1918D56-4E22-4BD3-BC64-999D6E4107A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1918D56-4E22-4BD3-BC64-999D6E4107A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,6 +84,9 @@ Global
 		{62430A7A-64CB-4E09-9E36-BC5A2CF9304A} = {D1596CF6-1A91-4A9E-AFC6-085991F55FE4}
 		{75D1A771-F0E8-41C0-9345-51D473016781} = {62430A7A-64CB-4E09-9E36-BC5A2CF9304A}
 		{FF14BC40-44CC-4A69-AF6B-11CF651FBEF2} = {75D1A771-F0E8-41C0-9345-51D473016781}
+		{223B921F-586C-451E-8B92-584DB1440CCA} = {D1596CF6-1A91-4A9E-AFC6-085991F55FE4}
+		{2691B006-05DA-4970-9609-C4B172255C1A} = {223B921F-586C-451E-8B92-584DB1440CCA}
+		{D1918D56-4E22-4BD3-BC64-999D6E4107A3} = {2691B006-05DA-4970-9609-C4B172255C1A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5B7EAFD9-E9D8-4951-A8EB-D12C109BF5EE}
