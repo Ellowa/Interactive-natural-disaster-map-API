@@ -3,6 +3,7 @@ using FluentValidation;
 using InteractiveNaturalDisasterMap.Application.Exceptions;
 using InteractiveNaturalDisasterMap.Application.Handlers.EventCategories.Commands.CreateEventCategory;
 using InteractiveNaturalDisasterMap.Application.Handlers.EventCategories.Commands.DeleteEventCategory;
+using InteractiveNaturalDisasterMap.Application.Handlers.EventCategories.Commands.UpdateEventCategory;
 using InteractiveNaturalDisasterMap.Application.Handlers.EventCategories.DTOs;
 using InteractiveNaturalDisasterMap.Application.Handlers.MagnitudeUnits.Commands.CreateMagnitudeUnit;
 using InteractiveNaturalDisasterMap.Application.Handlers.MagnitudeUnits.DTOs;
@@ -65,6 +66,7 @@ namespace InteractiveNaturalDisasterMap.Applications.IntegrationTests
             // Assert
             Assert.ThrowsAsync<ValidationException>(Action);
         }
+
 
         [Test]
         public async Task DeleteEventCategoryHandlerTest_WhenEventCategoryIsExistsAndOtherCategoryIsExists_ShouldDeleteEventCategory()
@@ -143,6 +145,67 @@ namespace InteractiveNaturalDisasterMap.Applications.IntegrationTests
 
             // Assert
             Assert.ThrowsAsync<NotFoundException>(Action);
+        }
+
+
+        [Test]
+        public async Task UpdateEventCategoryHandlerTest_WhenEventCategoryIsExistsAndRequestIsValid_ShouldUpdateEventCategory()
+        {
+            // Arrange
+            var createMagnitudeUnitRequest = new CreateMagnitudeUnitRequest()
+            {
+                CreateMagnitudeUnitDto = new CreateMagnitudeUnitDto() { MagnitudeUnitName = "undefined", MagnitudeUnitDescription = "Test" },
+            };
+            await Mediator.Send(createMagnitudeUnitRequest);
+
+            var createEventCategoryRequest = new CreateEventCategoryRequest()
+            {
+                CreateEventCategoryDto = new CreateEventCategoryDto { CategoryName = "Test" },
+            };
+            var eventCategoryId = await Mediator.Send(createEventCategoryRequest);
+
+            var request = new UpdateEventCategoryRequest()
+            {
+                UpdateEventCategoryDto = new UpdateEventCategoryDto() { Id = eventCategoryId, CategoryName = "New"},
+            };
+
+            // Act
+            await Mediator.Send(request);
+
+            // Assert
+            DbContext.EventsCategories.FirstOrDefault(ec => ec.CategoryName == "New").Should().NotBeNull();
+        }
+
+        [Test]
+        public void UpdateEventCategoryHandlerTest_WhenEventCategoryIsNotExists_ShouldThrowNotFoundException()
+        {
+            // Arrange
+            var request = new UpdateEventCategoryRequest()
+            {
+                UpdateEventCategoryDto = new UpdateEventCategoryDto() { Id = 1, CategoryName = "New" },
+            };
+
+            // Act
+            Task Action() => Mediator.Send(request);
+
+            // Assert
+            Assert.ThrowsAsync<NotFoundException>(Action);
+        }
+
+        [Test]
+        public void UpdateEventCategoryHandlerTest_WhenRequestIsInvalid_ShouldThrowValidationException()
+        {
+            // Arrange
+            var request = new UpdateEventCategoryRequest()
+            {
+                UpdateEventCategoryDto = new UpdateEventCategoryDto() { Id = 1, CategoryName = "" },
+            };
+
+            // Act
+            Task Action() => Mediator.Send(request);
+
+            // Assert
+            Assert.ThrowsAsync<ValidationException>(Action);
         }
     }
 }
