@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using FluentValidation;
+using InteractiveNaturalDisasterMap.Application.Exceptions;
 using InteractiveNaturalDisasterMap.Application.Handlers.EventCategories.Commands.CreateEventCategory;
 using InteractiveNaturalDisasterMap.Application.Handlers.EventCategories.DTOs;
 using InteractiveNaturalDisasterMap.Application.Handlers.MagnitudeUnits.Commands.CreateMagnitudeUnit;
@@ -11,7 +12,7 @@ namespace InteractiveNaturalDisasterMap.Applications.IntegrationTests
     public class EventCategoriesTests : BaseIntegrationTest
     {
         [Test]
-        public async Task CreateEventCategoryHandlerTest_WhenRequestIsValid_ShouldCreateEventCategory()
+        public async Task CreateEventCategoryHandlerTest_WhenRequestIsValidAndUndefinedMagnitudeUnitIsExists_ShouldCreateEventCategory()
         {
             // Arrange
             var request = new CreateEventCategoryRequest()
@@ -30,6 +31,22 @@ namespace InteractiveNaturalDisasterMap.Applications.IntegrationTests
             
             // Assert
             DbContext.EventsCategories.Should().Contain(x => x.Id == result);
+        }
+
+        [Test]
+        public void CreateEventCategoryHandlerTest_WhenRequestIsValidAndUndefinedMagnitudeUnitIsNotExists_ShouldThrowNotFoundException()
+        {
+            // Arrange
+            var request = new CreateEventCategoryRequest()
+            {
+                CreateEventCategoryDto = new CreateEventCategoryDto { CategoryName = "Test" },
+            };
+
+            // Act
+            Task Action() => Mediator.Send(request);
+
+            // Assert
+            Assert.ThrowsAsync<NotFoundException>(Action);
         }
 
         [Test]
