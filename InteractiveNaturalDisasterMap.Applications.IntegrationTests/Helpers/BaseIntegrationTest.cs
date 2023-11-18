@@ -23,6 +23,7 @@ namespace InteractiveNaturalDisasterMap.Applications.IntegrationTests.Helpers
         public void TearDown()
         {
             _factory.Dispose();
+            DbContext.Dispose();
         }
 
     }

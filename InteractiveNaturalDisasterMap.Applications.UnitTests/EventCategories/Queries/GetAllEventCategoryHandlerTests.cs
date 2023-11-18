@@ -25,9 +25,7 @@ namespace InteractiveNaturalDisasterMap.Applications.UnitTests.EventCategories.Q
         public async Task GetAllEventCategoryHandlerTests_WhenEventCategoriesIsExists_ShouldReturnEventCategories()
         {
             // Arrange
-            var request = new GetAllEventCategoryRequest()
-            {
-            };
+            var request = new GetAllEventCategoryRequest();
 
             var expectedEventCategories = new List<EventCategory>
             { 
