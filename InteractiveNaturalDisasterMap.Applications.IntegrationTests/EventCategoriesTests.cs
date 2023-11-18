@@ -6,6 +6,7 @@ using InteractiveNaturalDisasterMap.Application.Handlers.EventCategories.Command
 using InteractiveNaturalDisasterMap.Application.Handlers.EventCategories.Commands.UpdateEventCategory;
 using InteractiveNaturalDisasterMap.Application.Handlers.EventCategories.DTOs;
 using InteractiveNaturalDisasterMap.Application.Handlers.EventCategories.Queries.GetAllEventCategory;
+using InteractiveNaturalDisasterMap.Application.Handlers.EventCategories.Queries.GetByIdEventCategory;
 using InteractiveNaturalDisasterMap.Application.Handlers.MagnitudeUnits.Commands.CreateMagnitudeUnit;
 using InteractiveNaturalDisasterMap.Application.Handlers.MagnitudeUnits.DTOs;
 using InteractiveNaturalDisasterMap.Applications.IntegrationTests.Helpers;
@@ -255,6 +256,51 @@ namespace InteractiveNaturalDisasterMap.Applications.IntegrationTests
 
             // Assert
             result.Count.Should().Be(expectedEventsCategoriesCount);
+        }
+
+
+        [Test]
+        public async Task GetByIdEventCategoryHandlerTest_WhenEventCategoryIsExists_ShouldReturnEventCategory()
+        {
+            // Arrange
+            var createMagnitudeUnitRequest = new CreateMagnitudeUnitRequest()
+            {
+                CreateMagnitudeUnitDto = new CreateMagnitudeUnitDto() { MagnitudeUnitName = "undefined", MagnitudeUnitDescription = "Test" },
+            };
+            await Mediator.Send(createMagnitudeUnitRequest);
+
+            var createEventCategoryRequest = new CreateEventCategoryRequest()
+            {
+                CreateEventCategoryDto = new CreateEventCategoryDto { CategoryName = "Test" },
+            };
+            var eventCategoryId = await Mediator.Send(createEventCategoryRequest);
+
+            var request = new GetByIdEventCategoryRequest()
+            {
+                GetByIdEventCategoryDto = new GetByIdEventCategoryDto() { Id = eventCategoryId },
+            };
+
+            // Act
+            var result = await Mediator.Send(request);
+
+            // Assert
+            result.CategoryName.Should().Be("Test");
+        }
+
+        [Test]
+        public void GetByIdEventCategoryHandlerTest_WhenEventCategoryIsNotExists_ShouldThrowNotFoundException()
+        {
+            // Arrange
+            var request = new GetByIdEventCategoryRequest()
+            {
+                GetByIdEventCategoryDto = new GetByIdEventCategoryDto() { Id = 1 },
+            };
+
+            // Act
+            Task Action() => Mediator.Send(request);
+
+            // Assert
+            Assert.ThrowsAsync<NotFoundException>(Action);
         }
     }
 }
