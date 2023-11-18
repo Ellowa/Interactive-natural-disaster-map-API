@@ -5,6 +5,7 @@ using InteractiveNaturalDisasterMap.Application.Handlers.EventCategories.Command
 using InteractiveNaturalDisasterMap.Application.Handlers.EventCategories.Commands.DeleteEventCategory;
 using InteractiveNaturalDisasterMap.Application.Handlers.EventCategories.Commands.UpdateEventCategory;
 using InteractiveNaturalDisasterMap.Application.Handlers.EventCategories.DTOs;
+using InteractiveNaturalDisasterMap.Application.Handlers.EventCategories.Queries.GetAllEventCategory;
 using InteractiveNaturalDisasterMap.Application.Handlers.MagnitudeUnits.Commands.CreateMagnitudeUnit;
 using InteractiveNaturalDisasterMap.Application.Handlers.MagnitudeUnits.DTOs;
 using InteractiveNaturalDisasterMap.Applications.IntegrationTests.Helpers;
@@ -206,6 +207,54 @@ namespace InteractiveNaturalDisasterMap.Applications.IntegrationTests
 
             // Assert
             Assert.ThrowsAsync<ValidationException>(Action);
+        }
+
+
+        [Test]
+        public async Task GetAllEventCategoryHandlerTest_WhenEventCategoryIsExists_ShouldReturnAllEventCategories()
+        {
+            // Arrange
+            var createMagnitudeUnitRequest = new CreateMagnitudeUnitRequest()
+            {
+                CreateMagnitudeUnitDto = new CreateMagnitudeUnitDto() { MagnitudeUnitName = "undefined", MagnitudeUnitDescription = "Test" },
+            };
+            await Mediator.Send(createMagnitudeUnitRequest);
+
+            var createEventCategoryRequest = new CreateEventCategoryRequest()
+            {
+                CreateEventCategoryDto = new CreateEventCategoryDto { CategoryName = "Test" },
+            };
+            await Mediator.Send(createEventCategoryRequest);
+            createEventCategoryRequest = new CreateEventCategoryRequest()
+            {
+                CreateEventCategoryDto = new CreateEventCategoryDto { CategoryName = "Test2" },
+            };
+            await Mediator.Send(createEventCategoryRequest);
+
+            var expectedEventsCategoriesCount = DbContext.EventsCategories.Count();
+
+            var request = new GetAllEventCategoryRequest();
+
+            // Act
+            var result = await Mediator.Send(request);
+
+            // Assert
+            result.Count.Should().Be(expectedEventsCategoriesCount);
+        }
+
+        [Test]
+        public async Task GetAllEventCategoryHandlerTest_WhenEventCategoryIsNotExists_ShouldReturnZeroEventCategories()
+        {
+            // Arrange
+            var expectedEventsCategoriesCount = 0;
+
+            var request = new GetAllEventCategoryRequest();
+
+            // Act
+            var result = await Mediator.Send(request);
+
+            // Assert
+            result.Count.Should().Be(expectedEventsCategoriesCount);
         }
     }
 }
