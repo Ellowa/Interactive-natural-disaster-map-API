@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Quartz;
 
 namespace InteractiveNaturalDisasterMap.Applications.IntegrationTests.Helpers
 {
@@ -16,6 +17,12 @@ namespace InteractiveNaturalDisasterMap.Applications.IntegrationTests.Helpers
                     d => d.ServiceType ==
                          typeof(DbContextOptions<InteractiveNaturalDisasterMapDbContext>));
                 if (dbContextDescriptor != null) services.Remove(dbContextDescriptor);
+
+                var quartzHostedServiceDescriptor = services.FirstOrDefault(descriptor => descriptor.ImplementationType == typeof(QuartzHostedService));
+                if (quartzHostedServiceDescriptor != null)
+                {
+                    services.Remove(quartzHostedServiceDescriptor);
+                }
 
                 var serviceProvider = new ServiceCollection()
                     .AddEntityFrameworkInMemoryDatabase()
