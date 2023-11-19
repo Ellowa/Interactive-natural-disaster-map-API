@@ -18,8 +18,6 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.UserRoles.Commands.
 
         public async Task Handle(UpdateUserRoleRequest request, CancellationToken cancellationToken)
         {
-            request.UpdateUserRoleDto.RoleName = request.UpdateUserRoleDto.RoleName.ToLower();
-
             var userRole = await _userRoleRepository.GetByIdAsync(request.UpdateUserRoleDto.Id, cancellationToken) 
                            ?? throw new NotFoundException(nameof(UserRole), request.UpdateUserRoleDto.Id);
 
