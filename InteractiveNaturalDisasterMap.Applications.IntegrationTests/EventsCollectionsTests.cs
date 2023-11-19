@@ -13,10 +13,9 @@ using InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEvents.C
 using InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEvents.DTOs;
 using InteractiveNaturalDisasterMap.Application.Handlers.UserRoles.Commands.CreateUserRole;
 using InteractiveNaturalDisasterMap.Application.Handlers.UserRoles.DTOs;
-using InteractiveNaturalDisasterMap.Application.Handlers.Users.Commands.CreateUser;
-using InteractiveNaturalDisasterMap.Application.Handlers.Users.DTOs;
 using InteractiveNaturalDisasterMap.Application.Utilities;
 using InteractiveNaturalDisasterMap.Applications.IntegrationTests.Helpers;
+using InteractiveNaturalDisasterMap.Domain.Entities;
 
 namespace InteractiveNaturalDisasterMap.Applications.IntegrationTests
 {
@@ -29,12 +28,13 @@ namespace InteractiveNaturalDisasterMap.Applications.IntegrationTests
             TestsData.SeedData(DbContext);
 
             // Create user
-            var createUserRequest = new CreateUserRequest()
+            var userId = 1;
+            DbContext.Users.Add(new User()
             {
-                CreateUserDto = new CreateUserDto { Login = "Test", Password = "Test_123", RefreshToken = "" }
-            };
-            await Mediator.Send(createUserRequest);
-            var userId = DbContext.Users.FirstOrDefault(u => u.Login == "Test")!.Id;
+                Id = userId, Login = "Test2", PasswordHash = new byte[] { 1, 2, 3 }, PasswordSalt = new byte[] { 1, 2, 3 }, JwtRefreshToken = "",
+                RoleId = DbContext.UserRoles.FirstOrDefault()!.Id
+            });
+            await DbContext.SaveChangesAsync();
 
             // Create createEventsCollectionInfo
             var createEventsCollectionInfoRequest = new CreateEventsCollectionInfoRequest()
@@ -63,7 +63,7 @@ namespace InteractiveNaturalDisasterMap.Applications.IntegrationTests
 
             var request = new AddToEventsCollectionRequest()
             {
-                AddToEventsCollectionDto = new AddToEventsCollectionDto() { CollectionId = eventEventsCollectionInfoId, EventId = eventId},
+                AddToEventsCollectionDto = new AddToEventsCollectionDto() { CollectionId = eventEventsCollectionInfoId, EventId = eventId },
                 UserId = userId
             };
 
@@ -81,12 +81,17 @@ namespace InteractiveNaturalDisasterMap.Applications.IntegrationTests
             TestsData.SeedData(DbContext);
 
             // Create user
-            var createUserRequest = new CreateUserRequest()
+            var userId = 1;
+            DbContext.Users.Add(new User()
             {
-                CreateUserDto = new CreateUserDto { Login = "Test", Password = "Test_123", RefreshToken = "" }
-            };
-            await Mediator.Send(createUserRequest);
-            var userId = DbContext.Users.FirstOrDefault(u => u.Login == "Test")!.Id;
+                Id = userId,
+                Login = "Test2",
+                PasswordHash = new byte[] { 1, 2, 3 },
+                PasswordSalt = new byte[] { 1, 2, 3 },
+                JwtRefreshToken = "",
+                RoleId = DbContext.UserRoles.FirstOrDefault()!.Id
+            });
+            await DbContext.SaveChangesAsync();
 
             // Create createEventsCollectionInfo
             var createEventsCollectionInfoRequest = new CreateEventsCollectionInfoRequest()
@@ -116,12 +121,17 @@ namespace InteractiveNaturalDisasterMap.Applications.IntegrationTests
             TestsData.SeedData(DbContext);
 
             // Create user
-            var createUserRequest = new CreateUserRequest()
+            var userId = 1;
+            DbContext.Users.Add(new User()
             {
-                CreateUserDto = new CreateUserDto { Login = "Test", Password = "Test_123", RefreshToken = "" }
-            };
-            await Mediator.Send(createUserRequest);
-            var userId = DbContext.Users.FirstOrDefault(u => u.Login == "Test")!.Id;
+                Id = userId,
+                Login = "Test2",
+                PasswordHash = new byte[] { 1, 2, 3 },
+                PasswordSalt = new byte[] { 1, 2, 3 },
+                JwtRefreshToken = "",
+                RoleId = DbContext.UserRoles.FirstOrDefault()!.Id
+            });
+            await DbContext.SaveChangesAsync();
 
             // Create event
             var createNaturalDisasterEventRequest = new CreateNaturalDisasterEventRequest()
@@ -160,12 +170,17 @@ namespace InteractiveNaturalDisasterMap.Applications.IntegrationTests
             TestsData.SeedData(DbContext);
 
             // Create user
-            var createUserRequest = new CreateUserRequest()
+            var userId = 1;
+            DbContext.Users.Add(new User()
             {
-                CreateUserDto = new CreateUserDto { Login = "Test", Password = "Test_123", RefreshToken = "" }
-            };
-            await Mediator.Send(createUserRequest);
-            var userId = DbContext.Users.FirstOrDefault(u => u.Login == "Test")!.Id;
+                Id = userId,
+                Login = "Test2",
+                PasswordHash = new byte[] { 1, 2, 3 },
+                PasswordSalt = new byte[] { 1, 2, 3 },
+                JwtRefreshToken = "",
+                RoleId = DbContext.UserRoles.FirstOrDefault()!.Id
+            });
+            await DbContext.SaveChangesAsync();
 
             // Create createEventsCollectionInfo
             var createEventsCollectionInfoRequest = new CreateEventsCollectionInfoRequest()
@@ -249,12 +264,17 @@ namespace InteractiveNaturalDisasterMap.Applications.IntegrationTests
             };
             await Mediator.Send(createUserRoleRequest);
 
-            var createUserRequest = new CreateUserRequest()
+            var userId = 1;
+            DbContext.Users.Add(new User()
             {
-                CreateUserDto = new CreateUserDto { Login = "Test", Password = "Test_123", RefreshToken = ""}
-            };
-            await Mediator.Send(createUserRequest);
-            var userId = DbContext.Users.FirstOrDefault(u => u.Login == "Test")!.Id;
+                Id = userId,
+                Login = "Test2",
+                PasswordHash = new byte[] { 1, 2, 3 },
+                PasswordSalt = new byte[] { 1, 2, 3 },
+                JwtRefreshToken = "",
+                RoleId = DbContext.UserRoles.FirstOrDefault()!.Id
+            });
+            await DbContext.SaveChangesAsync();
 
             var createEventsCollectionInfoRequest = new CreateEventsCollectionInfoRequest()
             {
@@ -303,12 +323,17 @@ namespace InteractiveNaturalDisasterMap.Applications.IntegrationTests
             };
             await Mediator.Send(createUserRoleRequest);
 
-            var createUserRequest = new CreateUserRequest()
+            var userId = 1;
+            DbContext.Users.Add(new User()
             {
-                CreateUserDto = new CreateUserDto { Login = "Test", Password = "Test_123", RefreshToken = "" }
-            };
-            await Mediator.Send(createUserRequest);
-            var userId = DbContext.Users.FirstOrDefault(u => u.Login == "Test")!.Id;
+                Id = userId,
+                Login = "Test2",
+                PasswordHash = new byte[] { 1, 2, 3 },
+                PasswordSalt = new byte[] { 1, 2, 3 },
+                JwtRefreshToken = "",
+                RoleId = DbContext.UserRoles.FirstOrDefault()!.Id
+            });
+            await DbContext.SaveChangesAsync();
 
             var createEventsCollectionInfoRequest = new CreateEventsCollectionInfoRequest()
             {
@@ -332,18 +357,24 @@ namespace InteractiveNaturalDisasterMap.Applications.IntegrationTests
 
 
         [Test]
-        public async Task DeleteFromEventsCollectionHandlerTest_WhenEventsCollectionInfoIsExistsAndEventIsExists_ShouldDeleteEventFromEventsCollection()
+        public async Task
+            DeleteFromEventsCollectionHandlerTest_WhenEventsCollectionInfoIsExistsAndEventIsExists_ShouldDeleteEventFromEventsCollection()
         {
             // Arrange
             TestsData.SeedData(DbContext);
 
             // Create user
-            var createUserRequest = new CreateUserRequest()
+            var userId = 1;
+            DbContext.Users.Add(new User()
             {
-                CreateUserDto = new CreateUserDto { Login = "Test", Password = "Test_123", RefreshToken = "" }
-            };
-            await Mediator.Send(createUserRequest);
-            var userId = DbContext.Users.FirstOrDefault(u => u.Login == "Test")!.Id;
+                Id = userId,
+                Login = "Test2",
+                PasswordHash = new byte[] { 1, 2, 3 },
+                PasswordSalt = new byte[] { 1, 2, 3 },
+                JwtRefreshToken = "",
+                RoleId = DbContext.UserRoles.FirstOrDefault()!.Id
+            });
+            await DbContext.SaveChangesAsync();
 
             // Create createEventsCollectionInfo
             var createEventsCollectionInfoRequest = new CreateEventsCollectionInfoRequest()
@@ -403,12 +434,17 @@ namespace InteractiveNaturalDisasterMap.Applications.IntegrationTests
             };
             await Mediator.Send(createUserRoleRequest);
 
-            var createUserRequest = new CreateUserRequest()
+            var userId = 1;
+            DbContext.Users.Add(new User()
             {
-                CreateUserDto = new CreateUserDto { Login = "Test", Password = "Test_123", RefreshToken = "" }
-            };
-            await Mediator.Send(createUserRequest);
-            var userId = DbContext.Users.FirstOrDefault(u => u.Login == "Test")!.Id;
+                Id = userId,
+                Login = "Test2",
+                PasswordHash = new byte[] { 1, 2, 3 },
+                PasswordSalt = new byte[] { 1, 2, 3 },
+                JwtRefreshToken = "",
+                RoleId = DbContext.UserRoles.FirstOrDefault()!.Id
+            });
+            await DbContext.SaveChangesAsync();
 
             var createEventsCollectionInfoRequest = new CreateEventsCollectionInfoRequest()
             {
@@ -473,12 +509,17 @@ namespace InteractiveNaturalDisasterMap.Applications.IntegrationTests
             };
             await Mediator.Send(createUserRoleRequest);
 
-            var createUserRequest = new CreateUserRequest()
+            var userId = 1;
+            DbContext.Users.Add(new User()
             {
-                CreateUserDto = new CreateUserDto { Login = "Test", Password = "Test_123", RefreshToken = "" }
-            };
-            await Mediator.Send(createUserRequest);
-            var userId = DbContext.Users.FirstOrDefault(u => u.Login == "Test")!.Id;
+                Id = userId,
+                Login = "Test2",
+                PasswordHash = new byte[] { 1, 2, 3 },
+                PasswordSalt = new byte[] { 1, 2, 3 },
+                JwtRefreshToken = "",
+                RoleId = DbContext.UserRoles.FirstOrDefault()!.Id
+            });
+            await DbContext.SaveChangesAsync();
 
             var createEventsCollectionInfoRequest = new CreateEventsCollectionInfoRequest()
             {
@@ -515,17 +556,22 @@ namespace InteractiveNaturalDisasterMap.Applications.IntegrationTests
             };
             await Mediator.Send(createUserRoleRequest);
 
-            var createUserRequest = new CreateUserRequest()
+            var userId = 1;
+            DbContext.Users.Add(new User()
             {
-                CreateUserDto = new CreateUserDto { Login = "Test", Password = "Test_123", RefreshToken = "" }
-            };
-            await Mediator.Send(createUserRequest);
-            var userId = DbContext.Users.FirstOrDefault(u => u.Login == "Test")!.Id;
+                Id = userId,
+                Login = "Test2",
+                PasswordHash = new byte[] { 1, 2, 3 },
+                PasswordSalt = new byte[] { 1, 2, 3 },
+                JwtRefreshToken = "",
+                RoleId = DbContext.UserRoles.FirstOrDefault()!.Id
+            });
+            await DbContext.SaveChangesAsync();
 
             var expectedEventsCollectionInfosCount = 0;
 
             var request = new GetAllEventsCollectionInfoByUserIdRequest()
-                { UserId = userId, GetAllEventsCollectionInfoDto = new GetAllEventsCollectionInfoDto(){UserId = userId} };
+                { UserId = userId, GetAllEventsCollectionInfoDto = new GetAllEventsCollectionInfoDto() { UserId = userId } };
 
             // Act
             var result = await Mediator.Send(request);
@@ -545,12 +591,17 @@ namespace InteractiveNaturalDisasterMap.Applications.IntegrationTests
             };
             await Mediator.Send(createUserRoleRequest);
 
-            var createUserRequest = new CreateUserRequest()
+            var userId = 1;
+            DbContext.Users.Add(new User()
             {
-                CreateUserDto = new CreateUserDto { Login = "Test", Password = "Test_123", RefreshToken = "" }
-            };
-            await Mediator.Send(createUserRequest);
-            var userId = DbContext.Users.FirstOrDefault(u => u.Login == "Test")!.Id;
+                Id = userId,
+                Login = "Test2",
+                PasswordHash = new byte[] { 1, 2, 3 },
+                PasswordSalt = new byte[] { 1, 2, 3 },
+                JwtRefreshToken = "",
+                RoleId = DbContext.UserRoles.FirstOrDefault()!.Id
+            });
+            await DbContext.SaveChangesAsync();
 
             var createEventsCollectionInfoRequest = new CreateEventsCollectionInfoRequest()
             {
