@@ -54,12 +54,12 @@ namespace InteractiveNaturalDisasterMap.Applications.IntegrationTests
             {
                 CreateUserRoleDto = new CreateUserRoleDto { RoleName = "Test" },
             };
-            var eventSourceId = await Mediator.Send(createUserRoleRequest);
+            var eventUserRoleId = await Mediator.Send(createUserRoleRequest);
             var expectedUserRolesCount = DbContext.UserRoles.Count() - 1;
 
             var request = new DeleteUserRoleRequest()
             {
-                DeleteUserRoleDto = new DeleteUserRoleDto { Id = eventSourceId },
+                DeleteUserRoleDto = new DeleteUserRoleDto { Id = eventUserRoleId },
             };
 
             // Act
@@ -94,11 +94,11 @@ namespace InteractiveNaturalDisasterMap.Applications.IntegrationTests
             {
                 CreateUserRoleDto = new CreateUserRoleDto { RoleName = "Test" },
             };
-            var eventSourceId = await Mediator.Send(createUserRoleRequest);
+            var eventUserRoleId = await Mediator.Send(createUserRoleRequest);
 
             var request = new UpdateUserRoleRequest()
             {
-                UpdateUserRoleDto = new UpdateUserRoleDto() { Id = eventSourceId, RoleName = "New" },
+                UpdateUserRoleDto = new UpdateUserRoleDto() { Id = eventUserRoleId, RoleName = "New" },
             };
 
             // Act
@@ -191,11 +191,11 @@ namespace InteractiveNaturalDisasterMap.Applications.IntegrationTests
             {
                 CreateUserRoleDto = new CreateUserRoleDto { RoleName = "Test" },
             };
-            var eventSourceId = await Mediator.Send(createUserRoleRequest);
+            var eventUserRoleId = await Mediator.Send(createUserRoleRequest);
 
             var request = new GetByIdUserRoleRequest()
             {
-                GetByIdUserRoleDto = new GetByIdUserRoleDto() { Id = eventSourceId },
+                GetByIdUserRoleDto = new GetByIdUserRoleDto() { Id = eventUserRoleId },
             };
 
             // Act
