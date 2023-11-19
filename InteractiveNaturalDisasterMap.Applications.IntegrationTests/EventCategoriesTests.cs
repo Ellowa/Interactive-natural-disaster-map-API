@@ -9,6 +9,7 @@ using InteractiveNaturalDisasterMap.Application.Handlers.EventCategories.Queries
 using InteractiveNaturalDisasterMap.Application.Handlers.EventCategories.Queries.GetByIdEventCategory;
 using InteractiveNaturalDisasterMap.Application.Handlers.MagnitudeUnits.Commands.CreateMagnitudeUnit;
 using InteractiveNaturalDisasterMap.Application.Handlers.MagnitudeUnits.DTOs;
+using InteractiveNaturalDisasterMap.Application.Utilities;
 using InteractiveNaturalDisasterMap.Applications.IntegrationTests.Helpers;
 
 namespace InteractiveNaturalDisasterMap.Applications.IntegrationTests
@@ -23,16 +24,17 @@ namespace InteractiveNaturalDisasterMap.Applications.IntegrationTests
             {
                 CreateEventCategoryDto = new CreateEventCategoryDto { CategoryName = "Test" },
             };
-            
+
             var createMagnitudeUnitRequest = new CreateMagnitudeUnitRequest()
             {
-                CreateMagnitudeUnitDto = new CreateMagnitudeUnitDto() { MagnitudeUnitName = "undefined", MagnitudeUnitDescription = "Test"},
+                CreateMagnitudeUnitDto = new CreateMagnitudeUnitDto()
+                    { MagnitudeUnitName = EntityNamesByDefault.DefaultMagnitudeUnit, MagnitudeUnitDescription = "Test" },
             };
             await Mediator.Send(createMagnitudeUnitRequest);
-            
+
             // Act
             var result = await Mediator.Send(request);
-            
+
             // Assert
             DbContext.EventsCategories.Should().Contain(x => x.Id == result);
         }
@@ -61,10 +63,10 @@ namespace InteractiveNaturalDisasterMap.Applications.IntegrationTests
             {
                 CreateEventCategoryDto = new CreateEventCategoryDto { CategoryName = "" },
             };
-            
+
             // Act
             Task Action() => Mediator.Send(request);
-            
+
             // Assert
             Assert.ThrowsAsync<ValidationException>(Action);
         }
@@ -76,12 +78,13 @@ namespace InteractiveNaturalDisasterMap.Applications.IntegrationTests
             // Arrange
             var createEventCategoryRequest = new CreateEventCategoryRequest()
             {
-                CreateEventCategoryDto = new CreateEventCategoryDto { CategoryName = "other" },
+                CreateEventCategoryDto = new CreateEventCategoryDto { CategoryName = EntityNamesByDefault.DefaultEventCategory },
             };
 
             var createMagnitudeUnitRequest = new CreateMagnitudeUnitRequest()
             {
-                CreateMagnitudeUnitDto = new CreateMagnitudeUnitDto() { MagnitudeUnitName = "undefined", MagnitudeUnitDescription = "Test" },
+                CreateMagnitudeUnitDto = new CreateMagnitudeUnitDto()
+                    { MagnitudeUnitName = EntityNamesByDefault.DefaultMagnitudeUnit, MagnitudeUnitDescription = "Test" },
             };
             await Mediator.Send(createMagnitudeUnitRequest);
             await Mediator.Send(createEventCategoryRequest);
@@ -111,7 +114,8 @@ namespace InteractiveNaturalDisasterMap.Applications.IntegrationTests
             // Arrange
             var createMagnitudeUnitRequest = new CreateMagnitudeUnitRequest()
             {
-                CreateMagnitudeUnitDto = new CreateMagnitudeUnitDto() { MagnitudeUnitName = "undefined", MagnitudeUnitDescription = "Test" },
+                CreateMagnitudeUnitDto = new CreateMagnitudeUnitDto()
+                    { MagnitudeUnitName = EntityNamesByDefault.DefaultMagnitudeUnit, MagnitudeUnitDescription = "Test" },
             };
             await Mediator.Send(createMagnitudeUnitRequest);
 
@@ -156,7 +160,8 @@ namespace InteractiveNaturalDisasterMap.Applications.IntegrationTests
             // Arrange
             var createMagnitudeUnitRequest = new CreateMagnitudeUnitRequest()
             {
-                CreateMagnitudeUnitDto = new CreateMagnitudeUnitDto() { MagnitudeUnitName = "undefined", MagnitudeUnitDescription = "Test" },
+                CreateMagnitudeUnitDto = new CreateMagnitudeUnitDto()
+                    { MagnitudeUnitName = EntityNamesByDefault.DefaultMagnitudeUnit, MagnitudeUnitDescription = "Test" },
             };
             await Mediator.Send(createMagnitudeUnitRequest);
 
@@ -168,7 +173,7 @@ namespace InteractiveNaturalDisasterMap.Applications.IntegrationTests
 
             var request = new UpdateEventCategoryRequest()
             {
-                UpdateEventCategoryDto = new UpdateEventCategoryDto() { Id = eventCategoryId, CategoryName = "New"},
+                UpdateEventCategoryDto = new UpdateEventCategoryDto() { Id = eventCategoryId, CategoryName = "New" },
             };
 
             // Act
@@ -217,7 +222,8 @@ namespace InteractiveNaturalDisasterMap.Applications.IntegrationTests
             // Arrange
             var createMagnitudeUnitRequest = new CreateMagnitudeUnitRequest()
             {
-                CreateMagnitudeUnitDto = new CreateMagnitudeUnitDto() { MagnitudeUnitName = "undefined", MagnitudeUnitDescription = "Test" },
+                CreateMagnitudeUnitDto = new CreateMagnitudeUnitDto()
+                    { MagnitudeUnitName = EntityNamesByDefault.DefaultMagnitudeUnit, MagnitudeUnitDescription = "Test" },
             };
             await Mediator.Send(createMagnitudeUnitRequest);
 
@@ -265,7 +271,8 @@ namespace InteractiveNaturalDisasterMap.Applications.IntegrationTests
             // Arrange
             var createMagnitudeUnitRequest = new CreateMagnitudeUnitRequest()
             {
-                CreateMagnitudeUnitDto = new CreateMagnitudeUnitDto() { MagnitudeUnitName = "undefined", MagnitudeUnitDescription = "Test" },
+                CreateMagnitudeUnitDto = new CreateMagnitudeUnitDto()
+                    { MagnitudeUnitName = EntityNamesByDefault.DefaultMagnitudeUnit, MagnitudeUnitDescription = "Test" },
             };
             await Mediator.Send(createMagnitudeUnitRequest);
 
