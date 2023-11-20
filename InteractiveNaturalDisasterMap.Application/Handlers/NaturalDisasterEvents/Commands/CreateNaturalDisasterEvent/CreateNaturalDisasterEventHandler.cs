@@ -45,7 +45,7 @@ namespace InteractiveNaturalDisasterMap.Application.Handlers.NaturalDisasterEven
                 eventHazardUnitId = eventHazardUnits.First(ehu => ehu.ThresholdValue <= request.CreateNaturalDisasterEventDto.MagnitudeValue).Id;
             }
 
-            bool isConfirmedEvent = eventSource.SourceType != "user";
+            bool isConfirmedEvent = eventSource.SourceType != "user" && eventSource.SourceType != "unknown";
 
             var naturalDisasterEventEntity = request.CreateNaturalDisasterEventDto.Map(isConfirmedEvent, eventHazardUnitId, eventSource.Id,
                 eventCategory.Id, magnitudeUnit.Id, request.IdInThirdPartyApi);

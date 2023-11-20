@@ -152,7 +152,7 @@ namespace InteractiveNaturalDisasterMap.Applications.IntegrationTests
 
             var request = new AddToEventsCollectionRequest()
             {
-                AddToEventsCollectionDto = new AddToEventsCollectionDto() { CollectionId = 1, EventId = eventId },
+                AddToEventsCollectionDto = new AddToEventsCollectionDto() { CollectionId = Int32.MaxValue, EventId = eventId },
                 UserId = userId
             };
 
