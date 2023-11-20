@@ -46,7 +46,7 @@ namespace InteractiveNaturalDisasterMap.Applications.IntegrationTests
             // Arrange
             var request = new CreateMagnitudeUnitRequest()
             {
-                CreateMagnitudeUnitDto = new CreateMagnitudeUnitDto { MagnitudeUnitName = "Test", MagnitudeUnitDescription = ""},
+                CreateMagnitudeUnitDto = new CreateMagnitudeUnitDto { MagnitudeUnitName = "Test", MagnitudeUnitDescription = "" },
             };
 
             // Act
@@ -79,19 +79,21 @@ namespace InteractiveNaturalDisasterMap.Applications.IntegrationTests
             // Arrange
             var createMagnitudeUnitRequest = new CreateMagnitudeUnitRequest()
             {
-                CreateMagnitudeUnitDto = new CreateMagnitudeUnitDto { MagnitudeUnitName = EntityNamesByDefault.DefaultMagnitudeUnit, MagnitudeUnitDescription = ""},
+                CreateMagnitudeUnitDto = new CreateMagnitudeUnitDto
+                    { MagnitudeUnitName = EntityNamesByDefault.DefaultMagnitudeUnit, MagnitudeUnitDescription = "" },
             };
             await Mediator.Send(createMagnitudeUnitRequest);
 
             var createEventHazardUnitRequest = new CreateEventHazardUnitRequest()
             {
-                CreateEventHazardUnitDto = new CreateEventHazardUnitDto { HazardName = EntityNamesByDefault.DefaultEventHazardUnit, MagnitudeUnitName = EntityNamesByDefault.DefaultMagnitudeUnit },
+                CreateEventHazardUnitDto = new CreateEventHazardUnitDto
+                    { HazardName = EntityNamesByDefault.DefaultEventHazardUnit, MagnitudeUnitName = EntityNamesByDefault.DefaultMagnitudeUnit },
             };
             await Mediator.Send(createEventHazardUnitRequest);
 
             createMagnitudeUnitRequest = new CreateMagnitudeUnitRequest()
             {
-                CreateMagnitudeUnitDto = new CreateMagnitudeUnitDto { MagnitudeUnitName = "Test", MagnitudeUnitDescription = ""},
+                CreateMagnitudeUnitDto = new CreateMagnitudeUnitDto { MagnitudeUnitName = "Test", MagnitudeUnitDescription = "" },
             };
             var magnitudeUnitId = await Mediator.Send(createMagnitudeUnitRequest);
             var expectedMagnitudeUnitsCount = DbContext.MagnitudeUnits.Count() - 1;
@@ -114,7 +116,7 @@ namespace InteractiveNaturalDisasterMap.Applications.IntegrationTests
             // Arrange
             var createMagnitudeUnitRequest = new CreateMagnitudeUnitRequest()
             {
-                CreateMagnitudeUnitDto = new CreateMagnitudeUnitDto { MagnitudeUnitName = "Test", MagnitudeUnitDescription = ""},
+                CreateMagnitudeUnitDto = new CreateMagnitudeUnitDto { MagnitudeUnitName = "Test", MagnitudeUnitDescription = "" },
             };
             var magnitudeUnitId = await Mediator.Send(createMagnitudeUnitRequest);
 
@@ -153,13 +155,14 @@ namespace InteractiveNaturalDisasterMap.Applications.IntegrationTests
             // Arrange
             var createMagnitudeUnitRequest = new CreateMagnitudeUnitRequest()
             {
-                CreateMagnitudeUnitDto = new CreateMagnitudeUnitDto { MagnitudeUnitName = "Test", MagnitudeUnitDescription = ""},
+                CreateMagnitudeUnitDto = new CreateMagnitudeUnitDto { MagnitudeUnitName = "Test", MagnitudeUnitDescription = "" },
             };
             var magnitudeUnitId = await Mediator.Send(createMagnitudeUnitRequest);
 
             var request = new UpdateMagnitudeUnitRequest()
             {
-                UpdateMagnitudeUnitDto = new UpdateMagnitudeUnitDto() { Id = magnitudeUnitId, MagnitudeUnitName = "New", MagnitudeUnitDescription = "New"},
+                UpdateMagnitudeUnitDto = new UpdateMagnitudeUnitDto()
+                    { Id = magnitudeUnitId, MagnitudeUnitName = "New", MagnitudeUnitDescription = "New" },
             };
 
             // Act
@@ -175,7 +178,7 @@ namespace InteractiveNaturalDisasterMap.Applications.IntegrationTests
             // Arrange
             var request = new UpdateMagnitudeUnitRequest()
             {
-                UpdateMagnitudeUnitDto = new UpdateMagnitudeUnitDto() { Id = 1, MagnitudeUnitName = "New", MagnitudeUnitDescription = ""},
+                UpdateMagnitudeUnitDto = new UpdateMagnitudeUnitDto() { Id = 1, MagnitudeUnitName = "New", MagnitudeUnitDescription = "" },
             };
 
             // Act
@@ -191,7 +194,7 @@ namespace InteractiveNaturalDisasterMap.Applications.IntegrationTests
             // Arrange
             var request = new UpdateMagnitudeUnitRequest()
             {
-                UpdateMagnitudeUnitDto = new UpdateMagnitudeUnitDto() { Id = 1, MagnitudeUnitName = "", MagnitudeUnitDescription = ""},
+                UpdateMagnitudeUnitDto = new UpdateMagnitudeUnitDto() { Id = 1, MagnitudeUnitName = "", MagnitudeUnitDescription = "" },
             };
 
             // Act
@@ -208,12 +211,12 @@ namespace InteractiveNaturalDisasterMap.Applications.IntegrationTests
             // Arrange
             var createMagnitudeUnitRequest = new CreateMagnitudeUnitRequest()
             {
-                CreateMagnitudeUnitDto = new CreateMagnitudeUnitDto { MagnitudeUnitName = "Test", MagnitudeUnitDescription = ""},
+                CreateMagnitudeUnitDto = new CreateMagnitudeUnitDto { MagnitudeUnitName = "Test", MagnitudeUnitDescription = "" },
             };
             await Mediator.Send(createMagnitudeUnitRequest);
             createMagnitudeUnitRequest = new CreateMagnitudeUnitRequest()
             {
-                CreateMagnitudeUnitDto = new CreateMagnitudeUnitDto { MagnitudeUnitName = "Test2", MagnitudeUnitDescription = ""},
+                CreateMagnitudeUnitDto = new CreateMagnitudeUnitDto { MagnitudeUnitName = "Test2", MagnitudeUnitDescription = "" },
             };
             await Mediator.Send(createMagnitudeUnitRequest);
 
@@ -250,7 +253,7 @@ namespace InteractiveNaturalDisasterMap.Applications.IntegrationTests
             // Arrange
             var createMagnitudeUnitRequest = new CreateMagnitudeUnitRequest()
             {
-                CreateMagnitudeUnitDto = new CreateMagnitudeUnitDto { MagnitudeUnitName = "Test" , MagnitudeUnitDescription = "" },
+                CreateMagnitudeUnitDto = new CreateMagnitudeUnitDto { MagnitudeUnitName = "Test", MagnitudeUnitDescription = "" },
             };
             var magnitudeUnitId = await Mediator.Send(createMagnitudeUnitRequest);
 
