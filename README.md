@@ -1,4 +1,10 @@
 # Interactive-natural-disaster-map-API
+Swagger: https://interactivenaturaldisastermapapi.azurewebsites.net/swagger/index.html
+<br>
+Frontend project: https://github.com/Ellowa/Interactive-natural-disaster-map
+<br>
+Site: https://ellowa.github.io/Interactive-natural-disaster-map
+
 <b><h3>Functional Requirements</h3></b>
 
 <h4>Guest:</h4>
@@ -32,11 +38,11 @@ Function | Status
 Verification of events (with status unconfirmed). Verification client web, telegram | :small_orange_diamond:
 Ability to prohibit user from adding events | :x:
 View user collections | :heavy_check_mark:
-Edit any event | :x:
-Delete any event| :x:
+Edit any event | :heavy_check_mark:
+Delete any event| :heavy_check_mark:
 Add new event category| :heavy_check_mark:
 Edit event categoryt| :heavy_check_mark:
-Delete event category (Events get status = other)| :small_orange_diamond:
+Delete event category (Events get status = other)| :heavy_check_mark:
 Add new magnitude unit| :heavy_check_mark:
 Edit magnitude unit| :heavy_check_mark:
 Delete magnitude unit (Events get magnitude unit = undefined)| :heavy_check_mark:
