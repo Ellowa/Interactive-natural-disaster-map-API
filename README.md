@@ -3,7 +3,7 @@ Swagger: https://interactivenaturaldisastermapapi.azurewebsites.net/swagger/inde
 <br>
 Frontend project: https://github.com/Ellowa/Interactive-natural-disaster-map
 <br>
-Site: https://ellowa.github.io/Interactive-natural-disaster-map
+Site: https://ellowa.github.io/Interactive-natural-disaster-map (temporarily unavailable, Azure web app issues)
 
 <b><h3>Functional Requirements</h3></b>
 
